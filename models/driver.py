@@ -1,8 +1,3 @@
-# models/driver.py
-"""
-Modelos de datos para pilotos
-"""
-
 from dataclasses import dataclass
 from typing import Optional, List
 

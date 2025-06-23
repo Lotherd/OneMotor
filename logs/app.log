@@ -1,0 +1,59 @@
+2025-06-23 16:51:45,123 - __main__ - INFO - Logging system initialized
+2025-06-23 16:51:45,124 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-23 16:51:45,125 - __main__ - INFO - Application directories created
+2025-06-23 16:51:45,240 - __main__ - ERROR - Unexpected error: type object 'ApplicationAttribute' has no attribute 'AA_EnableHighDpiScaling'
+Traceback (most recent call last):
+  File "C:\LOCAL Project\OneMotor\main.py", line 72, in main
+    app = setup_application()
+  File "C:\LOCAL Project\OneMotor\main.py", line 47, in setup_application
+    app.setAttribute(Qt.ApplicationAttribute.AA_EnableHighDpiScaling, True)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'ApplicationAttribute' has no attribute 'AA_EnableHighDpiScaling'
+2025-06-23 16:53:16,041 - __main__ - INFO - Logging system initialized
+2025-06-23 16:53:16,042 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-23 16:53:16,042 - __main__ - INFO - Application directories created
+2025-06-23 16:53:16,092 - __main__ - INFO - Qt application configured
+2025-06-23 16:53:17,694 - __main__ - INFO - Main window created and shown
+2025-06-23 16:53:17,694 - __main__ - INFO - Application ready - entering event loop
+2025-06-23 16:53:18,473 - ui.main_window - INFO - Status updated: Cargando datos iniciales de F1...
+2025-06-23 16:53:18,481 - services.api_client - INFO - GET request to: http://ergast.com/api/f1/current/driverStandings.json
+2025-06-23 16:53:18,482 - ui.main_window - INFO - Status updated: Cargando standings de F1...
+2025-06-23 16:53:20,862 - ui.main_window - INFO - Status updated: Pestaña activa: MotoGP
+2025-06-23 16:53:21,904 - ui.main_window - INFO - Status updated: Pestaña activa: Fórmula 1
+2025-06-23 16:53:22,602 - ui.main_window - INFO - Status updated: Pestaña activa: MotoGP
+2025-06-23 16:53:23,606 - ui.main_window - INFO - Status updated: Pestaña activa: Fórmula 1
+2025-06-23 16:53:23,624 - services.api_client - ERROR - Request failed for http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000019E9C402270>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:53:23,624 - services.data_service - ERROR - Error getting F1 standings: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000019E9C402270>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:53:23,625 - services.data_service - ERROR - Error de conexión: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000019E9C402270>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:53:26,636 - ui.main_window - INFO - Status updated: Error: Error de conexión: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000019E9C402270>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:53:29,859 - services.api_client - INFO - GET request to: http://ergast.com/api/f1/current/driverStandings.json
+2025-06-23 16:53:29,859 - ui.main_window - INFO - Status updated: Cargando standings de F1...
+2025-06-23 16:53:34,099 - services.api_client - ERROR - Request failed for http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000019E9C438B90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:53:34,100 - services.data_service - ERROR - Error getting F1 standings: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000019E9C438B90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:53:34,100 - services.data_service - ERROR - Error de conexión: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000019E9C438B90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:53:38,553 - ui.main_window - INFO - Status updated: Error: Error de conexión: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000019E9C438B90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:53:43,579 - ui.main_window - INFO - Status updated: Pestaña activa: MotoGP
+2025-06-23 16:53:48,396 - ui.main_window - INFO - Status updated: Pestaña activa: Fórmula 1
+2025-06-23 16:53:58,363 - ui.main_window - INFO - Application closing
+2025-06-23 16:53:58,407 - __main__ - INFO - Application exited with code: 0
+2025-06-23 16:54:04,980 - __main__ - INFO - Logging system initialized
+2025-06-23 16:54:04,980 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-23 16:54:04,981 - __main__ - INFO - Application directories created
+2025-06-23 16:54:05,026 - __main__ - INFO - Qt application configured
+2025-06-23 16:54:06,525 - __main__ - INFO - Main window created and shown
+2025-06-23 16:54:06,526 - __main__ - INFO - Application ready - entering event loop
+2025-06-23 16:54:07,291 - ui.main_window - INFO - Status updated: Cargando datos iniciales de F1...
+2025-06-23 16:54:07,294 - services.api_client - INFO - GET request to: http://ergast.com/api/f1/current/driverStandings.json
+2025-06-23 16:54:07,294 - ui.main_window - INFO - Status updated: Cargando standings de F1...
+2025-06-23 16:54:11,505 - services.api_client - ERROR - Request failed for http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D423EA2120>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:54:11,505 - services.data_service - ERROR - Error getting F1 standings: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D423EA2120>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:54:11,506 - services.data_service - ERROR - Error de conexión: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D423EA2120>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:54:14,082 - ui.main_window - INFO - Status updated: Error: Error de conexión: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D423EA2120>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:54:22,528 - services.api_client - INFO - GET request to: http://ergast.com/api/f1/current/driverStandings.json
+2025-06-23 16:54:22,529 - ui.main_window - INFO - Status updated: Cargando standings de F1...
+2025-06-23 16:54:27,001 - services.api_client - ERROR - Request failed for http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D423EDCB90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:54:27,001 - services.data_service - ERROR - Error getting F1 standings: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D423EDCB90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:54:27,003 - services.data_service - ERROR - Error de conexión: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D423EDCB90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:54:50,927 - ui.main_window - INFO - Status updated: Error: Error de conexión: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D423EDCB90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-23 16:54:54,153 - ui.main_window - INFO - Application closing
+2025-06-23 16:54:54,172 - __main__ - INFO - Application exited with code: 0
