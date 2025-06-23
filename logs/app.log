@@ -57,3 +57,51 @@ AttributeError: type object 'ApplicationAttribute' has no attribute 'AA_EnableHi
 2025-06-23 16:54:50,927 - ui.main_window - INFO - Status updated: Error: Error de conexión: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001D423EDCB90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
 2025-06-23 16:54:54,153 - ui.main_window - INFO - Application closing
 2025-06-23 16:54:54,172 - __main__ - INFO - Application exited with code: 0
+2025-06-24 00:06:21,532 - __main__ - INFO - Logging system initialized
+2025-06-24 00:06:21,533 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-24 00:06:21,534 - __main__ - INFO - Application directories created
+2025-06-24 00:06:21,602 - __main__ - INFO - Qt application configured
+2025-06-24 00:06:23,062 - __main__ - INFO - Main window created and shown
+2025-06-24 00:06:23,063 - __main__ - INFO - Application ready - entering event loop
+2025-06-24 00:06:23,845 - ui.main_window - INFO - Status updated: Cargando datos iniciales de F1...
+2025-06-24 00:06:23,846 - services.api_client - INFO - GET request to: http://ergast.com/api/f1/current/driverStandings.json
+2025-06-24 00:06:23,847 - ui.main_window - INFO - Status updated: Cargando standings de F1...
+2025-06-24 00:06:27,419 - services.api_client - ERROR - Request failed for http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002AD20532120>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-24 00:06:27,420 - services.data_service - ERROR - Error getting F1 standings: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002AD20532120>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-24 00:06:27,420 - services.data_service - ERROR - Error de conexión: Error accessing http://ergast.com/api/f1/current/driverStandings.json: HTTPConnectionPool(host='ergast.com', port=80): Max retries exceeded with url: /api/f1/current/driverStandings.json (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002AD20532120>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-06-24 00:15:16,301 - __main__ - INFO - Logging system initialized
+2025-06-24 00:15:16,302 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-24 00:15:16,303 - __main__ - INFO - Application directories created
+2025-06-24 00:15:16,335 - __main__ - INFO - Qt application configured
+2025-06-24 00:15:16,832 - services.api_client - INFO - Initialized ErgastAPIClient with base URL: http://api.jolpi.ca/ergast/f1
+2025-06-24 00:15:17,207 - __main__ - INFO - Main window created and shown
+2025-06-24 00:15:17,208 - __main__ - INFO - Application ready - entering event loop
+2025-06-24 00:15:18,037 - ui.main_window - INFO - Status updated: Cargando datos iniciales de F1...
+2025-06-24 00:15:18,039 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 00:15:18,040 - ui.main_window - INFO - Status updated: Cargando standings de F1...
+2025-06-24 00:15:19,103 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 00:15:19,103 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-24 00:15:19,127 - ui.widgets.f1_tab - INFO - Successfully loaded 21 standings
+2025-06-24 00:15:19,127 - ui.main_window - INFO - Status updated: F1 standings actualizados (21 pilotos)
+2025-06-24 00:15:32,537 - ui.main_window - INFO - Application closing
+2025-06-24 00:15:32,556 - __main__ - INFO - Application exited with code: 0
+2025-06-24 00:15:45,698 - __main__ - INFO - Logging system initialized
+2025-06-24 00:15:45,699 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-24 00:15:45,699 - __main__ - INFO - Application directories created
+2025-06-24 00:15:45,730 - __main__ - INFO - Qt application configured
+2025-06-24 00:15:46,267 - services.api_client - INFO - Initialized ErgastAPIClient with base URL: http://api.jolpi.ca/ergast/f1
+2025-06-24 00:15:46,548 - __main__ - INFO - Main window created and shown
+2025-06-24 00:15:46,548 - __main__ - INFO - Application ready - entering event loop
+2025-06-24 00:15:47,366 - ui.main_window - INFO - Status updated: Cargando datos iniciales de F1...
+2025-06-24 00:15:47,371 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 00:15:47,373 - ui.main_window - INFO - Status updated: Cargando standings de F1...
+2025-06-24 00:15:48,476 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 00:15:48,478 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-24 00:15:48,495 - ui.widgets.f1_tab - INFO - Successfully loaded 21 standings
+2025-06-24 00:15:48,496 - ui.main_window - INFO - Status updated: F1 standings actualizados (21 pilotos)
+2025-06-24 00:16:03,848 - ui.main_window - INFO - Status updated: Pestaña activa: MotoGP
+2025-06-24 00:16:05,360 - ui.main_window - INFO - Status updated: Pestaña activa: Fórmula 1
+2025-06-24 00:16:13,431 - ui.main_window - INFO - Status updated: Pestaña activa: MotoGP
+2025-06-24 00:16:14,871 - ui.main_window - INFO - Status updated: Pestaña activa: Fórmula 1
+2025-06-24 00:16:19,125 - ui.main_window - INFO - Application closing
+2025-06-24 00:16:19,139 - __main__ - INFO - Application exited with code: 0

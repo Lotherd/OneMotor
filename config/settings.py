@@ -1,4 +1,4 @@
-
+# config/settings.py
 """
 Configuración global de la aplicación
 """
@@ -8,7 +8,7 @@ class AppConfig:
     
     # Información de la app
     APP_NAME = "F1 & MotoGP Dashboard"
-    APP_VERSION = "1.0"
+    APP_VERSION = "1.1"  # Incrementamos versión
     WINDOW_TITLE = f"{APP_NAME} - Version {APP_VERSION}"
     
     # Dimensiones de ventana
@@ -17,12 +17,24 @@ class AppConfig:
     WINDOW_MIN_WIDTH = 800
     WINDOW_MIN_HEIGHT = 600
     
-    # URLs de APIs
-    ERGAST_BASE_URL = "http://ergast.com/api/f1"
+    # URLs de APIs - ACTUALIZADO PARA USAR JOLPICA
+    # Ergast API ha sido descontinuado desde 2025
+    # Jolpica es el reemplazo oficial con endpoints compatibles
+    ERGAST_BASE_URL = "http://api.jolpi.ca/ergast/f1"  # ← CAMBIO PRINCIPAL
+    
+    # URLs alternativas en caso de problemas
+    BACKUP_APIS = {
+        "jolpica_https": "https://api.jolpi.ca/ergast/f1",
+        "jolpica_http": "http://api.jolpi.ca/ergast/f1"
+    }
     
     # Configuración de requests
     REQUEST_TIMEOUT = 30
     MAX_RETRIES = 3
+    
+    # Rate limiting para Jolpica (200 requests/hora sin autenticación)
+    RATE_LIMIT_REQUESTS = 200
+    RATE_LIMIT_WINDOW = 3600  # 1 hora en segundos
     
     # Configuración de UI
     TABLE_REFRESH_INTERVAL = 300000  # 5 minutos en ms
