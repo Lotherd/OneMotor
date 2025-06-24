@@ -1,18 +1,19 @@
 # ui/main_window.py
 """
-Ventana principal de la aplicación
+Ventana principal de la aplicación con soporte multiidioma
 """
 
 import logging
 from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QTabWidget, 
                             QStatusBar, QMenuBar, QMessageBox, QApplication)
 from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QAction, QIcon
+from PyQt6.QtGui import QAction, QIcon, QActionGroup  # ← CORRECCIÓN: QActionGroup está en QtGui
 
 from config.settings import AppConfig
 from ui.widgets.f1_tab import F1TabWidget
 from ui.widgets.motogp_tab import MotoGPTabWidget
 from ui.styles.app_styles import AppStyles
+from utils.i18n import tr, get_translation_manager, set_language
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +24,14 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.f1_tab = None
         self.motogp_tab = None
+        
+        # Configurar idioma inicial
+        self.translation_manager = get_translation_manager()
+        saved_language = AppConfig.get_language()
+        self.translation_manager.set_language(saved_language)
+        
+        # Conectar señal de cambio de idioma
+        self.translation_manager.language_changed.connect(self.on_language_changed)
         
         self.setup_window()
         self.setup_menu_bar()
@@ -35,7 +44,7 @@ class MainWindow(QMainWindow):
     
     def setup_window(self):
         """Configurar propiedades de la ventana"""
-        self.setWindowTitle(AppConfig.WINDOW_TITLE)
+        self.setWindowTitle(tr("app_title", version=AppConfig.APP_VERSION))
         self.setGeometry(100, 100, AppConfig.WINDOW_WIDTH, AppConfig.WINDOW_HEIGHT)
         self.setMinimumSize(AppConfig.WINDOW_MIN_WIDTH, AppConfig.WINDOW_MIN_HEIGHT)
         
@@ -50,49 +59,85 @@ class MainWindow(QMainWindow):
         menubar = self.menuBar()
         
         # Menú Archivo
-        file_menu = menubar.addMenu("&Archivo")
+        file_menu = menubar.addMenu(tr("menu_file"))
         
         # Acción Actualizar
-        refresh_action = QAction("&Actualizar Datos", self)
-        refresh_action.setShortcut("F5")
-        refresh_action.setStatusTip("Actualizar datos de la pestaña actual")
-        refresh_action.triggered.connect(self.refresh_current_tab)
-        file_menu.addAction(refresh_action)
+        self.refresh_action = QAction(tr("menu_refresh"), self)
+        self.refresh_action.setShortcut("F5")
+        self.refresh_action.setStatusTip(tr("menu_refresh_tooltip"))
+        self.refresh_action.triggered.connect(self.refresh_current_tab)
+        file_menu.addAction(self.refresh_action)
         
         file_menu.addSeparator()
         
         # Acción Salir
-        exit_action = QAction("&Salir", self)
-        exit_action.setShortcut("Ctrl+Q")
-        exit_action.setStatusTip("Salir de la aplicación")
-        exit_action.triggered.connect(self.close)
-        file_menu.addAction(exit_action)
+        self.exit_action = QAction(tr("menu_exit"), self)
+        self.exit_action.setShortcut("Ctrl+Q")
+        self.exit_action.setStatusTip(tr("menu_exit_tooltip"))
+        self.exit_action.triggered.connect(self.close)
+        file_menu.addAction(self.exit_action)
         
         # Menú Ver
-        view_menu = menubar.addMenu("&Ver")
+        view_menu = menubar.addMenu(tr("menu_view"))
         
         # Cambiar a F1
-        f1_action = QAction("Fórmula &1", self)
-        f1_action.setShortcut("Ctrl+1")
-        f1_action.setStatusTip("Cambiar a la pestaña de Fórmula 1")
-        f1_action.triggered.connect(lambda: self.tabs.setCurrentIndex(0))
-        view_menu.addAction(f1_action)
+        self.f1_action = QAction(tr("menu_f1"), self)
+        self.f1_action.setShortcut("Ctrl+1")
+        self.f1_action.setStatusTip(tr("menu_f1_tooltip"))
+        self.f1_action.triggered.connect(lambda: self.tabs.setCurrentIndex(0))
+        view_menu.addAction(self.f1_action)
         
         # Cambiar a MotoGP
-        motogp_action = QAction("&MotoGP", self)
-        motogp_action.setShortcut("Ctrl+2")
-        motogp_action.setStatusTip("Cambiar a la pestaña de MotoGP")
-        motogp_action.triggered.connect(lambda: self.tabs.setCurrentIndex(1))
-        view_menu.addAction(motogp_action)
+        self.motogp_action = QAction(tr("menu_motogp"), self)
+        self.motogp_action.setShortcut("Ctrl+2")
+        self.motogp_action.setStatusTip(tr("menu_motogp_tooltip"))
+        self.motogp_action.triggered.connect(lambda: self.tabs.setCurrentIndex(1))
+        view_menu.addAction(self.motogp_action)
+        
+        view_menu.addSeparator()
+        
+        # Submenú de idiomas
+        language_menu = view_menu.addMenu(tr("menu_language"))
+        self.setup_language_menu(language_menu)
         
         # Menú Ayuda
-        help_menu = menubar.addMenu("&Ayuda")
+        help_menu = menubar.addMenu(tr("menu_help"))
         
         # Acción Acerca de
-        about_action = QAction("&Acerca de", self)
-        about_action.setStatusTip("Información sobre la aplicación")
-        about_action.triggered.connect(self.show_about)
-        help_menu.addAction(about_action)
+        self.about_action = QAction(tr("menu_about"), self)
+        self.about_action.setStatusTip(tr("menu_about_tooltip"))
+        self.about_action.triggered.connect(self.show_about)
+        help_menu.addAction(self.about_action)
+    
+    def setup_language_menu(self, language_menu):
+        """Configurar menú de idiomas"""
+        self.language_action_group = QActionGroup(self)
+        
+        available_languages = self.translation_manager.get_available_languages()
+        current_language = self.translation_manager.get_current_language()
+        
+        for lang_code, lang_name in available_languages.items():
+            action = QAction(lang_name, self)
+            action.setCheckable(True)
+            action.setChecked(lang_code == current_language)
+            action.setData(lang_code)
+            action.triggered.connect(lambda checked, code=lang_code: self.change_language(code))
+            
+            self.language_action_group.addAction(action)
+            language_menu.addAction(action)
+    
+    def change_language(self, language_code: str):
+        """Cambiar idioma de la aplicación"""
+        if self.translation_manager.set_language(language_code):
+            # Guardar configuración
+            AppConfig.set_language(language_code)
+            
+            # Mostrar mensaje de confirmación
+            QMessageBox.information(
+                self,
+                tr("language_changed"),
+                tr("restart_message")
+            )
     
     def setup_ui(self):
         """Configurar la interfaz de usuario"""
@@ -111,11 +156,11 @@ class MainWindow(QMainWindow):
         
         # Pestaña F1
         self.f1_tab = F1TabWidget()
-        self.tabs.addTab(self.f1_tab, "🏎️ Fórmula 1")
+        self.tabs.addTab(self.f1_tab, tr("tab_f1"))
         
         # Pestaña MotoGP
         self.motogp_tab = MotoGPTabWidget()
-        self.tabs.addTab(self.motogp_tab, "🏍️ MotoGP")
+        self.tabs.addTab(self.motogp_tab, tr("tab_motogp"))
         
         layout.addWidget(self.tabs)
     
@@ -125,7 +170,7 @@ class MainWindow(QMainWindow):
         self.setStatusBar(self.status_bar)
         
         # Mensaje inicial
-        self.status_bar.showMessage("Aplicación iniciada - Listo para cargar datos")
+        self.status_bar.showMessage(tr("ready_to_load"))
         
         # Estilo de la barra de estado
         self.status_bar.setStyleSheet(f"""
@@ -154,9 +199,9 @@ class MainWindow(QMainWindow):
     
     def on_tab_changed(self, index: int):
         """Callback cuando se cambia de pestaña"""
-        tab_names = ["Fórmula 1", "MotoGP"]
+        tab_names = [tr("tab_f1").replace("🏎️ ", ""), tr("tab_motogp").replace("🏍️ ", "")]
         if 0 <= index < len(tab_names):
-            self.update_status(f"Pestaña activa: {tab_names[index]}")
+            self.update_status(tr("tab_active", tab=tab_names[index]))
     
     def refresh_current_tab(self):
         """Actualizar datos de la pestaña actual"""
@@ -165,55 +210,50 @@ class MainWindow(QMainWindow):
         if current_index == 0 and self.f1_tab:
             # Actualizar F1
             self.f1_tab.load_standings()
-            self.update_status("Actualizando datos de F1...")
+            self.update_status(tr("f1_updating"))
             
         elif current_index == 1:
             # MotoGP - mostrar mensaje
             QMessageBox.information(
                 self, 
-                "MotoGP", 
-                "La sección de MotoGP está en desarrollo.\nPróximamente disponible."
+                tr("motogp_dialog_title"), 
+                tr("motogp_info")
             )
     
     def auto_load_f1_data(self):
         """Cargar automáticamente datos de F1 al inicio"""
         if self.f1_tab:
-            self.update_status("Cargando datos iniciales de F1...")
+            self.update_status(tr("f1_loading_initial"))
             self.f1_tab.load_standings()
     
     def show_about(self):
         """Mostrar ventana Acerca de"""
         about_text = f"""
         <h2>{AppConfig.APP_NAME}</h2>
-        <p><b>Versión:</b> {AppConfig.APP_VERSION}</p>
-        <p><b>Descripción:</b> Aplicación de escritorio para seguir Fórmula 1 y MotoGP</p>
+        <p><b>{tr("menu_about")}:</b> {AppConfig.APP_VERSION}</p>
+        <p><b>{tr("about_description")}</b></p>
         
-        <h3>Características:</h3>
+        <h3>{tr("about_features")}</h3>
         <ul>
-            <li>📊 Standings en tiempo real de F1</li>
-            <li>📅 Calendario de carreras</li>
-            <li>📰 Noticias de motorsport</li>
-            <li>📈 Análisis de datos (próximamente)</li>
-            <li>🏍️ MotoGP (en desarrollo)</li>
+            {"".join([f"<li>{feature}</li>" for feature in tr("about_features_list")])}
         </ul>
         
-        <h3>APIs utilizadas:</h3>
+        <h3>{tr("about_apis")}</h3>
         <ul>
-            <li><b>Ergast API:</b> Datos históricos y standings de F1</li>
-            <li><b>News API:</b> Noticias de motorsport</li>
+            {"".join([f"<li><b>{api}</b></li>" for api in tr("about_apis_list")])}
         </ul>
         
-        <p><small>Desarrollado con Python y PyQt6</small></p>
+        <p><small>{tr("about_footer")}</small></p>
         """
         
-        QMessageBox.about(self, "Acerca de", about_text)
+        QMessageBox.about(self, tr("menu_about"), about_text)
     
     def closeEvent(self, event):
         """Manejar evento de cierre de la aplicación"""
         reply = QMessageBox.question(
             self,
-            "Confirmar Salida",
-            "¿Estás seguro que quieres salir de la aplicación?",
+            tr("confirm_exit"),
+            tr("confirm_exit_message"),
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
             QMessageBox.StandardButton.No
         )
@@ -223,3 +263,39 @@ class MainWindow(QMainWindow):
             event.accept()
         else:
             event.ignore()
+    
+    def on_language_changed(self, language_code: str):
+        """Callback cuando cambia el idioma"""
+        logger.info(f"Language changed to: {language_code}")
+        
+        # Actualizar título de ventana
+        self.setWindowTitle(tr("app_title", version=AppConfig.APP_VERSION))
+        
+        # Actualizar menús
+        self.update_menu_texts()
+        
+        # Actualizar pestañas
+        self.tabs.setTabText(0, tr("tab_f1"))
+        self.tabs.setTabText(1, tr("tab_motogp"))
+        
+        # Actualizar barra de estado
+        self.status_bar.showMessage(tr("ready_to_load"))
+        
+        # Actualizar widgets hijos
+        if self.f1_tab:
+            self.f1_tab.update_translations()
+        if self.motogp_tab:
+            self.motogp_tab.update_translations()
+    
+    def update_menu_texts(self):
+        """Actualizar textos de los menús"""
+        try:
+            # Obtener la barra de menús y actualizar
+            menubar = self.menuBar()
+            
+            # Limpiar y recrear menús
+            menubar.clear()
+            self.setup_menu_bar()
+            
+        except Exception as e:
+            logger.error(f"Error updating menu texts: {e}")

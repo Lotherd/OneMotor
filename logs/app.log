@@ -105,3 +105,53 @@ AttributeError: type object 'ApplicationAttribute' has no attribute 'AA_EnableHi
 2025-06-24 00:16:14,871 - ui.main_window - INFO - Status updated: Pestaña activa: Fórmula 1
 2025-06-24 00:16:19,125 - ui.main_window - INFO - Application closing
 2025-06-24 00:16:19,139 - __main__ - INFO - Application exited with code: 0
+2025-06-24 11:33:52,103 - __main__ - INFO - Logging system initialized
+2025-06-24 11:33:52,104 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-24 11:33:52,105 - __main__ - INFO - Application directories created
+2025-06-24 11:33:52,178 - __main__ - INFO - Qt application configured
+2025-06-24 11:33:52,745 - services.api_client - INFO - Initialized ErgastAPIClient with base URL: http://api.jolpi.ca/ergast/f1
+2025-06-24 11:33:53,221 - __main__ - INFO - Main window created and shown
+2025-06-24 11:33:53,221 - __main__ - INFO - Application ready - entering event loop
+2025-06-24 11:33:54,020 - ui.main_window - INFO - Status updated: Cargando datos iniciales de F1...
+2025-06-24 11:33:54,024 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 11:33:54,025 - ui.main_window - INFO - Status updated: Cargando standings de F1...
+2025-06-24 11:33:55,102 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 11:33:55,103 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-24 11:33:55,130 - ui.widgets.f1_tab - INFO - Successfully loaded 21 standings
+2025-06-24 11:33:55,131 - ui.main_window - INFO - Status updated: F1 standings actualizados (21 pilotos)
+2025-06-24 11:34:38,197 - ui.main_window - INFO - Status updated: Pestaña activa: MotoGP
+2025-06-24 11:43:28,981 - ui.main_window - INFO - Application closing
+2025-06-24 11:43:29,006 - __main__ - INFO - Application exited with code: 0
+2025-06-24 11:47:05,091 - __main__ - INFO - Logging system initialized
+2025-06-24 11:47:05,091 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-24 11:47:05,092 - __main__ - INFO - Application directories created
+2025-06-24 11:47:05,129 - __main__ - INFO - Qt application configured
+2025-06-24 11:47:05,136 - __main__ - ERROR - Error importing required modules: cannot import name 'QActionGroup' from 'PyQt6.QtWidgets' (C:\LOCAL Project\OneMotor\venv\Lib\site-packages\PyQt6\QtWidgets.pyd)
+2025-06-24 11:49:42,609 - __main__ - INFO - Logging system initialized
+2025-06-24 11:49:42,610 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-24 11:49:42,610 - __main__ - INFO - Application directories created
+2025-06-24 11:49:42,645 - __main__ - INFO - Qt application configured
+2025-06-24 11:49:42,647 - __main__ - ERROR - Error importing required modules: cannot import name 'QActionGroup' from 'PyQt6.QtWidgets' (C:\LOCAL Project\OneMotor\venv\Lib\site-packages\PyQt6\QtWidgets.pyd)
+2025-06-24 11:52:16,438 - __main__ - INFO - Logging system initialized
+2025-06-24 11:52:16,439 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-24 11:52:16,440 - __main__ - INFO - Application directories created
+2025-06-24 11:52:16,483 - __main__ - INFO - Qt application configured
+2025-06-24 11:52:17,127 - utils.i18n - INFO - Loaded translations for: en
+2025-06-24 11:52:17,127 - utils.i18n - INFO - Loaded translations for: es
+2025-06-24 11:52:17,133 - utils.i18n - INFO - Language changed from es to es
+2025-06-24 11:52:17,172 - services.api_client - INFO - Initialized ErgastAPIClient with base URL: http://api.jolpi.ca/ergast/f1
+2025-06-24 11:52:17,531 - __main__ - INFO - Main window created and shown
+2025-06-24 11:52:17,532 - __main__ - INFO - Application ready - entering event loop
+2025-06-24 11:52:18,323 - ui.main_window - INFO - Status updated: Cargando datos iniciales de F1...
+2025-06-24 11:52:18,325 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 11:52:18,326 - ui.main_window - INFO - Status updated: Cargando standings de F1...
+2025-06-24 11:52:19,447 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 11:52:19,448 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-24 11:52:19,465 - ui.widgets.f1_tab - INFO - Successfully loaded 21 standings
+2025-06-24 11:52:19,466 - ui.main_window - INFO - Status updated: F1 standings actualizados (21 pilotos)
+2025-06-24 11:52:33,661 - utils.i18n - INFO - Language changed from es to en
+2025-06-24 11:52:33,661 - ui.main_window - INFO - Language changed to: en
+2025-06-24 11:52:43,855 - ui.main_window - INFO - Status updated: Active tab: MotoGP
+2025-06-24 11:52:45,415 - ui.main_window - INFO - Status updated: Active tab: Formula 1
+2025-06-24 11:53:18,797 - ui.main_window - INFO - Application closing
+2025-06-24 11:53:18,817 - __main__ - INFO - Application exited with code: 0

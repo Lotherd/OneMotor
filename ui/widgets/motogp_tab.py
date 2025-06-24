@@ -1,14 +1,15 @@
 # ui/widgets/motogp_tab.py
 """
-Widget para la pestaña de MotoGP
+Widget para la pestaña de MotoGP con soporte multiidioma
 """
 
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QLabel, QPushButton, 
-                            QHBoxLayout, QTextEdit, QFrame)
+                            QHBoxLayout, QTextEdit, QFrame, QMessageBox)
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont, QPixmap
 
 from ui.styles.app_styles import AppStyles
+from utils.i18n import tr
 
 class MotoGPTabWidget(QWidget):
     """Widget principal para la pestaña de MotoGP"""
@@ -25,7 +26,7 @@ class MotoGPTabWidget(QWidget):
         self.layout.setSpacing(20)
         
         # Título
-        self.title_label = QLabel("🏍️ MotoGP - Próximamente")
+        self.title_label = QLabel(tr("motogp_title"))
         self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.title_label.setStyleSheet(f"""
             QLabel {{
@@ -45,9 +46,9 @@ class MotoGPTabWidget(QWidget):
         self.layout.addWidget(separator)
         
         # Descripción
-        self.description_label = QLabel("""
-        <h3>🚧 En Desarrollo</h3>
-        <p>La sección de MotoGP está siendo desarrollada y incluirá:</p>
+        self.description_label = QLabel(f"""
+        <h3>{tr("motogp_development")}</h3>
+        <p>{tr("motogp_description")}</p>
         """)
         self.description_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.description_label.setStyleSheet(f"""
@@ -76,15 +77,9 @@ class MotoGPTabWidget(QWidget):
         """Configurar lista de características futuras"""
         features_layout = QVBoxLayout()
         
-        features = [
-            "📊 Standings del Campeonato Mundial",
-            "📅 Calendario de Carreras 2025",
-            "🏁 Resultados de Carreras en Tiempo Real",
-            "⏱️ Tiempos de Clasificación",
-            "🏆 Estadísticas de Pilotos y Equipos",
-            "📰 Noticias de MotoGP",
-            "📈 Análisis de Rendimiento"
-        ]
+        # Crear labels para cada característica
+        self.feature_labels = []
+        features = tr("motogp_features")
         
         for feature in features:
             feature_label = QLabel(feature)
@@ -100,6 +95,7 @@ class MotoGPTabWidget(QWidget):
                 }}
             """)
             features_layout.addWidget(feature_label)
+            self.feature_labels.append(feature_label)
         
         features_widget = QWidget()
         features_widget.setLayout(features_layout)
@@ -118,9 +114,9 @@ class MotoGPTabWidget(QWidget):
         notification_layout = QVBoxLayout()
         
         # Título de la sección
-        notify_title = QLabel("🔔 Mantente Informado")
-        notify_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        notify_title.setStyleSheet(f"""
+        self.notify_title = QLabel(tr("motogp_notify_title"))
+        self.notify_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.notify_title.setStyleSheet(f"""
             QLabel {{
                 color: #ff8c00;
                 font-size: 18px;
@@ -128,17 +124,13 @@ class MotoGPTabWidget(QWidget):
                 margin: 10px;
             }}
         """)
-        notification_layout.addWidget(notify_title)
+        notification_layout.addWidget(self.notify_title)
         
         # Texto informativo
-        info_text = QLabel("""
-        Mientras desarrollamos la sección de MotoGP, puedes seguir disfrutando 
-        de todas las funcionalidades de Fórmula 1. Te notificaremos cuando 
-        MotoGP esté disponible.
-        """)
-        info_text.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        info_text.setWordWrap(True)
-        info_text.setStyleSheet(f"""
+        self.info_text = QLabel(tr("motogp_notify_text"))
+        self.info_text.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.info_text.setWordWrap(True)
+        self.info_text.setStyleSheet(f"""
             QLabel {{
                 color: #666;
                 font-size: 14px;
@@ -149,16 +141,16 @@ class MotoGPTabWidget(QWidget):
                 border: 1px solid #ffe4cc;
             }}
         """)
-        notification_layout.addWidget(info_text)
+        notification_layout.addWidget(self.info_text)
         
         # Botones de acción
         button_layout = QHBoxLayout()
         
-        self.f1_button = QPushButton("🏎️ Ir a Fórmula 1")
+        self.f1_button = QPushButton(tr("motogp_go_f1"))
         self.f1_button.setStyleSheet(AppStyles.get_main_button_style())
         self.f1_button.clicked.connect(self.switch_to_f1)
         
-        self.roadmap_button = QPushButton("🗺️ Ver Roadmap")
+        self.roadmap_button = QPushButton(tr("motogp_roadmap"))
         self.roadmap_button.setStyleSheet(AppStyles.get_secondary_button_style())
         self.roadmap_button.clicked.connect(self.show_roadmap)
         
@@ -190,30 +182,58 @@ class MotoGPTabWidget(QWidget):
     
     def show_roadmap(self):
         """Mostrar roadmap de desarrollo"""
-        from PyQt6.QtWidgets import QMessageBox
         
-        roadmap_text = """
-        🗺️ ROADMAP DE DESARROLLO
+        # Construir texto del roadmap con traducciones
+        roadmap_items = []
         
-        📅 FASE 1 (Actual):
-        ✅ Estructura base de la aplicación
-        ✅ Integración con Ergast API (F1)
-        ✅ Standings en tiempo real de F1
+        # Fase 1
+        roadmap_items.append(tr("roadmap_phase1"))
+        for item in tr("roadmap_phase1_items"):
+            roadmap_items.append(item)
+        roadmap_items.append("")
         
-        📅 FASE 2 (Próxima):
-        🔲 Calendario de carreras F1
-        🔲 Resultados históricos F1
-        🔲 Noticias de motorsport
+        # Fase 2
+        roadmap_items.append(tr("roadmap_phase2"))
+        for item in tr("roadmap_phase2_items"):
+            roadmap_items.append(item)
+        roadmap_items.append("")
         
-        📅 FASE 3 (Futuro):
-        🔲 API de MotoGP
-        🔲 Standings de MotoGP
-        🔲 Datos en tiempo real
+        # Fase 3
+        roadmap_items.append(tr("roadmap_phase3"))
+        for item in tr("roadmap_phase3_items"):
+            roadmap_items.append(item)
+        roadmap_items.append("")
         
-        📅 FASE 4 (Avanzado):
-        🔲 Telemetría detallada
-        🔲 Análisis de performance
-        🔲 Predicciones con ML
-        """
+        # Fase 4
+        roadmap_items.append(tr("roadmap_phase4"))
+        for item in tr("roadmap_phase4_items"):
+            roadmap_items.append(item)
         
-        QMessageBox.information(self, "Roadmap de Desarrollo", roadmap_text)
+        roadmap_text = tr("roadmap_title") + "\n\n" + "\n".join(roadmap_items)
+        
+        QMessageBox.information(self, tr("roadmap_title"), roadmap_text)
+    
+    def update_translations(self):
+        """Actualizar traducciones cuando cambia el idioma"""
+        # Actualizar título
+        self.title_label.setText(tr("motogp_title"))
+        
+        # Actualizar descripción
+        self.description_label.setText(f"""
+        <h3>{tr("motogp_development")}</h3>
+        <p>{tr("motogp_description")}</p>
+        """)
+        
+        # Actualizar características
+        features = tr("motogp_features")
+        for i, feature_label in enumerate(self.feature_labels):
+            if i < len(features):
+                feature_label.setText(features[i])
+        
+        # Actualizar notificaciones
+        self.notify_title.setText(tr("motogp_notify_title"))
+        self.info_text.setText(tr("motogp_notify_text"))
+        
+        # Actualizar botones
+        self.f1_button.setText(tr("motogp_go_f1"))
+        self.roadmap_button.setText(tr("motogp_roadmap"))
