@@ -3,14 +3,23 @@
 Widget for Formula 1 tab with multi-language support
 """
 
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QPushButton, 
-                            QLabel, QTableWidget, QTableWidgetItem, QMessageBox)
+from PyQt6.QtWidgets import (
+    QWidget,
+    QVBoxLayout,
+    QHBoxLayout,
+    QPushButton,
+    QLabel,
+    QTableWidget,
+    QTableWidgetItem,
+    QMessageBox,
+)
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFont
 
 from models.driver import DriverStanding
+from models.race import Race
 from ui.styles.app_styles import AppStyles
-from services.data_service import DataService, DataLoader
+from services.data_service import DataService, DataLoader, CalendarLoader
 from utils.i18n import tr
 from typing import List
 import logging
@@ -27,7 +36,9 @@ class F1TabWidget(QWidget):
         super().__init__()
         self.data_service = DataService()
         self.data_loader = None
+        self.calendar_loader = None
         self.current_standings = []
+        self.current_calendar: List[Race] = []
         
         self.setup_ui()
         self.connect_signals()
@@ -56,6 +67,9 @@ class F1TabWidget(QWidget):
         
         # Standings table
         self.setup_standings_table()
+
+        # Calendar table below standings
+        self.setup_calendar_table()
     
     def setup_action_bar(self):
         """Configure action bar"""
@@ -72,6 +86,12 @@ class F1TabWidget(QWidget):
         self.export_button.setStyleSheet(AppStyles.get_secondary_button_style())
         self.export_button.setEnabled(False)  # Disabled for now
         action_layout.addWidget(self.export_button)
+
+
+        # Calendar button
+        self.calendar_button = QPushButton(tr("f1_calendar_button"))
+        self.calendar_button.setStyleSheet(AppStyles.get_secondary_button_style())
+        action_layout.addWidget(self.calendar_button)
         
         # Spacer
         action_layout.addStretch()
@@ -116,10 +136,30 @@ class F1TabWidget(QWidget):
         self.standings_table.setSortingEnabled(True)
         
         self.layout.addWidget(self.standings_table)
+
+    def setup_calendar_table(self):
+        """Configure race calendar table"""
+        self.calendar_table = QTableWidget()
+        self.calendar_table.setColumnCount(5)
+
+        headers = [
+            tr("table_round"),
+            tr("table_gp"),
+            tr("table_date"),
+            tr("table_circuit"),
+            tr("table_podium"),
+        ]
+        self.calendar_table.setHorizontalHeaderLabels(headers)
+        self.calendar_table.setStyleSheet(AppStyles.get_table_style())
+        self.calendar_table.setAlternatingRowColors(True)
+        self.calendar_table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.calendar_table.setSortingEnabled(False)
+
+        self.layout.addWidget(self.calendar_table)
     
     def connect_signals(self):
         """Connect signals"""
-        pass
+        self.calendar_button.clicked.connect(self.load_calendar)
     
     def load_standings(self):
         """Load F1 standings"""
@@ -241,6 +281,7 @@ class F1TabWidget(QWidget):
         # Update buttons
         self.refresh_button.setText(tr("f1_refresh_button"))
         self.export_button.setText(tr("f1_export_button"))
+        self.calendar_button.setText(tr("f1_calendar_button"))
         
         # Update season
         self.season_label.setText(tr("f1_season"))
@@ -260,3 +301,64 @@ class F1TabWidget(QWidget):
             tr("table_code")
         ]
         self.standings_table.setHorizontalHeaderLabels(headers)
+
+        # Update calendar headers
+        cal_headers = [
+            tr("table_round"),
+            tr("table_gp"),
+            tr("table_date"),
+            tr("table_circuit"),
+            tr("table_podium"),
+        ]
+        self.calendar_table.setHorizontalHeaderLabels(cal_headers)
+
+    def load_calendar(self):
+        """Load race calendar"""
+        if self.calendar_loader and self.calendar_loader.isRunning():
+            logger.warning("Calendar loader already running")
+            return
+
+        season = "2025"
+        self.calendar_loader = CalendarLoader(self.data_service, season)
+        self.calendar_loader.loading_started.connect(self.on_calendar_loading)
+        self.calendar_loader.calendar_loaded.connect(self.on_calendar_loaded)
+        self.calendar_loader.error_occurred.connect(self.on_error_occurred)
+        self.calendar_loader.loading_finished.connect(self.on_calendar_finished)
+        self.calendar_loader.start()
+        self.calendar_button.setEnabled(False)
+
+    def on_calendar_loading(self):
+        self.status_label.setText(tr("f1_calendar_loading"))
+        self.status_label.setStyleSheet(AppStyles.get_status_label_style())
+        self.status_updated.emit(tr("f1_calendar_loading"))
+
+    def on_calendar_loaded(self, races: List[Race]):
+        try:
+            self.current_calendar = races
+            self.update_calendar_table(races)
+            msg = tr("f1_calendar_loaded", count=len(races))
+            self.status_label.setText(msg)
+            self.status_label.setStyleSheet(AppStyles.get_success_style())
+            self.status_updated.emit(msg)
+        except Exception as e:
+            logger.error(f"Error updating calendar: {e}")
+            self.on_error_occurred(str(e))
+
+    def on_calendar_finished(self):
+        self.calendar_button.setEnabled(True)
+
+    def update_calendar_table(self, races: List[Race]):
+        self.calendar_table.setRowCount(len(races))
+        for row, race in enumerate(races):
+            round_item = QTableWidgetItem(str(race.round))
+            round_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.calendar_table.setItem(row, 0, round_item)
+
+            self.calendar_table.setItem(row, 1, QTableWidgetItem(race.race_name))
+            self.calendar_table.setItem(row, 2, QTableWidgetItem(race.date))
+            self.calendar_table.setItem(row, 3, QTableWidgetItem(race.circuit))
+
+            podium_text = ", ".join(race.podium) if race.podium else "TBD"
+            self.calendar_table.setItem(row, 4, QTableWidgetItem(podium_text))
+
+        self.calendar_table.resizeColumnsToContents()
