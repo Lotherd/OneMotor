@@ -1,6 +1,6 @@
 # main.py
 """
-Main entry point for the F1 & MotoGP Dashboard application
+Punto de entrada principal de la aplicación F1 & MotoGP Dashboard
 """
 
 import sys
@@ -9,15 +9,15 @@ from pathlib import Path
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 
-# Configure logging
+# Configurar logging
 def setup_logging():
-    """Configure logging system"""
+    """Configurar sistema de logging"""
     
-    # Create logs directory if it doesn't exist
+    # Crear directorio de logs si no existe
     log_dir = Path("logs")
     log_dir.mkdir(exist_ok=True)
     
-    # Logging configuration
+    # Configuración de logging
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -27,51 +27,51 @@ def setup_logging():
         ]
     )
     
-    # Main logger
+    # Logger principal
     logger = logging.getLogger(__name__)
     logger.info("Logging system initialized")
     return logger
 
 def setup_application():
-    """Configure Qt application"""
+    """Configurar la aplicación Qt"""
     
-    # Create application
+    # Crear aplicación
     app = QApplication(sys.argv)
     
-    # Application settings
+    # Configuraciones de la aplicación
     app.setApplicationName("F1 & MotoGP Dashboard")
     app.setApplicationVersion("1.0")
     app.setOrganizationName("MotorsportApps")
     
-    # PyQt6 automatically handles DPI scaling
-    # No additional configuration needed
+    # PyQt6 maneja automáticamente el DPI scaling
+    # No necesitamos configuración adicional
     
     return app
 
 def create_directories():
-    """Create necessary directories"""
+    """Crear directorios necesarios"""
     directories = ["logs", "data", "cache"]
     
     for directory in directories:
         Path(directory).mkdir(exist_ok=True)
 
 def main():
-    """Main function"""
+    """Función principal"""
     
     try:
-        # Configure logging
+        # Configurar logging
         logger = setup_logging()
         logger.info("Starting F1 & MotoGP Dashboard application")
         
-        # Create necessary directories
+        # Crear directorios necesarios
         create_directories()
         logger.info("Application directories created")
         
-        # Configure Qt application
+        # Configurar aplicación Qt
         app = setup_application()
         logger.info("Qt application configured")
         
-        # Import and create main window
+        # Importar y crear ventana principal
         from ui.main_window import MainWindow
         
         window = MainWindow()
@@ -80,7 +80,7 @@ def main():
         logger.info("Main window created and shown")
         logger.info("Application ready - entering event loop")
         
-        # Run application
+        # Ejecutar aplicación
         exit_code = app.exec()
         
         logger.info(f"Application exited with code: {exit_code}")

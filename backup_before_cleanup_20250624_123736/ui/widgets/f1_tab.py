@@ -1,6 +1,6 @@
 # ui/widgets/f1_tab.py
 """
-Widget for Formula 1 tab with multi-language support
+Widget para la pestaña de Fórmula 1 con soporte multiidioma
 """
 
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QPushButton, 
@@ -18,10 +18,10 @@ import logging
 logger = logging.getLogger(__name__)
 
 class F1TabWidget(QWidget):
-    """Main widget for F1 tab"""
+    """Widget principal para la pestaña de F1"""
     
-    # Signals
-    status_updated = pyqtSignal(str)  # To update status bar
+    # Señales
+    status_updated = pyqtSignal(str)  # Para actualizar la barra de estado
     
     def __init__(self):
         super().__init__()
@@ -33,50 +33,50 @@ class F1TabWidget(QWidget):
         self.connect_signals()
     
     def setup_ui(self):
-        """Configure user interface"""
+        """Configurar la interfaz de usuario"""
         
-        # Main layout
+        # Layout principal
         self.layout = QVBoxLayout(self)
         self.layout.setSpacing(16)
         
-        # Title
+        # Título
         self.title_label = QLabel(tr("f1_title"))
         self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.title_label.setStyleSheet(AppStyles.get_title_style(20))
         self.layout.addWidget(self.title_label)
         
-        # Action bar
+        # Barra de acciones
         self.setup_action_bar()
         
-        # Loading status
+        # Estado de carga
         self.status_label = QLabel(tr("f1_ready"))
         self.status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.status_label.setStyleSheet(AppStyles.get_status_label_style())
         self.layout.addWidget(self.status_label)
         
-        # Standings table
+        # Tabla de standings
         self.setup_standings_table()
     
     def setup_action_bar(self):
-        """Configure action bar"""
+        """Configurar barra de acciones"""
         action_layout = QHBoxLayout()
         
-        # Refresh button
+        # Botón de actualizar
         self.refresh_button = QPushButton(tr("f1_refresh_button"))
         self.refresh_button.setStyleSheet(AppStyles.get_main_button_style())
         self.refresh_button.clicked.connect(self.load_standings)
         action_layout.addWidget(self.refresh_button)
         
-        # Export button (future)
+        # Botón de exportar (futuro)
         self.export_button = QPushButton(tr("f1_export_button"))
         self.export_button.setStyleSheet(AppStyles.get_secondary_button_style())
-        self.export_button.setEnabled(False)  # Disabled for now
+        self.export_button.setEnabled(False)  # Deshabilitado por ahora
         action_layout.addWidget(self.export_button)
         
-        # Spacer
+        # Espaciador
         action_layout.addStretch()
         
-        # Season info
+        # Info de temporada
         self.season_label = QLabel(tr("f1_season"))
         self.season_label.setStyleSheet(f"""
             QLabel {{
@@ -91,11 +91,11 @@ class F1TabWidget(QWidget):
         self.layout.addLayout(action_layout)
     
     def setup_standings_table(self):
-        """Configure standings table"""
+        """Configurar tabla de standings"""
         self.standings_table = QTableWidget()
         self.standings_table.setColumnCount(7)
         
-        # Translated headers
+        # Headers traducidos
         headers = [
             tr("table_pos"),
             tr("table_driver"),
@@ -107,10 +107,10 @@ class F1TabWidget(QWidget):
         ]
         self.standings_table.setHorizontalHeaderLabels(headers)
         
-        # Apply styles
+        # Aplicar estilos
         self.standings_table.setStyleSheet(AppStyles.get_table_style())
         
-        # Additional configuration
+        # Configuración adicional
         self.standings_table.setAlternatingRowColors(True)
         self.standings_table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         self.standings_table.setSortingEnabled(True)
@@ -118,37 +118,37 @@ class F1TabWidget(QWidget):
         self.layout.addWidget(self.standings_table)
     
     def connect_signals(self):
-        """Connect signals"""
+        """Conectar señales"""
         pass
     
     def load_standings(self):
-        """Load F1 standings"""
+        """Cargar standings de F1"""
         if self.data_loader and self.data_loader.isRunning():
             logger.warning("Data loader already running")
             return
         
-        # Create and configure loader
+        # Crear y configurar loader
         self.data_loader = DataLoader(self.data_service)
         self.data_loader.loading_started.connect(self.on_loading_started)
         self.data_loader.data_loaded.connect(self.on_standings_loaded)
         self.data_loader.error_occurred.connect(self.on_error_occurred)
         self.data_loader.loading_finished.connect(self.on_loading_finished)
         
-        # Start loading
+        # Iniciar carga
         self.data_loader.start()
     
     def on_loading_started(self):
-        """Callback when loading starts"""
+        """Callback cuando inicia la carga"""
         self.status_label.setText(tr("f1_loading"))
         self.status_label.setStyleSheet(AppStyles.get_status_label_style())
         self.refresh_button.setEnabled(False)
         self.refresh_button.setText(tr("f1_loading_button"))
         
-        # Emit signal for main status bar
+        # Emitir señal para barra de estado principal
         self.status_updated.emit(tr("f1_loading_standings"))
     
     def on_standings_loaded(self, standings: List[DriverStanding]):
-        """Callback when standings are loaded"""
+        """Callback cuando se cargan los standings"""
         try:
             self.current_standings = standings
             self.update_standings_table(standings)
@@ -157,7 +157,7 @@ class F1TabWidget(QWidget):
             self.status_label.setText(success_msg)
             self.status_label.setStyleSheet(AppStyles.get_success_style())
             
-            # Enable export button
+            # Habilitar botón de exportar
             self.export_button.setEnabled(True)
             
             logger.info(f"Successfully loaded {len(standings)} standings")
@@ -168,88 +168,88 @@ class F1TabWidget(QWidget):
             self.on_error_occurred(tr("show_error_data", error=str(e)))
     
     def on_error_occurred(self, error_message: str):
-        """Callback when an error occurs"""
+        """Callback cuando ocurre un error"""
         self.status_label.setText(f"❌ {error_message}")
         self.status_label.setStyleSheet(AppStyles.get_error_style())
         
-        # Show error message
+        # Mostrar mensaje de error
         QMessageBox.warning(self, tr("error_title"), tr("error_loading", error=error_message))
         
         self.status_updated.emit(f"Error: {error_message}")
     
     def on_loading_finished(self):
-        """Callback when loading finishes"""
+        """Callback cuando termina la carga"""
         self.refresh_button.setEnabled(True)
         self.refresh_button.setText(tr("f1_refresh_button"))
     
     def update_standings_table(self, standings: List[DriverStanding]):
-        """Update table with standings"""
+        """Actualizar tabla con los standings"""
         self.standings_table.setRowCount(len(standings))
         
         for row, standing in enumerate(standings):
-            # Position
+            # Posición
             pos_item = QTableWidgetItem(str(standing.position))
             pos_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             pos_item.setFont(QFont("", 0, QFont.Weight.Bold))
             self.standings_table.setItem(row, 0, pos_item)
             
-            # Driver
+            # Piloto
             driver_item = QTableWidgetItem(standing.driver.full_name)
             driver_item.setFont(QFont("", 0, QFont.Weight.Bold))
             self.standings_table.setItem(row, 1, driver_item)
             
-            # Team
+            # Equipo
             team_name = standing.constructors[0].name if standing.constructors else "N/A"
             self.standings_table.setItem(row, 2, QTableWidgetItem(team_name))
             
-            # Points
+            # Puntos
             points_item = QTableWidgetItem(str(int(standing.points)))
             points_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             points_item.setFont(QFont("", 0, QFont.Weight.Bold))
             self.standings_table.setItem(row, 3, points_item)
             
-            # Wins
+            # Victorias
             wins_item = QTableWidgetItem(str(standing.wins))
             wins_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             self.standings_table.setItem(row, 4, wins_item)
             
-            # Nationality
+            # Nacionalidad
             self.standings_table.setItem(row, 5, QTableWidgetItem(standing.driver.nationality))
             
-            # Code
+            # Código
             code = standing.driver.code or "N/A"
             code_item = QTableWidgetItem(code)
             code_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             self.standings_table.setItem(row, 6, code_item)
         
-        # Resize columns
+        # Ajustar columnas
         self.standings_table.resizeColumnsToContents()
         
-        # Set minimum width for important columns
-        self.standings_table.setColumnWidth(0, 50)   # Position
-        self.standings_table.setColumnWidth(1, 200)  # Driver
-        self.standings_table.setColumnWidth(2, 180)  # Team
-        self.standings_table.setColumnWidth(3, 80)   # Points
-        self.standings_table.setColumnWidth(4, 80)   # Wins
-        self.standings_table.setColumnWidth(6, 80)   # Code
+        # Establecer ancho mínimo para columnas importantes
+        self.standings_table.setColumnWidth(0, 50)   # Posición
+        self.standings_table.setColumnWidth(1, 200)  # Piloto
+        self.standings_table.setColumnWidth(2, 180)  # Equipo
+        self.standings_table.setColumnWidth(3, 80)   # Puntos
+        self.standings_table.setColumnWidth(4, 80)   # Victorias
+        self.standings_table.setColumnWidth(6, 80)   # Código
     
     def update_translations(self):
-        """Update translations when language changes"""
-        # Update title
+        """Actualizar traducciones cuando cambia el idioma"""
+        # Actualizar título
         self.title_label.setText(tr("f1_title"))
         
-        # Update buttons
+        # Actualizar botones
         self.refresh_button.setText(tr("f1_refresh_button"))
         self.export_button.setText(tr("f1_export_button"))
         
-        # Update season
+        # Actualizar temporada
         self.season_label.setText(tr("f1_season"))
         
-        # Update status
+        # Actualizar estado
         if not self.current_standings:
             self.status_label.setText(tr("f1_ready"))
         
-        # Update table headers
+        # Actualizar headers de tabla
         headers = [
             tr("table_pos"),
             tr("table_driver"),

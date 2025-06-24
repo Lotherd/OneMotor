@@ -1,11 +1,11 @@
 from config.settings import AppConfig
 
 class AppStyles:
-    """Centralized CSS styles"""
+    """Estilos CSS centralizados"""
     
     @staticmethod
     def get_main_button_style() -> str:
-        """Style for main buttons"""
+        """Estilo para botones principales"""
         return f"""
             QPushButton {{
                 background-color: {AppConfig.COLORS['f1_red']};
@@ -31,7 +31,7 @@ class AppStyles:
     
     @staticmethod
     def get_secondary_button_style() -> str:
-        """Style for secondary buttons"""
+        """Estilo para botones secundarios"""
         return f"""
             QPushButton {{
                 background-color: {AppConfig.COLORS['white']};
@@ -53,7 +53,7 @@ class AppStyles:
     
     @staticmethod
     def get_table_style() -> str:
-        """Style for tables"""
+        """Estilo para tablas"""
         return f"""
             QTableWidget {{
                 gridline-color: {AppConfig.COLORS['border']};
@@ -84,7 +84,7 @@ class AppStyles:
     
     @staticmethod
     def get_title_style(size: int = 18) -> str:
-        """Style for titles"""
+        """Estilo para títulos"""
         return f"""
             QLabel {{
                 color: {AppConfig.COLORS['f1_red']};
@@ -97,7 +97,7 @@ class AppStyles:
     
     @staticmethod
     def get_status_label_style() -> str:
-        """Style for status labels"""
+        """Estilo para etiquetas de estado"""
         return f"""
             QLabel {{
                 color: {AppConfig.COLORS['text_secondary']};
@@ -111,7 +111,7 @@ class AppStyles:
     
     @staticmethod
     def get_tab_style() -> str:
-        """Style for tabs"""
+        """Estilo para pestañas"""
         return f"""
             QTabWidget::pane {{
                 border: 1px solid {AppConfig.COLORS['border']};
@@ -138,7 +138,7 @@ class AppStyles:
     
     @staticmethod
     def get_success_style() -> str:
-        """Style for success messages"""
+        """Estilo para mensajes de éxito"""
         return f"""
             QLabel {{
                 color: {AppConfig.COLORS['success']};
@@ -152,7 +152,7 @@ class AppStyles:
     
     @staticmethod
     def get_error_style() -> str:
-        """Style for error messages"""
+        """Estilo para mensajes de error"""
         return f"""
             QLabel {{
                 color: {AppConfig.COLORS['error']};

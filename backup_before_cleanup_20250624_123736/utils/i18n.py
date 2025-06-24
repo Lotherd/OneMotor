@@ -1,6 +1,6 @@
 # utils/i18n.py
 """
-Internationalization system for the application
+Sistema de internacionalización para la aplicación
 """
 
 import os
@@ -13,35 +13,35 @@ from PyQt6.QtCore import QObject, pyqtSignal
 logger = logging.getLogger(__name__)
 
 class TranslationManager(QObject):
-    """Translation manager for the application"""
+    """Gestor de traducciones para la aplicación"""
     
-    # Signal emitted when language changes
-    language_changed = pyqtSignal(str)  # New language code
+    # Señal emitida cuando cambia el idioma
+    language_changed = pyqtSignal(str)  # Nuevo código de idioma
     
     def __init__(self):
         super().__init__()
-        self.current_language = "en"  # Default language
+        self.current_language = "es"  # Idioma por defecto
         self.translations = {}
         self.fallback_language = "en"
         
-        # Create translations directory if it doesn't exist
+        # Crear directorio de traducciones si no existe
         self.translations_dir = Path("translations")
         self.translations_dir.mkdir(exist_ok=True)
         
-        # Load translations
+        # Cargar traducciones
         self._load_all_translations()
         
     def _load_all_translations(self):
-        """Load all available translations"""
+        """Cargar todas las traducciones disponibles"""
         try:
-            # Load translations from JSON files
+            # Cargar traducciones desde archivos JSON
             for lang_file in self.translations_dir.glob("*.json"):
                 lang_code = lang_file.stem
                 with open(lang_file, 'r', encoding='utf-8') as f:
                     self.translations[lang_code] = json.load(f)
                 logger.info(f"Loaded translations for: {lang_code}")
             
-            # If no files exist, create default translations
+            # Si no hay archivos, crear traducciones por defecto
             if not self.translations:
                 self._create_default_translations()
                 
@@ -50,16 +50,16 @@ class TranslationManager(QObject):
             self._create_default_translations()
     
     def _create_default_translations(self):
-        """Create default translations if they don't exist"""
+        """Crear traducciones por defecto si no existen"""
         logger.info("Creating default translations...")
         
-        # Spanish translations
+        # Traducciones en español
         spanish_translations = {
-            # Main window
+            # Ventana principal
             "app_title": "F1 & MotoGP Dashboard - Versión {version}",
             "ready_to_load": "Aplicación iniciada - Listo para cargar datos",
             
-            # Menus
+            # Menús
             "menu_file": "&Archivo",
             "menu_refresh": "&Actualizar Datos",
             "menu_refresh_tooltip": "Actualizar datos de la pestaña actual",
@@ -77,7 +77,7 @@ class TranslationManager(QObject):
             "menu_spanish": "&Español",
             "menu_english": "&English",
             
-            # Tabs
+            # Pestañas
             "tab_f1": "🏎️ Fórmula 1",
             "tab_motogp": "🏍️ MotoGP",
             "tab_active": "Pestaña activa: {tab}",
@@ -96,7 +96,7 @@ class TranslationManager(QObject):
             "f1_loading_initial": "Cargando datos iniciales de F1...",
             "f1_loading_standings": "Cargando standings de F1...",
             
-            # F1 Table
+            # Tabla F1
             "table_pos": "POS",
             "table_driver": "PILOTO",
             "table_team": "EQUIPO", 
@@ -151,14 +151,14 @@ class TranslationManager(QObject):
                 "🔲 Predicciones con ML"
             ],
             
-            # Dialogs
+            # Diálogos
             "confirm_exit": "Confirmar Salida",
             "confirm_exit_message": "¿Estás seguro que quieres salir de la aplicación?",
             "error_title": "Error",
             "error_loading": "Error cargando datos:\\n{error}",
             "motogp_dialog_title": "MotoGP",
             
-            # About
+            # Acerca de
             "about_description": "Aplicación de escritorio para seguir Fórmula 1 y MotoGP",
             "about_features": "Características:",
             "about_features_list": [
@@ -175,19 +175,19 @@ class TranslationManager(QObject):
             ],
             "about_footer": "Desarrollado con Python y PyQt6",
             
-            # States and errors
+            # Estados y errores
             "connection_error": "Error de conexión: {error}",
             "parsing_error": "Error procesando datos: {error}",
             "unexpected_error": "Error inesperado: {error}",
             "show_error_data": "Error mostrando datos: {error}",
             
-            # Settings
+            # Configuración
             "language_changed": "Idioma cambiado a Español",
             "restart_required": "Reinicio Requerido",
             "restart_message": "Algunos cambios requieren reiniciar la aplicación.\\n¿Deseas reiniciar ahora?"
         }
         
-        # English translations
+        # Traducciones en inglés
         english_translations = {
             # Main window
             "app_title": "F1 & MotoGP Dashboard - Version {version}",
@@ -321,13 +321,13 @@ class TranslationManager(QObject):
             "restart_message": "Some changes require restarting the application.\\nDo you want to restart now?"
         }
         
-        # Save translations
+        # Guardar traducciones
         self.translations = {
             "es": spanish_translations,
             "en": english_translations
         }
         
-        # Create JSON files
+        # Crear archivos JSON
         for lang_code, translations in self.translations.items():
             file_path = self.translations_dir / f"{lang_code}.json"
             with open(file_path, 'w', encoding='utf-8') as f:
@@ -335,7 +335,7 @@ class TranslationManager(QObject):
             logger.info(f"Created translation file: {file_path}")
     
     def set_language(self, language_code: str) -> bool:
-        """Change active language"""
+        """Cambiar idioma activo"""
         if language_code in self.translations:
             old_language = self.current_language
             self.current_language = language_code
@@ -347,29 +347,29 @@ class TranslationManager(QObject):
             return False
     
     def get_available_languages(self) -> Dict[str, str]:
-        """Get available languages"""
+        """Obtener idiomas disponibles"""
         return {
             "es": "Español",
             "en": "English"
         }
     
     def tr(self, key: str, **kwargs) -> str:
-        """Translate a key"""
-        # Try to get from current language
+        """Traducir una clave"""
+        # Intentar obtener de idioma actual
         translations = self.translations.get(self.current_language, {})
         text = translations.get(key)
         
-        # If not found, try fallback language
+        # Si no existe, intentar con idioma de respaldo
         if text is None:
             fallback_translations = self.translations.get(self.fallback_language, {})
             text = fallback_translations.get(key)
         
-        # If still not found, return the key
+        # Si aún no existe, devolver la clave
         if text is None:
             logger.warning(f"Translation not found for key: {key}")
             return f"[{key}]"
         
-        # Format with arguments if any
+        # Formatear con argumentos si los hay
         try:
             if kwargs:
                 return text.format(**kwargs)
@@ -379,21 +379,21 @@ class TranslationManager(QObject):
             return text
     
     def get_current_language(self) -> str:
-        """Get current language"""
+        """Obtener idioma actual"""
         return self.current_language
 
 
-# Global translation manager instance
+# Instancia global del gestor de traducciones
 _translation_manager = TranslationManager()
 
 def tr(key: str, **kwargs) -> str:
-    """Convenience function for translation"""
+    """Función de conveniencia para traducir"""
     return _translation_manager.tr(key, **kwargs)
 
 def set_language(language_code: str) -> bool:
-    """Convenience function for changing language"""
+    """Función de conveniencia para cambiar idioma"""
     return _translation_manager.set_language(language_code)
 
 def get_translation_manager() -> TranslationManager:
-    """Get translation manager instance"""
+    """Obtener instancia del gestor de traducciones"""
     return _translation_manager

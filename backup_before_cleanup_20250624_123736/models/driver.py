@@ -3,7 +3,7 @@ from typing import Optional, List
 
 @dataclass
 class Driver:
-    """Data model for a driver"""
+    """Modelo de datos para un piloto"""
     driver_id: str
     permanent_number: Optional[str]
     code: Optional[str]
@@ -15,12 +15,12 @@ class Driver:
     
     @property
     def full_name(self) -> str:
-        """Driver's full name"""
+        """Nombre completo del piloto"""
         return f"{self.given_name} {self.family_name}"
     
     @classmethod
     def from_ergast_data(cls, data: dict) -> 'Driver':
-        """Create instance from Ergast API data"""
+        """Crear instancia desde datos de Ergast API"""
         return cls(
             driver_id=data.get('driverId', ''),
             permanent_number=data.get('permanentNumber'),
@@ -34,7 +34,7 @@ class Driver:
 
 @dataclass
 class Constructor:
-    """Data model for a constructor/team"""
+    """Modelo de datos para un constructor/equipo"""
     constructor_id: str
     name: str
     nationality: str
@@ -42,7 +42,7 @@ class Constructor:
     
     @classmethod
     def from_ergast_data(cls, data: dict) -> 'Constructor':
-        """Create instance from Ergast API data"""
+        """Crear instancia desde datos de Ergast API"""
         return cls(
             constructor_id=data.get('constructorId', ''),
             name=data.get('name', ''),
@@ -52,7 +52,7 @@ class Constructor:
 
 @dataclass
 class DriverStanding:
-    """Data model for a driver's championship position"""
+    """Modelo de datos para la posición de un piloto en el campeonato"""
     position: int
     position_text: str
     points: float
@@ -62,7 +62,7 @@ class DriverStanding:
     
     @classmethod
     def from_ergast_data(cls, data: dict) -> 'DriverStanding':
-        """Create instance from Ergast API data"""
+        """Crear instancia desde datos de Ergast API"""
         driver = Driver.from_ergast_data(data['Driver'])
         constructors = [Constructor.from_ergast_data(c) for c in data['Constructors']]
         

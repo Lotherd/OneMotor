@@ -155,3 +155,69 @@ AttributeError: type object 'ApplicationAttribute' has no attribute 'AA_EnableHi
 2025-06-24 11:52:45,415 - ui.main_window - INFO - Status updated: Active tab: Formula 1
 2025-06-24 11:53:18,797 - ui.main_window - INFO - Application closing
 2025-06-24 11:53:18,817 - __main__ - INFO - Application exited with code: 0
+2025-06-24 12:37:57,668 - __main__ - INFO - Logging system initialized
+2025-06-24 12:37:57,669 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-24 12:37:57,670 - __main__ - INFO - Application directories created
+2025-06-24 12:37:57,706 - __main__ - INFO - Qt application configured
+2025-06-24 12:37:58,256 - utils.i18n - INFO - Loaded translations for: en
+2025-06-24 12:37:58,257 - utils.i18n - INFO - Loaded translations for: es
+2025-06-24 12:37:58,259 - utils.i18n - INFO - Language changed from es to en
+2025-06-24 12:37:58,286 - services.api_client - INFO - Initialized ErgastAPIClient with base URL: http://api.jolpi.ca/ergast/f1
+2025-06-24 12:37:58,567 - __main__ - INFO - Main window created and shown
+2025-06-24 12:37:58,568 - __main__ - INFO - Application ready - entering event loop
+2025-06-24 12:37:59,407 - ui.main_window - INFO - Status updated: Loading initial F1 data...
+2025-06-24 12:37:59,409 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 12:37:59,409 - ui.main_window - INFO - Status updated: Loading F1 standings...
+2025-06-24 12:38:00,701 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 12:38:00,701 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-24 12:38:00,722 - ui.widgets.f1_tab - INFO - Successfully loaded 21 standings
+2025-06-24 12:38:00,722 - ui.main_window - INFO - Status updated: F1 standings updated (21 drivers)
+2025-06-24 12:38:06,217 - ui.main_window - INFO - Application closing
+2025-06-24 12:38:06,249 - __main__ - INFO - Application exited with code: 0
+2025-06-24 13:01:01,032 - __main__ - INFO - Logging system initialized
+2025-06-24 13:01:01,033 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-24 13:01:01,036 - __main__ - INFO - Application directories created
+2025-06-24 13:01:01,143 - __main__ - INFO - Qt application configured
+2025-06-24 13:01:02,678 - utils.i18n - INFO - Loaded translations for: en
+2025-06-24 13:01:02,679 - utils.i18n - INFO - Loaded translations for: es
+2025-06-24 13:01:02,692 - utils.i18n - INFO - Language changed from en to en
+2025-06-24 13:01:02,776 - services.api_client - INFO - Initialized ErgastAPIClient with base URL: http://api.jolpi.ca/ergast/f1
+2025-06-24 13:01:03,665 - __main__ - INFO - Main window created and shown
+2025-06-24 13:01:03,666 - __main__ - INFO - Application ready - entering event loop
+2025-06-24 13:01:04,205 - ui.main_window - INFO - Status updated: Loading initial F1 data...
+2025-06-24 13:01:04,211 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 13:01:04,212 - ui.main_window - INFO - Status updated: Loading F1 standings...
+2025-06-24 13:01:15,307 - services.api_client - ERROR - Request failed for http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000020815FA2270>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-24 13:01:15,308 - services.api_client - WARNING - Attempt 1 failed: Error accessing http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000020815FA2270>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-24 13:01:15,309 - services.api_client - WARNING - Switching to backup URL: https://api.jolpi.ca/ergast/f1
+2025-06-24 13:01:15,309 - services.api_client - INFO - Retrying with backup URL: https://api.jolpi.ca/ergast/f1
+2025-06-24 13:01:15,310 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 13:01:26,368 - services.api_client - ERROR - Request failed for https://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpi.ca', port=443): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020815FA27B0>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-24 13:01:26,369 - services.api_client - WARNING - Attempt 2 failed: Error accessing https://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpi.ca', port=443): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020815FA27B0>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-24 13:01:26,370 - services.api_client - WARNING - Switching to backup URL: http://api.jolpi.ca/ergast/f1
+2025-06-24 13:01:26,370 - services.api_client - INFO - Retrying with backup URL: http://api.jolpi.ca/ergast/f1
+2025-06-24 13:01:26,371 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 13:01:37,452 - services.api_client - ERROR - Request failed for http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000020815FD4F50>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-24 13:01:37,452 - services.api_client - WARNING - Attempt 3 failed: Error accessing http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000020815FD4F50>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-24 13:01:37,453 - services.data_service - ERROR - Error getting F1 standings: All API endpoints failed. Last error: Error accessing http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000020815FD4F50>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-24 13:01:37,454 - services.data_service - ERROR - Connection error: All API endpoints failed. Last error: Error accessing http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000020815FD4F50>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-24 13:01:58,388 - ui.main_window - INFO - Status updated: Error: Connection error: All API endpoints failed. Last error: Error accessing http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000020815FD4F50>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-24 13:02:04,507 - ui.main_window - INFO - Application closing
+2025-06-24 13:02:04,560 - __main__ - INFO - Application exited with code: 0
+2025-06-24 13:02:08,345 - __main__ - INFO - Logging system initialized
+2025-06-24 13:02:08,345 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-24 13:02:08,346 - __main__ - INFO - Application directories created
+2025-06-24 13:02:08,410 - __main__ - INFO - Qt application configured
+2025-06-24 13:02:09,405 - utils.i18n - INFO - Loaded translations for: en
+2025-06-24 13:02:09,406 - utils.i18n - INFO - Loaded translations for: es
+2025-06-24 13:02:09,409 - utils.i18n - INFO - Language changed from en to en
+2025-06-24 13:02:09,453 - services.api_client - INFO - Initialized ErgastAPIClient with base URL: http://api.jolpi.ca/ergast/f1
+2025-06-24 13:02:09,982 - __main__ - INFO - Main window created and shown
+2025-06-24 13:02:09,982 - __main__ - INFO - Application ready - entering event loop
+2025-06-24 13:02:10,650 - ui.main_window - INFO - Status updated: Loading initial F1 data...
+2025-06-24 13:02:10,655 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 13:02:10,657 - ui.main_window - INFO - Status updated: Loading F1 standings...
+2025-06-24 13:02:11,766 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-24 13:02:11,767 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-24 13:02:11,795 - ui.widgets.f1_tab - INFO - Successfully loaded 21 standings
+2025-06-24 13:02:11,796 - ui.main_window - INFO - Status updated: F1 standings updated (21 drivers)

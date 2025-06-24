@@ -8,14 +8,14 @@ from services.api_client import ErgastAPIClient, APIException
 logger = logging.getLogger(__name__)
 
 class DataService(QObject):
-    """Main service for data management"""
+    """Servicio principal para manejo de datos"""
     
     def __init__(self):
         super().__init__()
         self.ergast_client = ErgastAPIClient()
     
     def get_current_f1_standings(self) -> List[DriverStanding]:
-        """Get current F1 standings"""
+        """Obtener standings actuales de F1"""
         try:
             data = self.ergast_client.get_current_driver_standings()
             standings_data = data['MRData']['StandingsTable']['StandingsLists'][0]['DriverStandings']
@@ -36,11 +36,11 @@ class DataService(QObject):
             raise DataParsingException("Error parsing F1 standings data")
 
 class DataLoader(QThread):
-    """Worker thread to load data without blocking the UI"""
+    """Worker thread para cargar datos sin bloquear la UI"""
     
-    # Signals
-    data_loaded = pyqtSignal(list)  # List of DriverStanding
-    error_occurred = pyqtSignal(str)  # Error message
+    # Señales
+    data_loaded = pyqtSignal(list)  # Lista de DriverStanding
+    error_occurred = pyqtSignal(str)  # Mensaje de error
     loading_started = pyqtSignal()
     loading_finished = pyqtSignal()
     
@@ -49,26 +49,26 @@ class DataLoader(QThread):
         self.data_service = data_service
     
     def run(self):
-        """Execute data loading in separate thread"""
+        """Ejecutar carga de datos en hilo separado"""
         try:
             self.loading_started.emit()
             
-            # Load F1 standings
+            # Cargar standings de F1
             standings = self.data_service.get_current_f1_standings()
             self.data_loaded.emit(standings)
             
         except APIException as e:
-            error_msg = f"Connection error: {str(e)}"
+            error_msg = f"Error de conexión: {str(e)}"
             logger.error(error_msg)
             self.error_occurred.emit(error_msg)
             
         except DataParsingException as e:
-            error_msg = f"Data processing error: {str(e)}"
+            error_msg = f"Error procesando datos: {str(e)}"
             logger.error(error_msg)
             self.error_occurred.emit(error_msg)
             
         except Exception as e:
-            error_msg = f"Unexpected error: {str(e)}"
+            error_msg = f"Error inesperado: {str(e)}"
             logger.error(error_msg)
             self.error_occurred.emit(error_msg)
             
@@ -76,5 +76,5 @@ class DataLoader(QThread):
             self.loading_finished.emit()
 
 class DataParsingException(Exception):
-    """Exception for data parsing errors"""
+    """Excepción para errores de parsing de datos"""
     pass

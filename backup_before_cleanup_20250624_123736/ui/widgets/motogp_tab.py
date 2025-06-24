@@ -1,6 +1,6 @@
 # ui/widgets/motogp_tab.py
 """
-Widget for MotoGP tab with multi-language support
+Widget para la pestaña de MotoGP con soporte multiidioma
 """
 
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QLabel, QPushButton, 
@@ -12,20 +12,20 @@ from ui.styles.app_styles import AppStyles
 from utils.i18n import tr
 
 class MotoGPTabWidget(QWidget):
-    """Main widget for MotoGP tab"""
+    """Widget principal para la pestaña de MotoGP"""
     
     def __init__(self):
         super().__init__()
         self.setup_ui()
     
     def setup_ui(self):
-        """Configure user interface"""
+        """Configurar la interfaz de usuario"""
         
-        # Main layout
+        # Layout principal
         self.layout = QVBoxLayout(self)
         self.layout.setSpacing(20)
         
-        # Title
+        # Título
         self.title_label = QLabel(tr("motogp_title"))
         self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.title_label.setStyleSheet(f"""
@@ -39,13 +39,13 @@ class MotoGPTabWidget(QWidget):
         """)
         self.layout.addWidget(self.title_label)
         
-        # Separator
+        # Separador
         separator = QFrame()
         separator.setFrameShape(QFrame.Shape.HLine)
         separator.setStyleSheet("QFrame { color: #ddd; }")
         self.layout.addWidget(separator)
         
-        # Description
+        # Descripción
         self.description_label = QLabel(f"""
         <h3>{tr("motogp_development")}</h3>
         <p>{tr("motogp_description")}</p>
@@ -64,20 +64,20 @@ class MotoGPTabWidget(QWidget):
         """)
         self.layout.addWidget(self.description_label)
         
-        # Future features list
+        # Lista de características futuras
         self.setup_features_list()
         
-        # Notification button
+        # Botón de notificaciones
         self.setup_notification_section()
         
-        # Spacer
+        # Espaciador
         self.layout.addStretch()
     
     def setup_features_list(self):
-        """Configure future features list"""
+        """Configurar lista de características futuras"""
         features_layout = QVBoxLayout()
         
-        # Create labels for each feature
+        # Crear labels para cada característica
         self.feature_labels = []
         features = tr("motogp_features")
         
@@ -101,7 +101,7 @@ class MotoGPTabWidget(QWidget):
         features_widget.setLayout(features_layout)
         features_widget.setMaximumWidth(500)
         
-        # Center the widget
+        # Centrar el widget
         center_layout = QHBoxLayout()
         center_layout.addStretch()
         center_layout.addWidget(features_widget)
@@ -110,10 +110,10 @@ class MotoGPTabWidget(QWidget):
         self.layout.addLayout(center_layout)
     
     def setup_notification_section(self):
-        """Configure notification section"""
+        """Configurar sección de notificaciones"""
         notification_layout = QVBoxLayout()
         
-        # Section title
+        # Título de la sección
         self.notify_title = QLabel(tr("motogp_notify_title"))
         self.notify_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.notify_title.setStyleSheet(f"""
@@ -126,7 +126,7 @@ class MotoGPTabWidget(QWidget):
         """)
         notification_layout.addWidget(self.notify_title)
         
-        # Informative text
+        # Texto informativo
         self.info_text = QLabel(tr("motogp_notify_text"))
         self.info_text.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.info_text.setWordWrap(True)
@@ -143,7 +143,7 @@ class MotoGPTabWidget(QWidget):
         """)
         notification_layout.addWidget(self.info_text)
         
-        # Action buttons
+        # Botones de acción
         button_layout = QHBoxLayout()
         
         self.f1_button = QPushButton(tr("motogp_go_f1"))
@@ -161,7 +161,7 @@ class MotoGPTabWidget(QWidget):
         
         notification_layout.addLayout(button_layout)
         
-        # Centered container
+        # Contenedor centrado
         notification_widget = QWidget()
         notification_widget.setLayout(notification_layout)
         notification_widget.setMaximumWidth(600)
@@ -174,37 +174,37 @@ class MotoGPTabWidget(QWidget):
         self.layout.addLayout(center_layout)
     
     def switch_to_f1(self):
-        """Switch to F1 tab"""
-        # Emit signal to change tab (will be connected from main_window)
+        """Cambiar a la pestaña de F1"""
+        # Emitir señal para cambiar pestaña (se conectará desde main_window)
         parent_tabs = self.parent()
         if hasattr(parent_tabs, 'setCurrentIndex'):
-            parent_tabs.setCurrentIndex(0)  # F1 tab is first (index 0)
+            parent_tabs.setCurrentIndex(0)  # Pestaña F1 es la primera (índice 0)
     
     def show_roadmap(self):
-        """Show development roadmap"""
+        """Mostrar roadmap de desarrollo"""
         
-        # Build roadmap text with translations
+        # Construir texto del roadmap con traducciones
         roadmap_items = []
         
-        # Phase 1
+        # Fase 1
         roadmap_items.append(tr("roadmap_phase1"))
         for item in tr("roadmap_phase1_items"):
             roadmap_items.append(item)
         roadmap_items.append("")
         
-        # Phase 2
+        # Fase 2
         roadmap_items.append(tr("roadmap_phase2"))
         for item in tr("roadmap_phase2_items"):
             roadmap_items.append(item)
         roadmap_items.append("")
         
-        # Phase 3
+        # Fase 3
         roadmap_items.append(tr("roadmap_phase3"))
         for item in tr("roadmap_phase3_items"):
             roadmap_items.append(item)
         roadmap_items.append("")
         
-        # Phase 4
+        # Fase 4
         roadmap_items.append(tr("roadmap_phase4"))
         for item in tr("roadmap_phase4_items"):
             roadmap_items.append(item)
@@ -214,26 +214,26 @@ class MotoGPTabWidget(QWidget):
         QMessageBox.information(self, tr("roadmap_title"), roadmap_text)
     
     def update_translations(self):
-        """Update translations when language changes"""
-        # Update title
+        """Actualizar traducciones cuando cambia el idioma"""
+        # Actualizar título
         self.title_label.setText(tr("motogp_title"))
         
-        # Update description
+        # Actualizar descripción
         self.description_label.setText(f"""
         <h3>{tr("motogp_development")}</h3>
         <p>{tr("motogp_description")}</p>
         """)
         
-        # Update features
+        # Actualizar características
         features = tr("motogp_features")
         for i, feature_label in enumerate(self.feature_labels):
             if i < len(features):
                 feature_label.setText(features[i])
         
-        # Update notifications
+        # Actualizar notificaciones
         self.notify_title.setText(tr("motogp_notify_title"))
         self.info_text.setText(tr("motogp_notify_text"))
         
-        # Update buttons
+        # Actualizar botones
         self.f1_button.setText(tr("motogp_go_f1"))
         self.roadmap_button.setText(tr("motogp_roadmap"))
