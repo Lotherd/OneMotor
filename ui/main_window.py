@@ -209,7 +209,7 @@ class MainWindow(QMainWindow):
         
         if current_index == 0 and self.f1_tab:
             # Refresh F1
-            self.f1_tab.load_standings()
+            self.f1_tab.load_all_data()
             self.update_status(tr("f1_updating"))
             
         elif current_index == 1:
@@ -224,7 +224,7 @@ class MainWindow(QMainWindow):
         """Automatically load F1 data on startup"""
         if self.f1_tab:
             self.update_status(tr("f1_loading_initial"))
-            self.f1_tab.load_standings()
+            self.f1_tab.load_all_data()
     
     def show_about(self):
         """Show About dialog"""

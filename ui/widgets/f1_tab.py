@@ -1,6 +1,6 @@
 # ui/widgets/f1_tab.py
 """
-Widget for Formula 1 tab with multi-language support - FIXED COLUMN DISPLAY
+Widget for Formula 1 tab with multi-language support - AUTO CALENDAR LOAD
 """
 
 from PyQt6.QtWidgets import (
@@ -73,13 +73,13 @@ class F1TabWidget(QWidget):
         self.setup_calendar_table()
     
     def setup_action_bar(self):
-        """Configure action bar"""
+        """Configure action bar - REMOVED CALENDAR BUTTON"""
         action_layout = QHBoxLayout()
         
         # Refresh button
         self.refresh_button = QPushButton(tr("f1_refresh_button"))
         self.refresh_button.setStyleSheet(AppStyles.get_main_button_style())
-        self.refresh_button.clicked.connect(self.load_standings)
+        self.refresh_button.clicked.connect(self.load_all_data)  # CHANGED: Load all data
         action_layout.addWidget(self.refresh_button)
         
         # Export button (future)
@@ -87,11 +87,6 @@ class F1TabWidget(QWidget):
         self.export_button.setStyleSheet(AppStyles.get_secondary_button_style())
         self.export_button.setEnabled(False)  # Disabled for now
         action_layout.addWidget(self.export_button)
-
-        # Calendar button
-        self.calendar_button = QPushButton(tr("f1_calendar_button"))
-        self.calendar_button.setStyleSheet(AppStyles.get_secondary_button_style())
-        action_layout.addWidget(self.calendar_button)
         
         # Spacer
         action_layout.addStretch()
@@ -193,13 +188,19 @@ class F1TabWidget(QWidget):
         self.calendar_table.setColumnWidth(0, 70)   # Round
         self.calendar_table.setColumnWidth(1, 250)  # GP Name
         self.calendar_table.setColumnWidth(2, 120)  # Date
-        self.calendar_table.setColumnWidth(3, 200)  # Circuit
+        self.calendar_table.setColumnWidth(3, 350)  # Circuit
 
         self.layout.addWidget(self.calendar_table)
     
     def connect_signals(self):
-        """Connect signals"""
-        self.calendar_button.clicked.connect(self.load_calendar)
+        """Connect signals - REMOVED CALENDAR BUTTON CONNECTION"""
+        pass
+    
+    # NEW METHOD: Load both standings and calendar automatically
+    def load_all_data(self):
+        """Load both F1 standings and calendar automatically"""
+        # First load standings, then calendar will load automatically after standings are done
+        self.load_standings()
     
     def load_standings(self):
         """Load F1 standings"""
@@ -212,7 +213,7 @@ class F1TabWidget(QWidget):
         self.data_loader.loading_started.connect(self.on_loading_started)
         self.data_loader.data_loaded.connect(self.on_standings_loaded)
         self.data_loader.error_occurred.connect(self.on_error_occurred)
-        self.data_loader.loading_finished.connect(self.on_loading_finished)
+        self.data_loader.loading_finished.connect(self.on_standings_finished)  # CHANGED: New method
         
         # Start loading
         self.data_loader.start()
@@ -257,11 +258,59 @@ class F1TabWidget(QWidget):
         
         self.status_updated.emit(f"Error: {error_message}")
     
-    def on_loading_finished(self):
-        """Callback when loading finishes"""
+    # NEW METHOD: When standings finish, automatically load calendar
+    def on_standings_finished(self):
+        """Callback when standings loading finishes - AUTO LOAD CALENDAR"""
+        # Don't re-enable the refresh button yet, we're loading calendar next
+        
+        # Auto-load calendar after standings are done
+        if not (self.calendar_loader and self.calendar_loader.isRunning()):
+            self.load_calendar_auto()
+    
+    # NEW METHOD: Auto-load calendar (internal method)
+    def load_calendar_auto(self):
+        """Load race calendar automatically (internal method)"""
+        season = "2025"
+        self.calendar_loader = CalendarLoader(self.data_service, season)
+        self.calendar_loader.loading_started.connect(self.on_calendar_loading)
+        self.calendar_loader.calendar_loaded.connect(self.on_calendar_loaded)
+        self.calendar_loader.error_occurred.connect(self.on_calendar_error)  # CHANGED: Different error handler
+        self.calendar_loader.loading_finished.connect(self.on_all_loading_finished)  # CHANGED: New method
+        self.calendar_loader.start()
+
+    def on_calendar_loading(self):
+        """Callback when calendar loading starts"""
+        self.status_label.setText(tr("f1_calendar_loading"))
+        self.status_label.setStyleSheet(AppStyles.get_status_label_style())
+        self.status_updated.emit(tr("f1_calendar_loading"))
+
+    def on_calendar_loaded(self, races: List[Race]):
+        """Callback when calendar is loaded"""
+        try:
+            self.current_calendar = races
+            self.update_calendar_table(races)
+            msg = tr("f1_calendar_loaded", count=len(races))
+            self.status_label.setText(msg)
+            self.status_label.setStyleSheet(AppStyles.get_success_style())
+            self.status_updated.emit(msg)
+        except Exception as e:
+            logger.error(f"Error updating calendar: {e}")
+            self.on_calendar_error(str(e))
+
+    # NEW METHOD: Handle calendar errors without showing popup
+    def on_calendar_error(self, error_message: str):
+        """Handle calendar loading errors (less intrusive)"""
+        logger.warning(f"Calendar loading failed: {error_message}")
+        # Don't show popup for calendar errors, just log and update status
+        calendar_error_msg = f"Calendar: {error_message}"
+        self.status_updated.emit(f"Standings loaded, {calendar_error_msg}")
+
+    # NEW METHOD: When everything is finished loading
+    def on_all_loading_finished(self):
+        """Callback when all loading (standings + calendar) is finished"""
         self.refresh_button.setEnabled(True)
         self.refresh_button.setText(tr("f1_refresh_button"))
-    
+
     def update_standings_table(self, standings: List[DriverStanding]):
         """Update table with standings - IMPROVED number display"""
         self.standings_table.setRowCount(len(standings))
@@ -325,7 +374,6 @@ class F1TabWidget(QWidget):
         # Update buttons
         self.refresh_button.setText(tr("f1_refresh_button"))
         self.export_button.setText(tr("f1_export_button"))
-        self.calendar_button.setText(tr("f1_calendar_button"))
         
         # Update season
         self.season_label.setText(tr("f1_season"))
@@ -356,41 +404,6 @@ class F1TabWidget(QWidget):
         ]
         self.calendar_table.setHorizontalHeaderLabels(cal_headers)
 
-    def load_calendar(self):
-        """Load race calendar"""
-        if self.calendar_loader and self.calendar_loader.isRunning():
-            logger.warning("Calendar loader already running")
-            return
-
-        season = "2025"
-        self.calendar_loader = CalendarLoader(self.data_service, season)
-        self.calendar_loader.loading_started.connect(self.on_calendar_loading)
-        self.calendar_loader.calendar_loaded.connect(self.on_calendar_loaded)
-        self.calendar_loader.error_occurred.connect(self.on_error_occurred)
-        self.calendar_loader.loading_finished.connect(self.on_calendar_finished)
-        self.calendar_loader.start()
-        self.calendar_button.setEnabled(False)
-
-    def on_calendar_loading(self):
-        self.status_label.setText(tr("f1_calendar_loading"))
-        self.status_label.setStyleSheet(AppStyles.get_status_label_style())
-        self.status_updated.emit(tr("f1_calendar_loading"))
-
-    def on_calendar_loaded(self, races: List[Race]):
-        try:
-            self.current_calendar = races
-            self.update_calendar_table(races)
-            msg = tr("f1_calendar_loaded", count=len(races))
-            self.status_label.setText(msg)
-            self.status_label.setStyleSheet(AppStyles.get_success_style())
-            self.status_updated.emit(msg)
-        except Exception as e:
-            logger.error(f"Error updating calendar: {e}")
-            self.on_error_occurred(str(e))
-
-    def on_calendar_finished(self):
-        self.calendar_button.setEnabled(True)
-
     def update_calendar_table(self, races: List[Race]):
         """Update calendar table with improved formatting"""
         self.calendar_table.setRowCount(len(races))
@@ -399,7 +412,7 @@ class F1TabWidget(QWidget):
             # Round with better formatting
             round_item = QTableWidgetItem(f"  {race.round}  ")
             round_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            round_item.setFont(QFont("", 10, QFont.Weight.Bold))
+            round_item.setFont(QFont("", 12, QFont.Weight.Bold))
             self.calendar_table.setItem(row, 0, round_item)
 
             # Race name
@@ -425,4 +438,4 @@ class F1TabWidget(QWidget):
             self.calendar_table.setItem(row, 4, podium_item)
 
         # Set row height for calendar table
-        self.calendar_table.verticalHeader().setDefaultSectionSize(30)
+        self.calendar_table.verticalHeader().setDefaultSectionSize(35)
