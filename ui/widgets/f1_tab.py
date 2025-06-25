@@ -1,6 +1,6 @@
 # ui/widgets/f1_tab.py
 """
-Widget for Formula 1 tab with multi-language support
+Widget for Formula 1 tab with multi-language support - FIXED COLUMN DISPLAY
 """
 
 from PyQt6.QtWidgets import (
@@ -12,9 +12,10 @@ from PyQt6.QtWidgets import (
     QTableWidget,
     QTableWidgetItem,
     QMessageBox,
+    QHeaderView,
 )
 from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtGui import QFont
+from PyQt6.QtGui import QFont, QColor
 
 from models.driver import DriverStanding
 from models.race import Race
@@ -87,7 +88,6 @@ class F1TabWidget(QWidget):
         self.export_button.setEnabled(False)  # Disabled for now
         action_layout.addWidget(self.export_button)
 
-
         # Calendar button
         self.calendar_button = QPushButton(tr("f1_calendar_button"))
         self.calendar_button.setStyleSheet(AppStyles.get_secondary_button_style())
@@ -111,7 +111,7 @@ class F1TabWidget(QWidget):
         self.layout.addLayout(action_layout)
     
     def setup_standings_table(self):
-        """Configure standings table"""
+        """Configure standings table with improved column handling"""
         self.standings_table = QTableWidget()
         self.standings_table.setColumnCount(7)
         
@@ -135,10 +135,33 @@ class F1TabWidget(QWidget):
         self.standings_table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         self.standings_table.setSortingEnabled(True)
         
+        # FIXED: Better header configuration
+        header = self.standings_table.horizontalHeader()
+        
+        # Set specific column widths that work better
+        header.setMinimumSectionSize(60)  # Minimum width for any column
+        
+        # Set resize modes for better column behavior
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.Fixed)         # Position - Fixed width
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.Interactive)   # Driver - User can resize
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.Interactive)   # Team - User can resize  
+        header.setSectionResizeMode(3, QHeaderView.ResizeMode.Fixed)         # Points - Fixed width
+        header.setSectionResizeMode(4, QHeaderView.ResizeMode.Fixed)         # Wins - Fixed width
+        header.setSectionResizeMode(5, QHeaderView.ResizeMode.Stretch)       # Nationality - Fill remaining
+        header.setSectionResizeMode(6, QHeaderView.ResizeMode.Fixed)         # Code - Fixed width
+        
+        # Set specific column widths
+        self.standings_table.setColumnWidth(0, 60)   # Position - wider for better visibility
+        self.standings_table.setColumnWidth(1, 220)  # Driver - wider for full names
+        self.standings_table.setColumnWidth(2, 180)  # Team
+        self.standings_table.setColumnWidth(3, 80)   # Points
+        self.standings_table.setColumnWidth(4, 80)   # Wins
+        self.standings_table.setColumnWidth(6, 80)   # Code
+        
         self.layout.addWidget(self.standings_table)
 
     def setup_calendar_table(self):
-        """Configure race calendar table"""
+        """Configure race calendar table with improved column handling"""
         self.calendar_table = QTableWidget()
         self.calendar_table.setColumnCount(5)
 
@@ -154,6 +177,23 @@ class F1TabWidget(QWidget):
         self.calendar_table.setAlternatingRowColors(True)
         self.calendar_table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         self.calendar_table.setSortingEnabled(False)
+
+        # FIXED: Better calendar table column configuration
+        cal_header = self.calendar_table.horizontalHeader()
+        cal_header.setMinimumSectionSize(60)
+        
+        # Set resize modes
+        cal_header.setSectionResizeMode(0, QHeaderView.ResizeMode.Fixed)       # Round
+        cal_header.setSectionResizeMode(1, QHeaderView.ResizeMode.Interactive) # GP Name
+        cal_header.setSectionResizeMode(2, QHeaderView.ResizeMode.Fixed)       # Date
+        cal_header.setSectionResizeMode(3, QHeaderView.ResizeMode.Interactive) # Circuit
+        cal_header.setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)     # Podium
+        
+        # Set specific widths
+        self.calendar_table.setColumnWidth(0, 70)   # Round
+        self.calendar_table.setColumnWidth(1, 250)  # GP Name
+        self.calendar_table.setColumnWidth(2, 120)  # Date
+        self.calendar_table.setColumnWidth(3, 200)  # Circuit
 
         self.layout.addWidget(self.calendar_table)
     
@@ -223,55 +263,59 @@ class F1TabWidget(QWidget):
         self.refresh_button.setText(tr("f1_refresh_button"))
     
     def update_standings_table(self, standings: List[DriverStanding]):
-        """Update table with standings"""
+        """Update table with standings - IMPROVED number display"""
         self.standings_table.setRowCount(len(standings))
         
         for row, standing in enumerate(standings):
-            # Position
-            pos_item = QTableWidgetItem(str(standing.position))
+            # FIXED: Position with better formatting and alignment
+            pos_item = QTableWidgetItem(f"  {standing.position}  ")  # Add padding spaces
             pos_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            pos_item.setFont(QFont("", 0, QFont.Weight.Bold))
+            pos_item.setFont(QFont("", 12, QFont.Weight.Bold))  # Slightly larger font
+            # Set background color for position to make it stand out
+            if standing.position <= 3:
+                # Podium positions with special colors
+                colors = [QColor("#FFD700"), QColor("#C0C0C0"), QColor("#CD7F32")]  # Gold, Silver, Bronze
+                pos_item.setBackground(colors[standing.position - 1])
             self.standings_table.setItem(row, 0, pos_item)
             
             # Driver
             driver_item = QTableWidgetItem(standing.driver.full_name)
-            driver_item.setFont(QFont("", 0, QFont.Weight.Bold))
+            driver_item.setFont(QFont("", 10, QFont.Weight.Bold))
             self.standings_table.setItem(row, 1, driver_item)
             
             # Team
             team_name = standing.constructors[0].name if standing.constructors else "N/A"
-            self.standings_table.setItem(row, 2, QTableWidgetItem(team_name))
+            team_item = QTableWidgetItem(team_name)
+            team_item.setFont(QFont("", 10))
+            self.standings_table.setItem(row, 2, team_item)
             
             # Points
-            points_item = QTableWidgetItem(str(int(standing.points)))
+            points_item = QTableWidgetItem(f"{int(standing.points)}")
             points_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            points_item.setFont(QFont("", 0, QFont.Weight.Bold))
+            points_item.setFont(QFont("", 10, QFont.Weight.Bold))
             self.standings_table.setItem(row, 3, points_item)
             
             # Wins
             wins_item = QTableWidgetItem(str(standing.wins))
             wins_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            wins_item.setFont(QFont("", 10))
             self.standings_table.setItem(row, 4, wins_item)
             
             # Nationality
-            self.standings_table.setItem(row, 5, QTableWidgetItem(standing.driver.nationality))
+            nat_item = QTableWidgetItem(standing.driver.nationality)
+            nat_item.setFont(QFont("", 10))
+            self.standings_table.setItem(row, 5, nat_item)
             
             # Code
             code = standing.driver.code or "N/A"
             code_item = QTableWidgetItem(code)
             code_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            code_item.setFont(QFont("", 10, QFont.Weight.Bold))
             self.standings_table.setItem(row, 6, code_item)
         
-        # Resize columns
-        self.standings_table.resizeColumnsToContents()
-        
-        # Set minimum width for important columns
-        self.standings_table.setColumnWidth(0, 50)   # Position
-        self.standings_table.setColumnWidth(1, 200)  # Driver
-        self.standings_table.setColumnWidth(2, 180)  # Team
-        self.standings_table.setColumnWidth(3, 80)   # Points
-        self.standings_table.setColumnWidth(4, 80)   # Wins
-        self.standings_table.setColumnWidth(6, 80)   # Code
+        # FIXED: Don't auto-resize after setting data, keep our fixed widths
+        # Just adjust the row heights for better readability
+        self.standings_table.verticalHeader().setDefaultSectionSize(35)
     
     def update_translations(self):
         """Update translations when language changes"""
@@ -348,17 +392,37 @@ class F1TabWidget(QWidget):
         self.calendar_button.setEnabled(True)
 
     def update_calendar_table(self, races: List[Race]):
+        """Update calendar table with improved formatting"""
         self.calendar_table.setRowCount(len(races))
+        
         for row, race in enumerate(races):
-            round_item = QTableWidgetItem(str(race.round))
+            # Round with better formatting
+            round_item = QTableWidgetItem(f"  {race.round}  ")
             round_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            round_item.setFont(QFont("", 10, QFont.Weight.Bold))
             self.calendar_table.setItem(row, 0, round_item)
 
-            self.calendar_table.setItem(row, 1, QTableWidgetItem(race.race_name))
-            self.calendar_table.setItem(row, 2, QTableWidgetItem(race.date))
-            self.calendar_table.setItem(row, 3, QTableWidgetItem(race.circuit))
+            # Race name
+            name_item = QTableWidgetItem(race.race_name)
+            name_item.setFont(QFont("", 10, QFont.Weight.Bold))
+            self.calendar_table.setItem(row, 1, name_item)
+            
+            # Date
+            date_item = QTableWidgetItem(race.date)
+            date_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            date_item.setFont(QFont("", 10))
+            self.calendar_table.setItem(row, 2, date_item)
+            
+            # Circuit
+            circuit_item = QTableWidgetItem(race.circuit)
+            circuit_item.setFont(QFont("", 10))
+            self.calendar_table.setItem(row, 3, circuit_item)
 
+            # Podium
             podium_text = ", ".join(race.podium) if race.podium else "TBD"
-            self.calendar_table.setItem(row, 4, QTableWidgetItem(podium_text))
+            podium_item = QTableWidgetItem(podium_text)
+            podium_item.setFont(QFont("", 9))  # Slightly smaller font for podium
+            self.calendar_table.setItem(row, 4, podium_item)
 
-        self.calendar_table.resizeColumnsToContents()
+        # Set row height for calendar table
+        self.calendar_table.verticalHeader().setDefaultSectionSize(30)
