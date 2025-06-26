@@ -81,15 +81,16 @@ class AppConfig:
     
     # Card Configuration
     CARD_CONFIG = {
-        'card_size': (500, 650),  # Width, Height
-        'card_border_radius': 30,
+         # Larger sizing for a more prominent look
+        'card_size': (600, 780),  # Width, Height
+        'card_border_radius': 40,
         'card_border_width': 3,
-        'card_shadow_blur': 30,
+        'card_shadow_blur': 40,
         'card_shadow_offset': (0, 12),  # X, Y
-        'card_hover_shadow_blur': 40,
+        'card_hover_shadow_blur': 50,
         'card_hover_shadow_offset': (0, 18),
-        'card_spacing': 80,  # Space between cards
-        'card_margins': (80, 80, 80, 80)  # Top, Right, Bottom, Left
+        'card_spacing': 100,  # Space between cards
+        'card_margins': (90, 90, 90, 90)  # Top, Right, Bottom, Left
     }
     
     # Window Configuration
