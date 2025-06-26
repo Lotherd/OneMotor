@@ -225,9 +225,9 @@ class ModernMotorsportCard(QFrame):
         """Setup modern gradient styles with larger card styling"""
         self.setStyleSheet(f"""
             ModernMotorsportCard {{
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                            stop:0 {self.gradient_start},
-                            stop:1 {self.gradient_end});
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 #2c2c2c, 
+                            stop:1 #1a1a1a);
                 border: 3px solid {self.primary_color};
                 border-radius: 30px;
             }}
@@ -236,10 +236,10 @@ class ModernMotorsportCard(QFrame):
     def add_shadow_effect(self):
         """Add enhanced drop shadow effect for larger cards"""
         shadow = QGraphicsDropShadowEffect()
-        shadow.setBlurRadius(40)  # Increased blur for larger cards
+        shadow.setBlurRadius(30)  # Increased blur for larger cards
         shadow.setXOffset(0)
-        shadow.setYOffset(12)
-        shadow.setColor(QColor(0, 0, 0, 180))
+        shadow.setYOffset(12)  # Slightly more offset
+        shadow.setColor(QColor(0, 0, 0, 180))  # Stronger shadow
         self.setGraphicsEffect(shadow)
     
     def enterEvent(self, event):
@@ -249,17 +249,17 @@ class ModernMotorsportCard(QFrame):
         # Enhanced hover effects
         self.setStyleSheet(f"""
             ModernMotorsportCard {{
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                            stop:0 {self.gradient_end},
-                            stop:1 {self.hover_color});
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 #3c3c3c, 
+                            stop:1 #2a2a2a);
                 border: 3px solid {self.hover_color};
-                border-radius: 40px;
+                border-radius: 30px;
             }}
         """)
         
         # Enhanced shadow on hover
         shadow = QGraphicsDropShadowEffect()
-        shadow.setBlurRadius(50)
+        shadow.setBlurRadius(40)
         shadow.setXOffset(0)
         shadow.setYOffset(18)
         shadow.setColor(QColor(255, 255, 255, 80))  # Brighter glow
@@ -274,11 +274,11 @@ class ModernMotorsportCard(QFrame):
         # Reset to original visual state
         self.setStyleSheet(f"""
             ModernMotorsportCard {{
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                            stop:0 {self.gradient_start},
-                            stop:1 {self.gradient_end});
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 #2c2c2c, 
+                            stop:1 #1a1a1a);
                 border: 3px solid {self.primary_color};
-                border-radius: 40px;
+                border-radius: 30px;
             }}
         """)
         
@@ -292,11 +292,11 @@ class ModernMotorsportCard(QFrame):
             # Visual feedback
             self.setStyleSheet(f"""
                 ModernMotorsportCard {{
-                   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                                stop:0 {self.darken_color(self.gradient_start)},
-                                stop:1 {self.darken_color(self.gradient_end)});
+                    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #1c1c1c, 
+                                stop:1 #0a0a0a);
                     border: 3px solid {self.hover_color};
-                    border-radius: 40px;
+                    border-radius: 30px;
                 }}
             """)
             
@@ -310,11 +310,11 @@ class ModernMotorsportCard(QFrame):
         if self.is_hovered:
             self.setStyleSheet(f"""
                 ModernMotorsportCard {{
-                    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                                stop:0 {self.gradient_end},
-                                stop:1 {self.hover_color});
+                    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #3c3c3c, 
+                                stop:1 #2a2a2a);
                     border: 3px solid {self.hover_color};
-                    border-radius: 40px;
+                    border-radius: 30px;
                 }}
             """)
 
@@ -588,13 +588,14 @@ class MainWindow(QMainWindow):
         lighter_color = QColor.fromHsv(h, s, v, a)
         return lighter_color.name()
     
-    def darken_color(self, color_hex: str) -> str:
-        """Darken a color regardless of specific mapping"""
-        color = QColor(color_hex)
-        h, s, v, a = color.getHsv()
-        v = max(0, int(v * 0.7))
-        darker_color = QColor.fromHsv(h, s, v, a)
-        return darker_color.name()
+    def darken_color(self, color: str) -> str:
+        """Darken a color"""
+        color_map = {
+            "#e10600": "#b30500",
+            "#0066cc": "#004499",
+            "#ff6600": "#cc5200"
+        }
+        return color_map.get(color, color)
     
     def setup_minimal_menu(self):
         """Setup modern menu bar with dark theme"""

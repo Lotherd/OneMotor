@@ -2446,3 +2446,470 @@ TypeError: arguments did not match any overloaded call:
 2025-06-26 11:52:51,869 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/22/results.json
 2025-06-26 11:52:52,166 - __main__ - INFO - Application exited with code: 0
 2025-06-26 11:52:52,434 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-26 12:16:38,507 - __main__ - INFO - Logging system initialized
+2025-06-26 12:16:38,508 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 12:16:38,509 - __main__ - INFO - Application directories created
+2025-06-26 12:16:38,560 - __main__ - INFO - Qt application configured
+2025-06-26 12:16:39,231 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 12:16:39,231 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 12:16:39,249 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 12:16:39,309 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 12:16:39,315 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 12:16:39,359 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 12:16:39,366 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 12:16:39,387 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 12:16:39,878 - __main__ - INFO - Main window created and shown
+2025-06-26 12:16:39,879 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 12:16:40,443 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 12:16:41,443 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 12:16:51,551 - services.api_client - ERROR - Request failed for http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000001DB9D8AE660>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 12:16:51,551 - services.api_client - ERROR - Request failed for http://api.jolpi.ca/ergast/f1/2025.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000001DB9FA6D1D0>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 12:16:51,552 - services.api_client - WARNING - Attempt 1 failed with http://api.jolpi.ca/ergast/f1: Error accessing http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000001DB9D8AE660>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 12:16:51,552 - services.api_client - WARNING - Attempt 1 failed with http://api.jolpi.ca/ergast/f1: Error accessing http://api.jolpi.ca/ergast/f1/2025.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000001DB9FA6D1D0>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 12:16:51,553 - services.api_client - WARNING - Switching to endpoint: https://api.jolpi.ca/ergast/f1
+2025-06-26 12:16:51,553 - services.api_client - WARNING - Switching to endpoint: https://openf1.org/v1
+2025-06-26 12:16:51,554 - services.api_client - INFO - Retrying with endpoint: https://openf1.org/v1
+2025-06-26 12:16:51,554 - services.api_client - INFO - Retrying with endpoint: https://openf1.org/v1
+2025-06-26 12:16:51,554 - services.api_client - INFO - GET request to: https://openf1.org/v1/drivers
+2025-06-26 12:16:51,983 - services.api_client - ERROR - Request failed for https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-26 12:16:51,983 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-26 12:16:51,984 - services.api_client - WARNING - Attempt 2 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-26 12:16:51,984 - services.data_service - ERROR - Error getting F1 standings: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-26 12:16:51,984 - services.data_service - ERROR - Connection error: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-26 12:16:52,554 - services.api_client - INFO - GET request to: https://openf1.org/v1/2025.json
+2025-06-26 12:16:52,838 - services.api_client - ERROR - Request failed for https://openf1.org/v1/2025.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025.json
+2025-06-26 12:16:52,839 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/2025.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025.json
+2025-06-26 12:16:52,840 - services.api_client - WARNING - Attempt 2 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/2025.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025.json
+2025-06-26 12:16:52,840 - services.data_service - ERROR - Error getting race calendar: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/2025.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025.json
+2025-06-26 12:16:52,841 - services.data_service - ERROR - Connection error: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/2025.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025.json
+2025-06-26 12:18:21,201 - __main__ - INFO - Application exited with code: 0
+2025-06-26 12:40:56,064 - __main__ - INFO - Logging system initialized
+2025-06-26 12:40:56,065 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 12:40:56,066 - __main__ - INFO - Application directories created
+2025-06-26 12:40:56,125 - __main__ - INFO - Qt application configured
+2025-06-26 12:40:56,899 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 12:40:56,899 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 12:40:56,927 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 12:40:57,001 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 12:40:57,005 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 12:40:57,047 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 12:40:57,051 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 12:40:57,065 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 12:40:57,577 - __main__ - INFO - Main window created and shown
+2025-06-26 12:40:57,578 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 12:40:57,700 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 12:40:58,700 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 12:40:58,850 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 12:40:58,851 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-26 12:40:59,129 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 12:40:59,701 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 12:41:00,246 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 12:41:00,702 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 12:41:01,205 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 12:41:01,703 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 12:41:02,512 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 12:41:02,703 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 12:41:03,413 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 12:41:03,703 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 12:41:04,236 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 12:41:04,704 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 12:41:05,244 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 12:41:05,704 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 12:41:06,232 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 12:41:06,705 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 12:41:07,205 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 12:41:07,705 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 12:41:08,211 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 12:41:08,706 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-26 12:41:09,411 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-26 12:41:09,707 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-26 12:41:10,360 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-26 12:41:10,707 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-26 12:41:11,146 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-26 12:41:11,708 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-26 12:41:12,341 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-26 12:41:12,709 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-26 12:41:13,154 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-26 12:41:13,709 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-26 12:41:14,334 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-26 12:41:14,710 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-26 12:41:15,150 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-26 12:41:15,711 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-26 12:41:16,150 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-26 12:41:16,712 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-26 12:41:17,150 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-26 12:41:17,713 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-26 12:41:18,337 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-26 12:41:18,713 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-26 12:41:19,155 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-26 12:41:19,714 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-26 12:41:20,155 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-26 12:41:20,714 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-26 12:41:21,333 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-26 12:41:21,715 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-26 12:41:22,153 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-26 12:41:22,715 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-26 12:41:23,172 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-26 12:41:23,173 - services.data_service - INFO - Loaded 24 races for 2025
+2025-06-26 12:41:29,493 - __main__ - INFO - Application exited with code: 0
+2025-06-26 12:45:08,215 - __main__ - INFO - Logging system initialized
+2025-06-26 12:45:08,216 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 12:45:08,216 - __main__ - INFO - Application directories created
+2025-06-26 12:45:08,270 - __main__ - INFO - Qt application configured
+2025-06-26 12:45:09,132 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 12:45:09,133 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 12:45:09,153 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 12:45:09,208 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 12:45:09,211 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 12:45:09,251 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 12:45:09,254 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 12:45:09,269 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 12:45:09,708 - __main__ - INFO - Main window created and shown
+2025-06-26 12:45:09,709 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 12:45:10,472 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 12:45:11,473 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 12:45:11,607 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 12:45:11,608 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-26 12:45:11,910 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 12:45:12,473 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 12:45:12,906 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 12:45:13,474 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 12:45:13,901 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 12:45:14,474 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 12:45:14,903 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 12:45:15,475 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 12:45:15,902 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 12:45:16,475 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 12:45:16,905 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 12:45:17,476 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 12:45:17,901 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 12:45:18,476 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 12:45:18,902 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 12:45:19,477 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 12:45:19,905 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 12:45:20,478 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 12:45:20,906 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 12:45:21,478 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-26 12:45:21,905 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-26 12:45:22,479 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-26 12:45:22,907 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-26 12:45:23,480 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-26 12:45:23,906 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-26 12:45:24,481 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-26 12:45:24,906 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-26 12:45:25,481 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-26 12:45:25,515 - __main__ - INFO - Application exited with code: 0
+2025-06-26 12:45:55,417 - __main__ - INFO - Logging system initialized
+2025-06-26 12:45:55,418 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 12:45:55,419 - __main__ - INFO - Application directories created
+2025-06-26 12:45:55,472 - __main__ - INFO - Qt application configured
+2025-06-26 12:45:56,203 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 12:45:56,204 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 12:45:56,228 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 12:45:56,288 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 12:45:56,292 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 12:45:56,348 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 12:45:56,356 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 12:45:56,379 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 12:45:56,854 - __main__ - INFO - Main window created and shown
+2025-06-26 12:45:56,855 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 12:45:57,482 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 12:45:58,482 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 12:45:58,577 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 12:45:58,579 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-26 12:45:58,909 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 12:45:59,296 - __main__ - INFO - Application exited with code: 0
+2025-06-26 12:45:59,483 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 12:56:06,361 - __main__ - INFO - Logging system initialized
+2025-06-26 12:56:06,361 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 12:56:06,362 - __main__ - INFO - Application directories created
+2025-06-26 12:56:06,419 - __main__ - INFO - Qt application configured
+2025-06-26 12:56:07,223 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 12:56:07,224 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 12:56:07,250 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 12:56:07,317 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 12:56:07,321 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 12:56:07,369 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 12:56:07,374 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 12:56:07,394 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 12:56:07,900 - __main__ - INFO - Main window created and shown
+2025-06-26 12:56:07,900 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 12:56:08,580 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 12:56:09,581 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 12:56:09,696 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 12:56:09,697 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-26 12:56:10,031 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 12:56:10,581 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 12:56:11,016 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 12:56:11,582 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 12:56:12,008 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 12:56:12,583 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 12:56:13,012 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 12:56:13,584 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 12:56:14,018 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 12:56:14,584 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 12:56:15,012 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 12:56:15,584 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 12:56:16,013 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 12:56:16,585 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 12:56:17,010 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 12:56:17,585 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 12:56:18,012 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 12:56:18,586 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 12:56:19,013 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 12:56:19,586 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-26 12:56:20,014 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-26 12:56:20,587 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-26 12:56:21,016 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-26 12:56:21,587 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-26 12:56:22,014 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-26 12:56:22,588 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-26 12:56:23,016 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-26 12:56:23,588 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-26 12:56:24,013 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-26 12:56:24,589 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-26 12:56:25,014 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-26 12:56:25,589 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-26 12:56:26,015 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-26 12:56:26,590 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-26 12:56:27,016 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-26 12:56:27,591 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-26 12:56:28,016 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-26 12:56:28,591 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-26 12:56:29,017 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-26 12:56:29,591 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-26 12:56:30,017 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-26 12:56:30,591 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-26 12:56:31,017 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-26 12:56:31,592 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-26 12:56:32,017 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-26 12:56:32,593 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-26 12:56:33,019 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-26 12:56:33,593 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-26 12:56:34,023 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-26 12:56:34,023 - services.data_service - INFO - Loaded 24 races for 2025
+2025-06-26 12:58:32,365 - __main__ - INFO - Application exited with code: 0
+2025-06-26 13:04:12,968 - __main__ - INFO - Logging system initialized
+2025-06-26 13:04:12,968 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 13:04:12,969 - __main__ - INFO - Application directories created
+2025-06-26 13:04:13,020 - __main__ - INFO - Qt application configured
+2025-06-26 13:04:13,713 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 13:04:13,714 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 13:04:13,737 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 13:04:13,802 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 13:04:13,806 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 13:04:13,850 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 13:04:13,854 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 13:04:13,872 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 13:04:14,384 - __main__ - INFO - Main window created and shown
+2025-06-26 13:04:14,385 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 13:04:14,452 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 13:04:15,453 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 13:04:15,568 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 13:04:15,569 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-26 13:04:15,886 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 13:04:16,453 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 13:04:16,880 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 13:04:17,453 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 13:04:17,881 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 13:04:18,454 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 13:04:18,883 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 13:04:19,454 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 13:04:19,883 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 13:04:20,454 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 13:04:20,883 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 13:04:21,454 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 13:04:21,882 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 13:04:22,454 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 13:04:22,881 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 13:04:23,455 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 13:04:23,883 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 13:04:24,455 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 13:04:24,797 - __main__ - INFO - Application exited with code: 0
+2025-06-26 13:04:24,891 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 13:04:55,516 - __main__ - INFO - Logging system initialized
+2025-06-26 13:04:55,516 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 13:04:55,517 - __main__ - INFO - Application directories created
+2025-06-26 13:04:55,562 - __main__ - INFO - Qt application configured
+2025-06-26 13:04:56,244 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 13:04:56,246 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 13:04:56,273 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 13:04:56,337 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 13:04:56,344 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 13:04:56,391 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 13:04:56,396 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 13:04:56,412 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 13:04:56,826 - __main__ - INFO - Main window created and shown
+2025-06-26 13:04:56,827 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 13:04:57,536 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 13:04:58,537 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 13:04:58,687 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 13:04:58,688 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-26 13:04:58,965 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 13:04:59,538 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 13:04:59,576 - __main__ - INFO - Application exited with code: 0
+2025-06-26 13:16:05,285 - __main__ - INFO - Logging system initialized
+2025-06-26 13:16:05,286 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 13:16:05,287 - __main__ - INFO - Application directories created
+2025-06-26 13:16:05,355 - __main__ - INFO - Qt application configured
+2025-06-26 13:16:06,024 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 13:16:06,024 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 13:16:06,042 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 13:16:06,099 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 13:16:06,103 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 13:16:06,148 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 13:16:06,152 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 13:16:06,171 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 13:16:06,733 - __main__ - INFO - Main window created and shown
+2025-06-26 13:16:06,733 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 13:16:06,760 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 13:16:07,761 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 13:16:17,835 - services.api_client - ERROR - Request failed for http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002BE5C64E900>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 13:16:17,835 - services.api_client - ERROR - Request failed for http://api.jolpi.ca/ergast/f1/2025.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002BE5E8091D0>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 13:16:17,837 - services.api_client - WARNING - Attempt 1 failed with http://api.jolpi.ca/ergast/f1: Error accessing http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002BE5C64E900>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 13:16:17,837 - services.api_client - WARNING - Attempt 1 failed with http://api.jolpi.ca/ergast/f1: Error accessing http://api.jolpi.ca/ergast/f1/2025.json: HTTPConnectionPool(host='api.jolpi.ca', port=80): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002BE5E8091D0>: Failed to resolve 'api.jolpi.ca' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 13:16:17,838 - services.api_client - WARNING - Switching to endpoint: https://api.jolpi.ca/ergast/f1
+2025-06-26 13:16:17,838 - services.api_client - WARNING - Switching to endpoint: https://openf1.org/v1
+2025-06-26 13:16:17,839 - services.api_client - INFO - Retrying with endpoint: https://openf1.org/v1
+2025-06-26 13:16:17,839 - services.api_client - INFO - Retrying with endpoint: https://openf1.org/v1
+2025-06-26 13:16:17,839 - services.api_client - INFO - GET request to: https://openf1.org/v1/drivers
+2025-06-26 13:16:17,864 - services.api_client - ERROR - Request failed for https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-26 13:16:17,865 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-26 13:16:17,865 - services.api_client - WARNING - Attempt 2 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-26 13:16:17,866 - services.data_service - ERROR - Error getting F1 standings: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-26 13:16:17,867 - services.data_service - ERROR - Connection error: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-26 13:16:18,840 - services.api_client - INFO - GET request to: https://openf1.org/v1/2025.json
+2025-06-26 13:16:18,848 - services.api_client - ERROR - Request failed for https://openf1.org/v1/2025.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025.json
+2025-06-26 13:16:18,848 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/2025.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025.json
+2025-06-26 13:16:18,849 - services.api_client - WARNING - Attempt 2 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/2025.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025.json
+2025-06-26 13:16:18,849 - services.data_service - ERROR - Error getting race calendar: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/2025.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025.json
+2025-06-26 13:16:18,849 - services.data_service - ERROR - Connection error: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/2025.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025.json
+2025-06-26 13:18:34,856 - __main__ - INFO - Application exited with code: 0
+2025-06-26 13:18:39,607 - __main__ - INFO - Logging system initialized
+2025-06-26 13:18:39,608 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 13:18:39,610 - __main__ - INFO - Application directories created
+2025-06-26 13:18:39,700 - __main__ - INFO - Qt application configured
+2025-06-26 13:18:40,644 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 13:18:40,645 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 13:18:40,671 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 13:18:40,747 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 13:18:40,751 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 13:18:40,803 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 13:18:40,806 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 13:18:40,825 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 13:18:41,299 - __main__ - INFO - Main window created and shown
+2025-06-26 13:18:41,299 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 13:18:41,953 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 13:18:42,953 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 13:18:43,061 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 13:18:43,062 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-26 13:18:43,387 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 13:18:43,954 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 13:18:44,382 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 13:18:44,955 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 13:18:45,383 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 13:18:56,714 - __main__ - INFO - Logging system initialized
+2025-06-26 13:18:56,714 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 13:18:56,716 - __main__ - INFO - Application directories created
+2025-06-26 13:18:56,781 - __main__ - INFO - Qt application configured
+2025-06-26 13:18:57,491 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 13:18:57,492 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 13:18:57,525 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 13:18:57,586 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 13:18:57,591 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 13:18:57,634 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 13:18:57,638 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 13:18:57,658 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 13:18:58,116 - __main__ - INFO - Main window created and shown
+2025-06-26 13:18:58,117 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 13:18:58,819 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 13:18:59,820 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 13:18:59,943 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 13:18:59,944 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-26 13:19:00,252 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 13:19:00,820 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 13:19:01,247 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 13:19:50,046 - __main__ - INFO - Logging system initialized
+2025-06-26 13:19:50,047 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 13:19:50,047 - __main__ - INFO - Application directories created
+2025-06-26 13:19:50,096 - __main__ - INFO - Qt application configured
+2025-06-26 13:19:50,829 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 13:19:50,830 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 13:19:50,851 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 13:19:50,917 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 13:19:50,922 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 13:19:50,973 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 13:19:50,977 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 13:19:50,992 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 13:19:51,438 - __main__ - INFO - Main window created and shown
+2025-06-26 13:19:51,439 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 13:19:52,248 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 13:20:20,185 - __main__ - INFO - Logging system initialized
+2025-06-26 13:20:20,186 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 13:20:20,187 - __main__ - INFO - Application directories created
+2025-06-26 13:20:20,259 - __main__ - INFO - Qt application configured
+2025-06-26 13:20:21,212 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 13:20:21,214 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 13:20:21,241 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 13:20:21,319 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 13:20:21,327 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 13:20:21,391 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 13:20:21,394 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 13:20:21,418 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 13:20:22,071 - __main__ - INFO - Main window created and shown
+2025-06-26 13:20:22,073 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 13:20:22,157 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 13:20:23,157 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 13:20:23,279 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 13:20:23,281 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-26 13:20:23,592 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 13:20:24,157 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 13:20:24,591 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 13:20:25,158 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 13:20:25,593 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 13:20:26,158 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 13:20:26,591 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 13:20:27,159 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 13:20:27,587 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 13:20:28,159 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 13:20:28,590 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 13:20:29,160 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 13:20:29,588 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 13:20:30,161 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 13:20:30,589 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 13:20:31,162 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 13:20:31,591 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 13:20:32,162 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 13:20:32,591 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 13:20:33,163 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-26 13:20:33,593 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-26 13:20:34,164 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-26 13:20:34,591 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-26 13:20:35,164 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-26 13:20:35,610 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-26 13:20:36,164 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-26 13:20:36,591 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-26 13:20:37,165 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-26 13:20:37,592 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-26 13:20:38,166 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-26 13:20:38,595 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-26 13:20:39,167 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-26 13:20:39,597 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-26 13:20:40,167 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-26 13:20:40,593 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-26 13:20:41,168 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-26 13:20:41,597 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-26 13:20:42,168 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-26 13:20:42,596 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-26 13:20:43,169 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-26 13:20:43,594 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-26 13:20:44,169 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-26 13:20:44,595 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-26 13:20:45,169 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-26 13:20:45,596 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-26 13:20:46,170 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-26 13:20:46,597 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-26 13:20:47,171 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-26 13:20:47,598 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-26 13:20:47,599 - services.data_service - INFO - Loaded 24 races for 2025
+2025-06-26 13:21:03,486 - __main__ - INFO - Application exited with code: 0
