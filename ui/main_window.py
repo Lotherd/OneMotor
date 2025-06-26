@@ -1,13 +1,13 @@
-# ui/main_window.py
 """
-Enhanced main application window with official logos and modern colorful card design
+Enhanced main application window with properly sized cards and high-quality logo rendering
 """
 
 import logging
 from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
                             QLabel, QPushButton, QFrame, QStackedWidget,
-                            QMessageBox, QSizePolicy, QGraphicsDropShadowEffect)
-from PyQt6.QtCore import Qt, QTimer, pyqtSignal, QPropertyAnimation, QEasingCurve, QRect
+                            QMessageBox, QSizePolicy, QGraphicsDropShadowEffect,
+                            QApplication)
+from PyQt6.QtCore import Qt, QTimer, pyqtSignal, QPropertyAnimation, QEasingCurve, QRect, QSize
 from PyQt6.QtGui import (QAction, QFont, QPixmap, QPainter, QPainterPath, QBrush, 
                         QColor, QLinearGradient, QPen)
 import os
@@ -16,11 +16,12 @@ from config.settings import AppConfig
 from ui.widgets.f1_tab import F1TabWidget
 from ui.widgets.motogp_tab import MotoGPTabWidget
 from utils.i18n import tr, get_translation_manager, set_language
+from utils.image_utils import ImageUtils
 
 logger = logging.getLogger(__name__)
 
 class ModernMotorsportCard(QFrame):
-    """Modern colorful card widget with official motorsport branding"""
+    """Large modern motorsport card with high-quality logo rendering"""
     
     clicked = pyqtSignal()
     
@@ -33,7 +34,6 @@ class ModernMotorsportCard(QFrame):
         self.setup_series_colors()
         self.setup_ui(title)
         self.setup_styles()
-        self.setup_animations()
         self.add_shadow_effect()
     
     def setup_series_colors(self):
@@ -46,7 +46,7 @@ class ModernMotorsportCard(QFrame):
             self.hover_color = "#ff1a0a"
             self.accent_color = "#ffffff"
             self.logo_path = "logo/f1_logo.png"
-        else:  # motogp - Changed to BLUE theme
+        else:  # motogp - Blue theme
             self.primary_color = "#0066cc"
             self.secondary_color = "#3388ff"
             self.gradient_start = "#0066cc"
@@ -56,8 +56,10 @@ class ModernMotorsportCard(QFrame):
             self.logo_path = "logo/motogp_logo.png"
     
     def setup_ui(self, title: str):
-        """Setup modern card UI with official logos"""
-        self.setFixedSize(380, 520)  # Taller cards like the reference
+        """Setup large modern card UI with high-quality logos"""
+        # Get card size from configuration
+        card_width, card_height = AppConfig.get_card_size()
+        self.setFixedSize(card_width, card_height)
         self.setCursor(Qt.CursorShape.PointingHandCursor)
         
         layout = QVBoxLayout(self)
@@ -67,14 +69,14 @@ class ModernMotorsportCard(QFrame):
         # Create main content widget
         content_widget = QWidget()
         content_layout = QVBoxLayout(content_widget)
-        content_layout.setContentsMargins(30, 50, 30, 50)
-        content_layout.setSpacing(40)
+        content_layout.setContentsMargins(40, 60, 40, 60)
+        content_layout.setSpacing(50)
         
-        # Logo area - Official logos (moved to top, larger)
+        # Logo area - High-quality official logos
         logo_layout = QVBoxLayout()
         logo_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
-        self.logo_widget = self.create_official_logo()
+        self.logo_widget = self.create_high_quality_logo()
         logo_layout.addWidget(self.logo_widget)
         
         content_layout.addLayout(logo_layout)
@@ -82,35 +84,36 @@ class ModernMotorsportCard(QFrame):
         # Add spacer to push content to center
         content_layout.addStretch(1)
         
-        # Title with modern styling (larger and more prominent)
+        # Title with configuration-based sizing
+        font_config = AppConfig.get_font_config()
         self.title_label = QLabel(title)
         self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.title_label.setStyleSheet(f"""
             QLabel {{
-                font-size: 32px;
+                font-size: {font_config['card_title_size']}px;
                 font-weight: 700;
                 color: {self.accent_color};
                 background: transparent;
-                letter-spacing: 2px;
-                padding: 20px 15px;
-                margin: 10px 0;
+                letter-spacing: 3px;
+                padding: 25px 20px;
+                margin: 15px 0;
             }}
         """)
         content_layout.addWidget(self.title_label)
         
-        # Subtitle/description (smaller, more subtle)
+        # Subtitle with configuration-based sizing
         subtitle_text = "World Championship" if self.series_type == "f1" else "MotoGP Championship"
         self.subtitle_label = QLabel(subtitle_text)
         self.subtitle_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.subtitle_label.setStyleSheet(f"""
             QLabel {{
-                font-size: 16px;
+                font-size: {font_config['card_subtitle_size']}px;
                 font-weight: 300;
                 color: {self.accent_color};
                 background: transparent;
                 opacity: 0.9;
-                padding-bottom: 30px;
-                letter-spacing: 1px;
+                padding-bottom: 40px;
+                letter-spacing: 1.5px;
             }}
         """)
         content_layout.addWidget(self.subtitle_label)
@@ -120,53 +123,85 @@ class ModernMotorsportCard(QFrame):
         
         layout.addWidget(content_widget)
     
-    def create_official_logo(self) -> QWidget:
-        """Create official logo widget for each series using PNG files"""
-        logo_container = QWidget()
-        logo_container.setFixedSize(300, 140)  # Slightly larger logo container
+    def create_high_quality_logo(self) -> QWidget:
+        """Create high-quality logo widget with proper scaling and anti-aliasing"""
+        # Get configuration
+        container_size = AppConfig.get_logo_container_size()
+        max_logo_size = AppConfig.get_logo_max_size()
         
-        # Try to load the PNG logo
+        logo_container = QWidget()
+        logo_container.setFixedSize(*container_size)
+        
+        # Create label for logo
         logo_label = QLabel()
         logo_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
-        if os.path.exists(self.logo_path):
-            # Load and scale the PNG logo
-            pixmap = QPixmap(self.logo_path)
-            if not pixmap.isNull():
-                # Scale the pixmap to fit the container while maintaining aspect ratio
-                scaled_pixmap = pixmap.scaled(280, 120, Qt.AspectRatioMode.KeepAspectRatio, 
-                                            Qt.TransformationMode.SmoothTransformation)
-                logo_label.setPixmap(scaled_pixmap)
-            else:
-                # Fallback to text if image loading fails
-                self.create_text_logo(logo_label)
-        else:
-            # Fallback to text if image doesn't exist
-            self.create_text_logo(logo_label)
+        # Get device pixel ratio for high-DPI displays
+        device_pixel_ratio = self.devicePixelRatio()
+        if device_pixel_ratio == 0:
+            device_pixel_ratio = QApplication.instance().devicePixelRatio()
         
-        # Clean logo container background - no gradients to avoid visual clutter
+        # Try to load high-quality logo
+        logo_path = AppConfig.get_logo_path(self.series_type)
+        
+        if os.path.exists(logo_path):
+            # Load high-quality pixmap
+            pixmap = ImageUtils.load_high_quality_pixmap(
+                image_path=logo_path,
+                target_size=max_logo_size,
+                device_pixel_ratio=device_pixel_ratio
+            )
+            
+            if pixmap and not pixmap.isNull():
+                ImageUtils.setup_high_quality_label(logo_label, pixmap)
+                logger.info(f"Loaded high-quality logo: {logo_path}")
+            else:
+                logger.warning(f"Failed to load high-quality logo, creating fallback")
+                self.create_fallback_logo(logo_label, max_logo_size, device_pixel_ratio)
+        else:
+            logger.warning(f"Logo file not found: {logo_path}, creating fallback")
+            self.create_fallback_logo(logo_label, max_logo_size, device_pixel_ratio)
+        
+        # Setup container styling
         logo_container.setStyleSheet(f"""
             QWidget {{
                 background-color: {self.primary_color};
-                border-radius: 20px;
-                border: 2px solid {self.hover_color};
+                border-radius: {AppConfig.LOGO_CONFIG['logo_border_radius']}px;
+                border: {AppConfig.LOGO_CONFIG['logo_border_width']}px solid {self.hover_color};
             }}
         """)
         
         # Layout for logo container
         container_layout = QVBoxLayout(logo_container)
-        container_layout.setContentsMargins(10, 10, 10, 10)
+        container_layout.setContentsMargins(15, 15, 15, 15)
         container_layout.addWidget(logo_label)
         
         return logo_container
     
+    def create_fallback_logo(self, logo_label: QLabel, size: tuple, device_pixel_ratio: float):
+        """Create high-quality fallback logo"""
+        # Determine colors based on series
+        text_color = QColor(self.accent_color)
+        bg_color = QColor(self.primary_color)
+        
+        # Create fallback pixmap
+        fallback_pixmap = ImageUtils.create_fallback_logo(
+            series_type=self.series_type,
+            size=size,
+            device_pixel_ratio=device_pixel_ratio,
+            text_color=text_color,
+            background_color=bg_color
+        )
+        
+        ImageUtils.setup_high_quality_label(logo_label, fallback_pixmap)
+    
     def create_text_logo(self, logo_label: QLabel):
-        """Create text-based logo as fallback"""
+        """Create high-quality text-based logo as fallback"""
         if self.series_type == "f1":
             logo_label.setText("F1")
             logo_label.setStyleSheet(f"""
                 QLabel {{
-                    font-size: 72px;
+                    font-size: 90px;
                     font-weight: bold;
                     color: {self.accent_color};
                     background: transparent;
@@ -177,75 +212,63 @@ class ModernMotorsportCard(QFrame):
             logo_label.setText("MotoGP")
             logo_label.setStyleSheet(f"""
                 QLabel {{
-                    font-size: 36px;
+                    font-size: 48px;
                     font-weight: bold;
                     color: {self.accent_color};
                     background: transparent;
                     font-family: 'Arial', sans-serif;
-                    letter-spacing: 2px;
+                    letter-spacing: 3px;
                 }}
             """)
     
     def setup_styles(self):
-        """Setup modern gradient styles with dark theme"""
+        """Setup modern gradient styles with larger card styling"""
         self.setStyleSheet(f"""
             ModernMotorsportCard {{
                 background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
                             stop:0 #2c2c2c, 
                             stop:1 #1a1a1a);
-                border: 2px solid {self.primary_color};
-                border-radius: 25px;
+                border: 3px solid {self.primary_color};
+                border-radius: 30px;
             }}
         """)
     
     def add_shadow_effect(self):
-        """Add drop shadow effect for dark theme"""
+        """Add enhanced drop shadow effect for larger cards"""
         shadow = QGraphicsDropShadowEffect()
-        shadow.setBlurRadius(25)
+        shadow.setBlurRadius(30)  # Increased blur for larger cards
         shadow.setXOffset(0)
-        shadow.setYOffset(10)
-        shadow.setColor(QColor(0, 0, 0, 150))  # Darker shadow for dark theme
+        shadow.setYOffset(12)  # Slightly more offset
+        shadow.setColor(QColor(0, 0, 0, 180))  # Stronger shadow
         self.setGraphicsEffect(shadow)
     
-    def setup_animations(self):
-        """Setup smooth animations - FIXED: No infinite movement"""
-        # Remove any existing animation
-        self.scale_animation = None
-        
-        # Store original geometry to prevent drift
-        self.original_geometry = None
-    
     def enterEvent(self, event):
-        """Handle mouse enter with modern effects - FIXED: No movement"""
+        """Handle mouse enter with enhanced effects for larger cards"""
         self.is_hovered = True
         
-        # Store original geometry if not already stored
-        if self.original_geometry is None:
-            self.original_geometry = self.geometry()
-        
-        # Only change visual effects, no scaling/movement
+        # Enhanced hover effects
         self.setStyleSheet(f"""
             ModernMotorsportCard {{
                 background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
                             stop:0 #3c3c3c, 
                             stop:1 #2a2a2a);
-                border: 2px solid {self.hover_color};
-                border-radius: 25px;
+                border: 3px solid {self.hover_color};
+                border-radius: 30px;
             }}
         """)
         
         # Enhanced shadow on hover
         shadow = QGraphicsDropShadowEffect()
-        shadow.setBlurRadius(35)
+        shadow.setBlurRadius(40)
         shadow.setXOffset(0)
-        shadow.setYOffset(15)
-        shadow.setColor(QColor(255, 255, 255, 60))  # White glow for dark theme
+        shadow.setYOffset(18)
+        shadow.setColor(QColor(255, 255, 255, 80))  # Brighter glow
         self.setGraphicsEffect(shadow)
         
         super().enterEvent(event)
     
     def leaveEvent(self, event):
-        """Handle mouse leave - FIXED: Reset to original state"""
+        """Handle mouse leave - reset to original state"""
         self.is_hovered = False
         
         # Reset to original visual state
@@ -254,8 +277,8 @@ class ModernMotorsportCard(QFrame):
                 background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
                             stop:0 #2c2c2c, 
                             stop:1 #1a1a1a);
-                border: 2px solid {self.primary_color};
-                border-radius: 25px;
+                border: 3px solid {self.primary_color};
+                border-radius: 30px;
             }}
         """)
         
@@ -263,26 +286,17 @@ class ModernMotorsportCard(QFrame):
         self.add_shadow_effect()
         super().leaveEvent(event)
     
-    def lighten_color(self, color_hex: str) -> str:
-        """Lighten a color for hover effects"""
-        color = QColor(color_hex)
-        h, s, v, a = color.getHsv()
-        # Increase brightness
-        v = min(255, int(v * 1.2))
-        lighter_color = QColor.fromHsv(h, s, v, a)
-        return lighter_color.name()
-    
     def mousePressEvent(self, event):
-        """Handle click with simple press feedback"""
+        """Handle click with press feedback"""
         if event.button() == Qt.MouseButton.LeftButton:
-            # Simple visual feedback without movement
+            # Visual feedback
             self.setStyleSheet(f"""
                 ModernMotorsportCard {{
                     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
                                 stop:0 #1c1c1c, 
                                 stop:1 #0a0a0a);
-                    border: 2px solid {self.hover_color};
-                    border-radius: 25px;
+                    border: 3px solid {self.hover_color};
+                    border-radius: 30px;
                 }}
             """)
             
@@ -299,13 +313,13 @@ class ModernMotorsportCard(QFrame):
                     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
                                 stop:0 #3c3c3c, 
                                 stop:1 #2a2a2a);
-                    border: 2px solid {self.hover_color};
-                    border-radius: 25px;
+                    border: 3px solid {self.hover_color};
+                    border-radius: 30px;
                 }}
             """)
 
 class MainWindow(QMainWindow):
-    """Enhanced main application window with modern design"""
+    """Enhanced main application window with larger cards and better logo quality"""
     
     def __init__(self):
         super().__init__()
@@ -321,10 +335,20 @@ class MainWindow(QMainWindow):
         self.setup_minimal_menu()
     
     def setup_window(self):
-        """Configure window properties with dark theme"""
+        """Configure window properties with dark theme and high-DPI support"""
         self.setWindowTitle("Motorsport Dashboard")
-        self.setGeometry(100, 100, 1400, 900)
-        self.setMinimumSize(1200, 800)
+        
+        # Get window configuration
+        window_config = AppConfig.get_window_config()
+        default_width, default_height = window_config['default_size']
+        min_width, min_height = window_config['minimum_size']
+        
+        self.setGeometry(100, 100, default_width, default_height)
+        self.setMinimumSize(min_width, min_height)
+        
+        # Enable high-DPI scaling if configured
+        if AppConfig.RENDERING['high_dpi_scaling']:
+            self.setAttribute(Qt.WidgetAttribute.WA_NativeWindow, True)
         
         # Dark theme background
         self.setStyleSheet("""
@@ -359,11 +383,19 @@ class MainWindow(QMainWindow):
         self.stacked_widget.setCurrentIndex(0)
     
     def create_home_view(self):
-        """Create the modern home view with colorful cards and dark theme"""
+        """Create the modern home view with large colorful cards using configuration"""
         home_widget = QWidget()
+        
+        # Get configuration
+        window_config = AppConfig.get_window_config()
+        font_config = AppConfig.get_font_config()
+        card_config = AppConfig.CARD_CONFIG
+        
         home_layout = QVBoxLayout(home_widget)
-        home_layout.setContentsMargins(60, 60, 60, 60)
-        home_layout.setSpacing(50)
+        margins = window_config['home_margins']
+        spacing = window_config['home_spacing']
+        home_layout.setContentsMargins(*margins)
+        home_layout.setSpacing(spacing)
         
         # Dark theme background
         home_widget.setStyleSheet("""
@@ -373,48 +405,48 @@ class MainWindow(QMainWindow):
             }
         """)
         
-        # Modern header with dark theme
+        # Modern header with configuration-based sizing
         header_layout = QVBoxLayout()
-        header_layout.setSpacing(20)
+        header_layout.setSpacing(25)
         
-        # Main title with dark theme styling
+        # Main title with configuration-based font size
         title_label = QLabel("MOTORSPORT")
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        title_label.setStyleSheet("""
-            QLabel {
-                font-size: 56px;
+        title_label.setStyleSheet(f"""
+            QLabel {{
+                font-size: {font_config['title_size']}px;
                 font-weight: 100;
                 color: #ffffff;
                 background: transparent;
-                margin: 30px 0;
-                letter-spacing: 12px;
-            }
+                margin: 40px 0;
+                letter-spacing: 15px;
+            }}
         """)
         header_layout.addWidget(title_label)
         
-        # Subtitle with dark theme
+        # Subtitle with configuration-based font size
         subtitle_label = QLabel("Choose Your Championship")
         subtitle_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        subtitle_label.setStyleSheet("""
-            QLabel {
-                font-size: 18px;
+        subtitle_label.setStyleSheet(f"""
+            QLabel {{
+                font-size: {font_config['subtitle_size']}px;
                 font-weight: 300;
                 color: #cccccc;
                 background: transparent;
-                margin-bottom: 20px;
-            }
+                margin-bottom: 30px;
+            }}
         """)
         header_layout.addWidget(subtitle_label)
         
         home_layout.addLayout(header_layout)
         home_layout.addStretch()
         
-        # Modern cards container
+        # Large cards container with configuration-based spacing
         cards_layout = QHBoxLayout()
-        cards_layout.setSpacing(60)
-        cards_layout.setContentsMargins(100, 0, 100, 0)
+        cards_layout.setSpacing(card_config['card_spacing'])
+        cards_layout.setContentsMargins(*card_config['card_margins'])
         
-        # F1 Card with official styling
+        # F1 Card - Uses configuration for sizing
         self.f1_card = ModernMotorsportCard(
             title="FORMULA 1",
             series_type="f1"
@@ -422,7 +454,7 @@ class MainWindow(QMainWindow):
         self.f1_card.clicked.connect(self.show_f1_view)
         cards_layout.addWidget(self.f1_card)
         
-        # MotoGP Card with official styling
+        # MotoGP Card - Uses configuration for sizing
         self.motogp_card = ModernMotorsportCard(
             title="MOTOGP",
             series_type="motogp"
@@ -433,15 +465,15 @@ class MainWindow(QMainWindow):
         home_layout.addLayout(cards_layout)
         home_layout.addStretch()
         
-        # Modern footer with dark theme
+        # Modern footer
         footer_label = QLabel("Experience the thrill of motorsport data")
         footer_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         footer_label.setStyleSheet("""
             QLabel {
-                font-size: 14px;
+                font-size: 16px;
                 color: #888888;
                 background: transparent;
-                margin: 40px 0;
+                margin: 50px 0;
                 font-weight: 300;
                 font-style: italic;
             }
@@ -483,31 +515,36 @@ class MainWindow(QMainWindow):
         self.stacked_widget.addWidget(motogp_container)
     
     def create_modern_header(self, title: str, color: str) -> QWidget:
-        """Create modern header for content views with dark theme"""
+        """Create modern header for content views using configuration"""
         header_widget = QWidget()
-        header_widget.setFixedHeight(90)
+        
+        # Get header height from configuration
+        header_height = AppConfig.get_window_config()['header_height']
+        font_config = AppConfig.get_font_config()
+        
+        header_widget.setFixedHeight(header_height)
         header_widget.setStyleSheet(f"""
             QWidget {{
                 background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
                             stop:0 #2c2c2c, stop:1 #1a1a1a);
-                border-bottom: 3px solid {color};
+                border-bottom: 4px solid {color};
             }}
         """)
         
         header_layout = QHBoxLayout(header_widget)
-        header_layout.setContentsMargins(40, 0, 40, 0)
+        header_layout.setContentsMargins(50, 0, 50, 0)
         
-        # Modern back button with dark theme
+        # Modern back button
         back_button = QPushButton("←")
-        back_button.setFixedSize(60, 60)
+        back_button.setFixedSize(70, 70)
         back_button.setStyleSheet(f"""
             QPushButton {{
                 background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
                             stop:0 {color}, stop:1 {self.lighten_color(color)});
                 color: white;
                 border: none;
-                border-radius: 30px;
-                font-size: 24px;
+                border-radius: 35px;
+                font-size: 28px;
                 font-weight: bold;
             }}
             QPushButton:hover {{
@@ -522,23 +559,23 @@ class MainWindow(QMainWindow):
         back_button.clicked.connect(self.show_home_view)
         header_layout.addWidget(back_button)
         
-        # Modern title with dark theme
+        # Modern title with configuration-based font size
         title_label = QLabel(title)
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         title_label.setStyleSheet(f"""
             QLabel {{
-                font-size: 36px;
+                font-size: {font_config['header_title_size']}px;
                 font-weight: 200;
                 color: #ffffff;
                 background: transparent;
-                letter-spacing: 4px;
+                letter-spacing: 5px;
             }}
         """)
         header_layout.addWidget(title_label)
         
         # Spacer for symmetry
         spacer = QWidget()
-        spacer.setFixedWidth(60)
+        spacer.setFixedWidth(70)
         header_layout.addWidget(spacer)
         
         return header_widget
@@ -555,8 +592,8 @@ class MainWindow(QMainWindow):
         """Darken a color"""
         color_map = {
             "#e10600": "#b30500",
-            "#0066cc": "#004499",  # Updated for blue MotoGP
-            "#ff6600": "#cc5200"   # Keep for compatibility
+            "#0066cc": "#004499",
+            "#ff6600": "#cc5200"
         }
         return color_map.get(color, color)
     
@@ -609,7 +646,7 @@ class MainWindow(QMainWindow):
         lang_menu.addAction(es_action)
     
     def show_home_view(self):
-        """Show the home view with animation"""
+        """Show the home view"""
         self.stacked_widget.setCurrentIndex(0)
     
     def show_f1_view(self):

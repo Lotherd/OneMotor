@@ -1,111 +1,196 @@
 # config/settings.py
 """
-Global application configuration
+Enhanced application configuration with high-quality rendering settings
 """
 
 import os
 import json
 from pathlib import Path
-
+from typing import Dict, Any
 
 class AppConfig:
-    """Main application configuration"""
+    """Enhanced application configuration"""
     
-    # App information
-    APP_NAME = "F1 & MotoGP Dashboard"
-    APP_VERSION = "1.2"  # Incremented version for i18n
-    WINDOW_TITLE = f"{APP_NAME} - Version {APP_VERSION}"
+    # Application Info
+    APP_NAME = "Motorsport Dashboard"  
+    APP_VERSION = "1.0.0"
+    ORGANIZATION_NAME = "MotorsportApps"
     
-    # Window dimensions
-    WINDOW_WIDTH = 1000
-    WINDOW_HEIGHT = 700
-    WINDOW_MIN_WIDTH = 800
-    WINDOW_MIN_HEIGHT = 600
+    # API Configuration - Updated for 2025
+    ERGAST_BASE_URL = "http://api.jolpi.ca/ergast/f1"  # Updated working endpoint
+    REQUEST_TIMEOUT = 15  # Increased timeout
     
-    # API URLs - UPDATED TO USE JOLPICA
-    # Ergast API has been discontinued since 2025
-    # Jolpica is the official replacement with compatible endpoints
-    ERGAST_BASE_URL = "http://api.jolpi.ca/ergast/f1"  # ← MAIN CHANGE
+    # Working F1 API Endpoints for 2025
+    F1_API_ENDPOINTS = [
+        "http://api.jolpi.ca/ergast/f1",      # Jolpica F1 (primary)
+        "https://api.jolpi.ca/ergast/f1",     # Jolpica F1 HTTPS
+        "https://openf1.org/v1"               # OpenF1 alternative
+    ]
     
-    # Alternative URLs in case of issues
+    # Legacy backup APIs (likely not working)
     BACKUP_APIS = {
+        "jolpica_http": "http://api.jolpi.ca/ergast/f1",
         "jolpica_https": "https://api.jolpi.ca/ergast/f1",
-        "jolpica_http": "http://api.jolpi.ca/ergast/f1"
+        "openf1": "https://openf1.org/v1"
     }
     
-    # Request configuration
-    REQUEST_TIMEOUT = 30
-    MAX_RETRIES = 3
-    
-    # Rate limiting for Jolpica (200 requests/hour without authentication)
-    RATE_LIMIT_REQUESTS = 200
-    RATE_LIMIT_WINDOW = 3600  # 1 hour in seconds
-    
-    # UI configuration
-    TABLE_REFRESH_INTERVAL = 300000  # 5 minutes in ms
-    
-    # Language configuration
-    DEFAULT_LANGUAGE = "en"  # Default language
-    SETTINGS_FILE = "settings.json"
-    
-    # Theme colors
+    # UI Colors
     COLORS = {
+        # F1 Theme
         'f1_red': '#e10600',
-        'f1_red_hover': '#c50500',
-        'motogp_orange': '#ff8c00',
-        'background': '#f8f8f8',
+        'f1_red_hover': '#ff1a0a',
+        'f1_red_dark': '#b30500',
+        
+        # MotoGP Theme (Blue)
+        'motogp_blue': '#0066cc',
+        'motogp_blue_hover': '#3388ff',
+        'motogp_blue_dark': '#004499',
+        
+        # General UI
+        'white': '#ffffff',
+        'black': '#000000',
+        'background': '#f8f9fa',
         'text_primary': '#333333',
         'text_secondary': '#666666',
-        'border': '#d0d0d0',
-        'white': '#ffffff',
+        'border': '#e0e0e0',
         'success': '#28a745',
         'error': '#dc3545',
         'warning': '#ffc107'
     }
     
-    # Logging configuration
-    LOG_LEVEL = "INFO"
-    LOG_FILE = "app.log"
+    # High-Quality Rendering Settings
+    RENDERING = {
+        'high_dpi_scaling': True,
+        'antialiasing': True,
+        'smooth_pixmap_transform': True,
+        'text_antialiasing': True,
+        'logo_quality': 'high',  # 'high', 'medium', 'low'
+        'device_pixel_ratio_auto': True
+    }
     
-    @classmethod
-    def load_settings(cls) -> dict:
-        """Load saved settings"""
-        settings_path = Path(cls.SETTINGS_FILE)
-        default_settings = {
-            "language": cls.DEFAULT_LANGUAGE,
-            "window_geometry": None,
-            "last_tab": 0
-        }
-        
-        if settings_path.exists():
-            try:
-                with open(settings_path, 'r', encoding='utf-8') as f:
-                    saved_settings = json.load(f)
-                    # Merge with default values
-                    default_settings.update(saved_settings)
-            except Exception as e:
-                print(f"Error loading settings: {e}")
-        
-        return default_settings
+    # Logo Configuration
+    LOGO_CONFIG = {
+        'f1_logo_path': 'logo/f1_logo.png',
+        'motogp_logo_path': 'logo/motogp_logo.png',
+        'logo_container_size': (400, 180),  # Width, Height
+        'logo_max_size': (360, 140),  # Max logo size within container
+        'logo_background_blur': 15,
+        'logo_border_radius': 25,
+        'logo_border_width': 3
+    }
     
-    @classmethod
-    def save_settings(cls, settings: dict):
-        """Save settings"""
-        try:
-            with open(cls.SETTINGS_FILE, 'w', encoding='utf-8') as f:
-                json.dump(settings, f, ensure_ascii=False, indent=2)
-        except Exception as e:
-            print(f"Error saving settings: {e}")
+    # Card Configuration
+    CARD_CONFIG = {
+        'card_size': (500, 650),  # Width, Height
+        'card_border_radius': 30,
+        'card_border_width': 3,
+        'card_shadow_blur': 30,
+        'card_shadow_offset': (0, 12),  # X, Y
+        'card_hover_shadow_blur': 40,
+        'card_hover_shadow_offset': (0, 18),
+        'card_spacing': 80,  # Space between cards
+        'card_margins': (80, 80, 80, 80)  # Top, Right, Bottom, Left
+    }
+    
+    # Window Configuration
+    WINDOW_CONFIG = {
+        'default_size': (1600, 1000),
+        'minimum_size': (1400, 900),
+        'header_height': 100,
+        'home_margins': (80, 80, 80, 80),
+        'home_spacing': 60
+    }
+    
+    # Font Configuration
+    FONTS = {
+        'title_size': 68,
+        'subtitle_size': 22,
+        'card_title_size': 38,
+        'card_subtitle_size': 20,
+        'header_title_size': 42,
+        'button_size': 14,
+        'table_size': 14,
+        'menu_size': 14
+    }
+    
+    # Data Configuration
+    DATA_CONFIG = {
+        'auto_refresh_interval': 300,  # 5 minutes
+        'max_retries': 3,
+        'cache_duration': 60,  # 1 minute
+        'default_season': '2025'
+    }
+    
+    # Settings file path
+    SETTINGS_FILE = Path("settings.json")
+    
+    # Default language
+    DEFAULT_LANGUAGE = "en"
     
     @classmethod
     def get_language(cls) -> str:
-        """Get saved language"""
-        settings = cls.load_settings()
-        return settings.get("language", cls.DEFAULT_LANGUAGE)
+        """Get saved language preference"""
+        try:
+            if cls.SETTINGS_FILE.exists():
+                with open(cls.SETTINGS_FILE, 'r', encoding='utf-8') as f:
+                    settings = json.load(f)
+                    return settings.get('language', cls.DEFAULT_LANGUAGE)
+        except Exception:
+            pass
+        return cls.DEFAULT_LANGUAGE
     
     @classmethod
     def set_language(cls, language_code: str):
-        """Save selected language"""
-        settings = cls.load_settings()
-        settings["language"] = language_code
-        cls.save_settings(settings)
+        """Save language preference"""
+        try:
+            settings = {}
+            if cls.SETTINGS_FILE.exists():
+                with open(cls.SETTINGS_FILE, 'r', encoding='utf-8') as f:
+                    settings = json.load(f)
+            
+            settings['language'] = language_code
+            
+            with open(cls.SETTINGS_FILE, 'w', encoding='utf-8') as f:
+                json.dump(settings, f, indent=2)
+        except Exception as e:
+            print(f"Error saving language setting: {e}")
+    
+    @classmethod
+    def get_logo_path(cls, series_type: str) -> str:
+        """Get logo path for specific series"""
+        if series_type == "f1":
+            return cls.LOGO_CONFIG['f1_logo_path']
+        elif series_type == "motogp":
+            return cls.LOGO_CONFIG['motogp_logo_path']
+        else:
+            return ""
+    
+    @classmethod
+    def get_card_size(cls) -> tuple:
+        """Get card size configuration"""
+        return cls.CARD_CONFIG['card_size']
+    
+    @classmethod
+    def get_logo_container_size(cls) -> tuple:
+        """Get logo container size"""
+        return cls.LOGO_CONFIG['logo_container_size']
+    
+    @classmethod
+    def get_logo_max_size(cls) -> tuple:
+        """Get maximum logo size"""
+        return cls.LOGO_CONFIG['logo_max_size']
+    
+    @classmethod
+    def is_high_quality_rendering(cls) -> bool:
+        """Check if high quality rendering is enabled"""
+        return cls.RENDERING['logo_quality'] == 'high'
+    
+    @classmethod
+    def get_window_config(cls) -> Dict[str, Any]:
+        """Get window configuration"""
+        return cls.WINDOW_CONFIG
+    
+    @classmethod
+    def get_font_config(cls) -> Dict[str, int]:
+        """Get font configuration"""
+        return cls.FONTS

@@ -1759,3 +1759,320 @@ SyntaxError: invalid syntax
 2025-06-26 10:56:42,634 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/16/results.json
 2025-06-26 10:56:43,072 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/16/results.json
 2025-06-26 10:56:43,312 - __main__ - INFO - Application exited with code: 0
+2025-06-26 10:58:54,082 - __main__ - INFO - Logging system initialized
+2025-06-26 10:58:54,083 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 10:58:54,084 - __main__ - INFO - Application directories created
+2025-06-26 10:58:54,145 - __main__ - INFO - Qt application configured
+2025-06-26 10:58:54,866 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 10:58:54,867 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 10:58:54,872 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 10:58:55,023 - services.api_client - INFO - Initialized ErgastAPIClient with base URL: http://api.jolpi.ca/ergast/f1
+2025-06-26 10:58:55,469 - __main__ - INFO - Main window created and shown
+2025-06-26 10:58:55,470 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 10:58:55,997 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 10:58:56,998 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 10:58:57,099 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 10:58:57,099 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-26 10:58:57,425 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 10:58:57,998 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 10:58:58,425 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 10:58:58,999 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 10:58:59,431 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 10:58:59,999 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 10:59:00,426 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 10:59:00,999 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 10:59:01,426 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 10:59:02,000 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 10:59:02,426 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 10:59:03,000 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 10:59:03,428 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 10:59:04,001 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 10:59:04,430 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 10:59:05,002 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 10:59:05,429 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 10:59:06,002 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 10:59:06,432 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 10:59:07,003 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-26 10:59:07,432 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-26 10:59:08,004 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-26 10:59:08,434 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-26 10:59:09,005 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-26 10:59:09,431 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-26 10:59:10,006 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-26 10:59:10,433 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-26 10:59:11,006 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-26 10:59:11,433 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-26 10:59:12,007 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-26 10:59:12,434 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-26 10:59:13,007 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-26 10:59:13,434 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-26 10:59:14,008 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-26 10:59:14,633 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-26 10:59:15,009 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-26 10:59:15,644 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-26 10:59:16,009 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-26 10:59:16,457 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-26 10:59:17,010 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-26 10:59:17,450 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-26 10:59:18,010 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-26 10:59:18,448 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-26 10:59:19,010 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-26 10:59:19,639 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-26 10:59:20,011 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-26 10:59:20,631 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-26 10:59:21,011 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-26 10:59:21,450 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-26 10:59:21,451 - services.data_service - INFO - Loaded 24 races for 2025
+2025-06-26 11:00:59,051 - __main__ - INFO - Application exited with code: 0
+2025-06-26 11:11:56,926 - __main__ - INFO - Logging system initialized
+2025-06-26 11:11:56,926 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 11:11:56,927 - __main__ - INFO - Application directories created
+2025-06-26 11:11:56,989 - __main__ - INFO - Qt application configured
+2025-06-26 11:11:57,731 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 11:11:57,732 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 11:11:57,736 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 11:11:57,806 - __main__ - ERROR - Unexpected error: arguments did not match any overloaded call:
+  scaled(self, width: int, height: int, aspectRatioMode: Qt.AspectRatioMode = Qt.IgnoreAspectRatio, transformMode: Qt.TransformationMode = Qt.FastTransformation): argument 1 has unexpected type 'float'
+  scaled(self, size: QSize, aspectRatioMode: Qt.AspectRatioMode = Qt.IgnoreAspectRatio, transformMode: Qt.TransformationMode = Qt.FastTransformation): argument 1 has unexpected type 'float'
+Traceback (most recent call last):
+  File "C:\LOCAL Project\OneMotor\main.py", line 77, in main
+    window = MainWindow()
+  File "C:\LOCAL Project\OneMotor\ui\main_window.py", line 317, in __init__
+    self.setup_ui()
+    ~~~~~~~~~~~~~^^
+  File "C:\LOCAL Project\OneMotor\ui\main_window.py", line 351, in setup_ui
+    self.create_home_view()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\LOCAL Project\OneMotor\ui\main_window.py", line 415, in create_home_view
+    self.f1_card = ModernMotorsportCard(
+                   ~~~~~~~~~~~~~~~~~~~~^
+        title="FORMULA 1",
+        ^^^^^^^^^^^^^^^^^^
+        series_type="f1"
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\LOCAL Project\OneMotor\ui\main_window.py", line 34, in __init__
+    self.setup_ui(title)
+    ~~~~~~~~~~~~~^^^^^^^
+  File "C:\LOCAL Project\OneMotor\ui\main_window.py", line 77, in setup_ui
+    self.logo_widget = self.create_high_quality_logo()
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\LOCAL Project\OneMotor\ui\main_window.py", line 144, in create_high_quality_logo
+    scaled_pixmap = original_pixmap.scaled(
+        target_width * device_pixel_ratio,
+    ...<2 lines>...
+        Qt.TransformationMode.SmoothTransformation
+    )
+TypeError: arguments did not match any overloaded call:
+  scaled(self, width: int, height: int, aspectRatioMode: Qt.AspectRatioMode = Qt.IgnoreAspectRatio, transformMode: Qt.TransformationMode = Qt.FastTransformation): argument 1 has unexpected type 'float'
+  scaled(self, size: QSize, aspectRatioMode: Qt.AspectRatioMode = Qt.IgnoreAspectRatio, transformMode: Qt.TransformationMode = Qt.FastTransformation): argument 1 has unexpected type 'float'
+2025-06-26 11:13:12,714 - __main__ - INFO - Logging system initialized
+2025-06-26 11:13:12,714 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 11:13:12,715 - __main__ - INFO - Application directories created
+2025-06-26 11:13:12,759 - __main__ - INFO - Qt application configured
+2025-06-26 11:13:13,450 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 11:13:13,451 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 11:13:13,480 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 11:13:13,533 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 11:13:13,538 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 11:13:13,586 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 11:13:13,591 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 11:13:13,610 - services.api_client - INFO - Initialized ErgastAPIClient with base URL: http://api.jolpica.com/ergast/f1
+2025-06-26 11:13:14,059 - __main__ - INFO - Main window created and shown
+2025-06-26 11:13:14,060 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 11:13:14,502 - services.api_client - INFO - GET request to: http://api.jolpica.com/ergast/f1/current/driverStandings.json
+2025-06-26 11:13:14,555 - services.api_client - ERROR - Request failed for http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000016E3370E900>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:14,557 - services.api_client - WARNING - Attempt 1 failed: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000016E3370E900>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:14,558 - services.api_client - WARNING - Switching to backup URL: https://api.jolpica.com/ergast/f1
+2025-06-26 11:13:14,559 - services.api_client - INFO - Retrying with backup URL: https://api.jolpica.com/ergast/f1
+2025-06-26 11:13:15,503 - services.api_client - INFO - GET request to: https://api.jolpica.com/ergast/f1/current/driverStandings.json
+2025-06-26 11:13:15,503 - services.api_client - INFO - GET request to: https://api.jolpica.com/ergast/f1/2025.json
+2025-06-26 11:13:15,505 - services.api_client - ERROR - Request failed for https://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000016E3370EE40>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:15,506 - services.api_client - ERROR - Request failed for https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000016E358C9950>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:15,506 - services.api_client - WARNING - Attempt 2 failed: Error accessing https://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000016E3370EE40>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:15,506 - services.api_client - WARNING - Attempt 1 failed: Error accessing https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000016E358C9950>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:15,507 - services.api_client - WARNING - Switching to backup URL: http://api.jolpica.com/ergast/f1
+2025-06-26 11:13:15,507 - services.data_service - ERROR - Error getting race calendar: All API endpoints failed. Last error: Error accessing https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000016E358C9950>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:15,508 - services.api_client - INFO - Retrying with backup URL: http://api.jolpica.com/ergast/f1
+2025-06-26 11:13:15,508 - services.data_service - ERROR - Connection error: All API endpoints failed. Last error: Error accessing https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000016E358C9950>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:16,504 - services.api_client - INFO - GET request to: http://api.jolpica.com/ergast/f1/current/driverStandings.json
+2025-06-26 11:13:16,507 - services.api_client - ERROR - Request failed for http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000016E358C8F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:16,507 - services.api_client - WARNING - Attempt 3 failed: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000016E358C8F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:16,508 - services.data_service - ERROR - Error getting F1 standings: All API endpoints failed. Last error: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000016E358C8F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:16,509 - services.data_service - ERROR - Connection error: All API endpoints failed. Last error: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000016E358C8F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:25,851 - __main__ - INFO - Application exited with code: 0
+2025-06-26 11:13:35,457 - __main__ - INFO - Logging system initialized
+2025-06-26 11:13:35,457 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 11:13:35,458 - __main__ - INFO - Application directories created
+2025-06-26 11:13:35,523 - __main__ - INFO - Qt application configured
+2025-06-26 11:13:36,227 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 11:13:36,228 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 11:13:36,247 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 11:13:36,296 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 11:13:36,299 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 11:13:36,336 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 11:13:36,339 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 11:13:36,357 - services.api_client - INFO - Initialized ErgastAPIClient with base URL: http://api.jolpica.com/ergast/f1
+2025-06-26 11:13:36,757 - __main__ - INFO - Main window created and shown
+2025-06-26 11:13:36,759 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 11:13:37,304 - services.api_client - INFO - GET request to: http://api.jolpica.com/ergast/f1/current/driverStandings.json
+2025-06-26 11:13:37,351 - services.api_client - ERROR - Request failed for http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002CA7F29A510>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:37,353 - services.api_client - WARNING - Attempt 1 failed: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002CA7F29A510>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:37,354 - services.api_client - WARNING - Switching to backup URL: https://api.jolpica.com/ergast/f1
+2025-06-26 11:13:37,354 - services.api_client - INFO - Retrying with backup URL: https://api.jolpica.com/ergast/f1
+2025-06-26 11:13:38,304 - services.api_client - INFO - GET request to: https://api.jolpica.com/ergast/f1/current/driverStandings.json
+2025-06-26 11:13:38,305 - services.api_client - INFO - GET request to: https://api.jolpica.com/ergast/f1/2025.json
+2025-06-26 11:13:38,306 - services.api_client - ERROR - Request failed for https://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002CA7F29AA50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:38,307 - services.api_client - WARNING - Attempt 2 failed: Error accessing https://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002CA7F29AA50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:38,307 - services.api_client - ERROR - Request failed for https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002CA1F519950>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:38,307 - services.api_client - WARNING - Switching to backup URL: http://api.jolpica.com/ergast/f1
+2025-06-26 11:13:38,308 - services.api_client - WARNING - Attempt 1 failed: Error accessing https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002CA1F519950>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:38,308 - services.api_client - INFO - Retrying with backup URL: http://api.jolpica.com/ergast/f1
+2025-06-26 11:13:38,308 - services.data_service - ERROR - Error getting race calendar: All API endpoints failed. Last error: Error accessing https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002CA1F519950>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:38,309 - services.data_service - ERROR - Connection error: All API endpoints failed. Last error: Error accessing https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002CA1F519950>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:39,305 - services.api_client - INFO - GET request to: http://api.jolpica.com/ergast/f1/current/driverStandings.json
+2025-06-26 11:13:39,307 - services.api_client - ERROR - Request failed for http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002CA1F518F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:39,307 - services.api_client - WARNING - Attempt 3 failed: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002CA1F518F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:39,308 - services.data_service - ERROR - Error getting F1 standings: All API endpoints failed. Last error: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002CA1F518F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:39,308 - services.data_service - ERROR - Connection error: All API endpoints failed. Last error: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002CA1F518F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:46,357 - __main__ - INFO - Application exited with code: 0
+2025-06-26 11:13:52,161 - __main__ - INFO - Logging system initialized
+2025-06-26 11:13:52,162 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 11:13:52,163 - __main__ - INFO - Application directories created
+2025-06-26 11:13:52,217 - __main__ - INFO - Qt application configured
+2025-06-26 11:13:53,016 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 11:13:53,016 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 11:13:53,037 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 11:13:53,112 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 11:13:53,116 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 11:13:53,162 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 11:13:53,167 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 11:13:53,185 - services.api_client - INFO - Initialized ErgastAPIClient with base URL: http://api.jolpica.com/ergast/f1
+2025-06-26 11:13:53,604 - __main__ - INFO - Main window created and shown
+2025-06-26 11:13:53,605 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 11:13:54,094 - services.api_client - INFO - GET request to: http://api.jolpica.com/ergast/f1/current/driverStandings.json
+2025-06-26 11:13:54,134 - services.api_client - ERROR - Request failed for http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000021093AFA510>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:54,136 - services.api_client - WARNING - Attempt 1 failed: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x0000021093AFA510>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:54,137 - services.api_client - WARNING - Switching to backup URL: https://api.jolpica.com/ergast/f1
+2025-06-26 11:13:54,138 - services.api_client - INFO - Retrying with backup URL: https://api.jolpica.com/ergast/f1
+2025-06-26 11:13:55,094 - services.api_client - INFO - GET request to: https://api.jolpica.com/ergast/f1/current/driverStandings.json
+2025-06-26 11:13:55,094 - services.api_client - INFO - GET request to: https://api.jolpica.com/ergast/f1/2025.json
+2025-06-26 11:13:55,097 - services.api_client - ERROR - Request failed for https://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000021093AFAA50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:55,097 - services.api_client - ERROR - Request failed for https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000210B30356D0>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:55,097 - services.api_client - WARNING - Attempt 2 failed: Error accessing https://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000021093AFAA50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:55,097 - services.api_client - WARNING - Attempt 1 failed: Error accessing https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000210B30356D0>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:55,098 - services.api_client - WARNING - Switching to backup URL: http://api.jolpica.com/ergast/f1
+2025-06-26 11:13:55,098 - services.data_service - ERROR - Error getting race calendar: All API endpoints failed. Last error: Error accessing https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000210B30356D0>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:55,098 - services.api_client - INFO - Retrying with backup URL: http://api.jolpica.com/ergast/f1
+2025-06-26 11:13:55,099 - services.data_service - ERROR - Connection error: All API endpoints failed. Last error: Error accessing https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000210B30356D0>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:56,095 - services.api_client - INFO - GET request to: http://api.jolpica.com/ergast/f1/current/driverStandings.json
+2025-06-26 11:13:56,097 - services.api_client - ERROR - Request failed for http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x00000210B3034F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:56,098 - services.api_client - WARNING - Attempt 3 failed: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x00000210B3034F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:56,098 - services.data_service - ERROR - Error getting F1 standings: All API endpoints failed. Last error: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x00000210B3034F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:13:56,098 - services.data_service - ERROR - Connection error: All API endpoints failed. Last error: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x00000210B3034F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:02,337 - __main__ - INFO - Application exited with code: 0
+2025-06-26 11:14:09,641 - __main__ - INFO - Logging system initialized
+2025-06-26 11:14:09,642 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 11:14:09,643 - __main__ - INFO - Application directories created
+2025-06-26 11:14:09,696 - __main__ - INFO - Qt application configured
+2025-06-26 11:14:10,386 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 11:14:10,387 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 11:14:10,414 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 11:14:10,478 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 11:14:10,483 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 11:14:10,535 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 11:14:10,540 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 11:14:10,564 - services.api_client - INFO - Initialized ErgastAPIClient with base URL: http://api.jolpica.com/ergast/f1
+2025-06-26 11:14:11,013 - __main__ - INFO - Main window created and shown
+2025-06-26 11:14:11,014 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 11:14:11,429 - services.api_client - INFO - GET request to: http://api.jolpica.com/ergast/f1/current/driverStandings.json
+2025-06-26 11:14:11,461 - services.api_client - ERROR - Request failed for http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002317090A510>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:11,462 - services.api_client - WARNING - Attempt 1 failed: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002317090A510>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:11,463 - services.api_client - WARNING - Switching to backup URL: https://api.jolpica.com/ergast/f1
+2025-06-26 11:14:11,463 - services.api_client - INFO - Retrying with backup URL: https://api.jolpica.com/ergast/f1
+2025-06-26 11:14:12,430 - services.api_client - INFO - GET request to: https://api.jolpica.com/ergast/f1/current/driverStandings.json
+2025-06-26 11:14:12,430 - services.api_client - INFO - GET request to: https://api.jolpica.com/ergast/f1/2025.json
+2025-06-26 11:14:12,432 - services.api_client - ERROR - Request failed for https://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002310FE596D0>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:12,432 - services.api_client - ERROR - Request failed for https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002317090AA50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:12,433 - services.api_client - WARNING - Attempt 2 failed: Error accessing https://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002310FE596D0>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:12,433 - services.api_client - WARNING - Attempt 1 failed: Error accessing https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002317090AA50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:12,434 - services.api_client - WARNING - Switching to backup URL: http://api.jolpica.com/ergast/f1
+2025-06-26 11:14:12,434 - services.data_service - ERROR - Error getting race calendar: All API endpoints failed. Last error: Error accessing https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002317090AA50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:12,434 - services.api_client - INFO - Retrying with backup URL: http://api.jolpica.com/ergast/f1
+2025-06-26 11:14:12,435 - services.data_service - ERROR - Connection error: All API endpoints failed. Last error: Error accessing https://api.jolpica.com/ergast/f1/2025.json: HTTPSConnectionPool(host='api.jolpica.com', port=443): Max retries exceeded with url: /ergast/f1/2025.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002317090AA50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:13,430 - services.api_client - INFO - GET request to: http://api.jolpica.com/ergast/f1/current/driverStandings.json
+2025-06-26 11:14:13,432 - services.api_client - ERROR - Request failed for http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002310FE58F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:13,432 - services.api_client - WARNING - Attempt 3 failed: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002310FE58F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:13,433 - services.data_service - ERROR - Error getting F1 standings: All API endpoints failed. Last error: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002310FE58F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:13,433 - services.data_service - ERROR - Connection error: All API endpoints failed. Last error: Error accessing http://api.jolpica.com/ergast/f1/current/driverStandings.json: HTTPConnectionPool(host='api.jolpica.com', port=80): Max retries exceeded with url: /ergast/f1/current/driverStandings.json (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x000002310FE58F50>: Failed to resolve 'api.jolpica.com' ([Errno 11001] getaddrinfo failed)"))
+2025-06-26 11:14:29,766 - __main__ - INFO - Application exited with code: 0
+2025-06-26 11:20:51,953 - __main__ - INFO - Logging system initialized
+2025-06-26 11:20:51,954 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-26 11:20:51,955 - __main__ - INFO - Application directories created
+2025-06-26 11:20:52,016 - __main__ - INFO - Qt application configured
+2025-06-26 11:20:52,705 - utils.i18n - INFO - Loaded translations for: en
+2025-06-26 11:20:52,706 - utils.i18n - INFO - Loaded translations for: es
+2025-06-26 11:20:52,722 - utils.i18n - INFO - Language changed from en to en
+2025-06-26 11:20:52,775 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-26 11:20:52,779 - ui.main_window - INFO - Loaded high-quality logo: logo/f1_logo.png
+2025-06-26 11:20:52,820 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-26 11:20:52,826 - ui.main_window - INFO - Loaded high-quality logo: logo/motogp_logo.png
+2025-06-26 11:20:52,845 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-26 11:20:53,324 - __main__ - INFO - Main window created and shown
+2025-06-26 11:20:53,326 - __main__ - INFO - Application ready - entering event loop
+2025-06-26 11:20:53,827 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 11:20:54,827 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 11:20:54,958 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-26 11:20:54,958 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-26 11:20:55,255 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-26 11:20:55,828 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 11:20:56,255 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-26 11:20:56,828 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 11:20:57,254 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-26 11:20:57,829 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 11:20:58,259 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-26 11:20:58,830 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 11:20:59,258 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-26 11:20:59,830 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 11:21:00,255 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-26 11:21:00,831 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 11:21:01,256 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-26 11:21:01,832 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 11:21:02,260 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-26 11:21:02,832 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 11:21:03,257 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-26 11:21:03,833 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 11:21:04,258 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-26 11:21:04,833 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-26 11:21:05,258 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-26 11:21:05,834 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-26 11:21:06,258 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-26 11:21:06,835 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-26 11:21:07,260 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-26 11:21:07,835 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-26 11:21:08,259 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-26 11:21:08,836 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-26 11:21:09,259 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-26 11:21:09,836 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-26 11:21:10,260 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-26 11:21:10,837 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-26 11:21:11,261 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-26 11:21:11,838 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-26 11:21:12,263 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-26 11:21:12,838 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-26 11:21:13,262 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-26 11:21:13,839 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-26 11:21:14,266 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-26 11:21:14,840 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-26 11:21:15,263 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-26 11:21:15,840 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-26 11:21:16,265 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-26 11:21:16,841 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-26 11:21:17,271 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-26 11:21:17,842 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-26 11:21:18,266 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-26 11:21:18,842 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-26 11:21:19,266 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-26 11:21:19,267 - services.data_service - INFO - Loaded 24 races for 2025
+2025-06-26 11:21:40,599 - __main__ - INFO - Application exited with code: 0
