@@ -1,6 +1,15 @@
 # main.py
 """
 Main entry point for the F1 & MotoGP Dashboard application
+
+This module serves as the application's entry point, handling initialization,
+logging setup, and the main event loop for the PyQt6 motorsport dashboard.
+
+**Classes:**
+    None (Module contains standalone functions)
+
+**Author:** Motorsport Apps Team
+**Version:** 1.0.0
 """
 
 import sys
@@ -9,10 +18,17 @@ from pathlib import Path
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 
-# Configure logging
+
+"""
+* Configures the application's logging system with file and console output
+*
+* This function sets up a comprehensive logging system that writes to both
+* a log file and the console. It creates the logs directory if it doesn't exist
+* and configures formatters for readable log messages.
+*
+* **@return** Logger instance for the main module
+"""
 def setup_logging():
-    """Configure logging system"""
-    
     # Create logs directory if it doesn't exist
     log_dir = Path("logs")
     log_dir.mkdir(exist_ok=True)
@@ -32,9 +48,17 @@ def setup_logging():
     logger.info("Logging system initialized")
     return logger
 
+
+"""
+* Configures and creates the main Qt application instance
+*
+* This function creates the QApplication instance and sets basic application
+* metadata including name, version, and organization. PyQt6 automatically
+* handles DPI scaling, so no additional configuration is needed.
+*
+* **@return** Configured QApplication instance
+"""
 def setup_application():
-    """Configure Qt application"""
-    
     # Create application
     app = QApplication(sys.argv)
     
@@ -48,16 +72,33 @@ def setup_application():
     
     return app
 
+
+"""
+* Creates necessary application directories if they don't exist
+*
+* This function ensures that all required directories for the application
+* are present, including logs, data cache, and temporary storage directories.
+*
+* **@return** None
+"""
 def create_directories():
-    """Create necessary directories"""
     directories = ["logs", "data", "cache"]
     
     for directory in directories:
         Path(directory).mkdir(exist_ok=True)
 
+
+"""
+* Main application entry point and execution controller
+*
+* This function orchestrates the entire application startup process including
+* logging initialization, directory creation, Qt application setup, and the
+* main window creation. It handles all exceptions and returns appropriate
+* exit codes.
+*
+* **@return** Integer exit code (0 for success, 1 for error)
+"""
 def main():
-    """Main function"""
-    
     try:
         # Configure logging
         logger = setup_logging()
@@ -99,6 +140,7 @@ def main():
         if 'logger' in locals():
             logger.error(error_msg, exc_info=True)
         return 1
+
 
 if __name__ == "__main__":
     exit_code = main()

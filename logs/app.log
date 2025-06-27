@@ -5772,3 +5772,51 @@ AttributeError: type object 'CompositionMode' has no attribute 'SourceOver'
 2025-06-27 11:27:29,716 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/24/results.json
 2025-06-27 11:27:29,717 - services.data_service - INFO - Loaded 24 races for 2025
 2025-06-27 11:27:54,202 - __main__ - INFO - Application exited with code: 0
+2025-06-27 11:56:10,471 - __main__ - INFO - Logging system initialized
+2025-06-27 11:56:10,472 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-27 11:56:10,473 - __main__ - INFO - Application directories created
+2025-06-27 11:56:10,510 - __main__ - INFO - Qt application configured
+2025-06-27 11:56:11,050 - utils.i18n - INFO - Loaded translations for: en
+2025-06-27 11:56:11,050 - utils.i18n - INFO - Loaded translations for: es
+2025-06-27 11:56:11,071 - utils.i18n - INFO - Language changed from en to en
+2025-06-27 11:56:11,119 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-27 11:56:11,122 - ui.main_window - INFO - Loaded logo for f1
+2025-06-27 11:56:11,141 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-27 11:56:11,144 - ui.main_window - INFO - Loaded logo for motogp
+2025-06-27 11:56:11,168 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/home.png
+2025-06-27 11:56:11,171 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/refresh.png
+2025-06-27 11:56:11,171 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-27 11:56:11,219 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/home.png
+2025-06-27 11:56:11,222 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/refresh.png
+2025-06-27 11:56:11,541 - __main__ - INFO - Main window created and shown
+2025-06-27 11:56:11,542 - __main__ - INFO - Application ready - entering event loop
+2025-06-27 11:56:12,018 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-27 11:56:13,019 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-27 11:56:13,114 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-27 11:56:13,114 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-27 11:56:13,350 - __main__ - INFO - Application exited with code: 0
+2025-06-27 11:56:13,449 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-27 12:01:22,877 - __main__ - INFO - Logging system initialized
+2025-06-27 12:01:22,878 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-27 12:01:22,878 - __main__ - INFO - Application directories created
+2025-06-27 12:01:22,914 - __main__ - INFO - Qt application configured
+2025-06-27 12:01:23,481 - utils.i18n - INFO - Loaded translations for: en
+2025-06-27 12:01:23,481 - utils.i18n - INFO - Loaded translations for: es
+2025-06-27 12:01:23,497 - utils.i18n - INFO - Language changed from en to en
+2025-06-27 12:01:23,549 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-27 12:01:23,553 - ui.main_window - INFO - Loaded logo for f1
+2025-06-27 12:01:23,572 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-27 12:01:23,575 - ui.main_window - INFO - Loaded logo for motogp
+2025-06-27 12:01:23,603 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/home.png
+2025-06-27 12:01:23,608 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/refresh.png
+2025-06-27 12:01:23,609 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-27 12:01:23,651 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/home.png
+2025-06-27 12:01:23,653 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/refresh.png
+2025-06-27 12:01:23,981 - __main__ - INFO - Main window created and shown
+2025-06-27 12:01:23,981 - __main__ - INFO - Application ready - entering event loop
+2025-06-27 12:01:24,371 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-27 12:01:25,372 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-27 12:01:25,505 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-27 12:01:25,506 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-27 12:01:25,800 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-27 12:01:25,845 - __main__ - INFO - Application exited with code: 0
