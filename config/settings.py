@@ -9,7 +9,7 @@ user preferences management.
 **Classes:**
     AppConfig - Central configuration management class
 
-**Author:** Motorsport Apps Team
+**Author:** Lotherd
 **Version:** 1.0.0
 """
 
@@ -148,6 +148,7 @@ class AppConfig:
     *
     * **@return** String language code (e.g., 'en', 'es')
     """
+    @classmethod
     def get_language(cls) -> str:
         try:
             if cls.SETTINGS_FILE.exists():
@@ -169,6 +170,7 @@ class AppConfig:
     * **@param** language_code String language code to save (e.g., 'en', 'es')
     * **@return** None
     """
+    @classmethod
     def set_language(cls, language_code: str):
         try:
             settings = {}
@@ -193,6 +195,7 @@ class AppConfig:
     * **@param** series_type String type of series ('f1' or 'motogp')
     * **@return** String path to the logo file or empty string if invalid type
     """
+    @classmethod
     def get_logo_path(cls, series_type: str) -> str:
         if series_type == "f1":
             return cls.LOGO_CONFIG['f1_logo_path']
@@ -210,6 +213,7 @@ class AppConfig:
     *
     * **@return** Tuple containing (width, height) in pixels
     """
+    @classmethod
     def get_card_size(cls) -> tuple:
         return cls.CARD_CONFIG['card_size']
     
@@ -222,6 +226,7 @@ class AppConfig:
     *
     * **@return** Tuple containing (width, height) in pixels
     """
+    @classmethod
     def get_logo_container_size(cls) -> tuple:
         return cls.LOGO_CONFIG['logo_container_size']
     
@@ -234,6 +239,7 @@ class AppConfig:
     *
     * **@return** Tuple containing (max_width, max_height) in pixels
     """
+    @classmethod
     def get_logo_max_size(cls) -> tuple:
         return cls.LOGO_CONFIG['logo_max_size']
     
@@ -246,6 +252,7 @@ class AppConfig:
     *
     * **@return** Boolean True if high quality rendering is enabled
     """
+    @classmethod
     def is_high_quality_rendering(cls) -> bool:
         return cls.RENDERING['logo_quality'] == 'high'
     
@@ -258,9 +265,9 @@ class AppConfig:
     *
     * **@return** Dictionary containing all window configuration parameters
     """
+    @classmethod
     def get_window_config(cls) -> Dict[str, Any]:
         return cls.WINDOW_CONFIG
-    
     
     """
     * Gets the complete font configuration dictionary
@@ -270,5 +277,6 @@ class AppConfig:
     *
     * **@return** Dictionary containing font sizes for various UI elements
     """
+    @classmethod
     def get_font_config(cls) -> Dict[str, int]:
         return cls.FONTS

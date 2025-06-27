@@ -8,7 +8,7 @@ logging setup, and the main event loop for the PyQt6 motorsport dashboard.
 **Classes:**
     None (Module contains standalone functions)
 
-**Author:** Motorsport Apps Team
+**Author:** Lotherd
 **Version:** 1.0.0
 """
 

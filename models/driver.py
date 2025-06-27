@@ -1,9 +1,27 @@
+# models/driver.py
+"""
+Data models for drivers, constructors, and championship standings
+
+This module contains the data model classes that represent F1 drivers,
+constructor teams, and driver championship standings. These models
+handle data parsing from the Ergast API format.
+
+**Classes:**
+    Driver - Individual driver information and details
+    Constructor - Team/constructor information and details  
+    DriverStanding - Driver's position and points in championship
+
+**Author:** Lotherd
+**Version:** 1.0.0
+"""
+
 from dataclasses import dataclass
 from typing import Optional, List
 
 @dataclass
 class Driver:
-    """Data model for a driver"""
+    """Data model representing an individual F1 driver with all personal details"""
+    
     driver_id: str
     permanent_number: Optional[str]
     code: Optional[str]
@@ -13,14 +31,32 @@ class Driver:
     nationality: str
     url: Optional[str]
     
+    
+    """
+    * Constructs and returns the driver's complete full name
+    *
+    * This property combines the driver's given name and family name
+    * to create a readable full name for display purposes.
+    *
+    * **@return** String containing the driver's full name
+    """
     @property
     def full_name(self) -> str:
-        """Driver's full name"""
         return f"{self.given_name} {self.family_name}"
     
+    
+    """
+    * Creates a Driver instance from Ergast API response data
+    *
+    * This class method parses the JSON data structure returned by the
+    * Ergast API and creates a properly structured Driver object with
+    * all the available driver information.
+    *
+    * **@param** data Dictionary containing driver data from Ergast API
+    * **@return** Driver instance populated with the provided data
+    """
     @classmethod
     def from_ergast_data(cls, data: dict) -> 'Driver':
-        """Create instance from Ergast API data"""
         return cls(
             driver_id=data.get('driverId', ''),
             permanent_number=data.get('permanentNumber'),
@@ -34,15 +70,26 @@ class Driver:
 
 @dataclass
 class Constructor:
-    """Data model for a constructor/team"""
+    """Data model representing an F1 constructor/team with basic information"""
+    
     constructor_id: str
     name: str
     nationality: str
     url: Optional[str]
     
+    
+    """
+    * Creates a Constructor instance from Ergast API response data
+    *
+    * This class method parses the JSON data structure returned by the
+    * Ergast API and creates a properly structured Constructor object
+    * with all the available team information.
+    *
+    * **@param** data Dictionary containing constructor data from Ergast API
+    * **@return** Constructor instance populated with the provided data
+    """
     @classmethod
     def from_ergast_data(cls, data: dict) -> 'Constructor':
-        """Create instance from Ergast API data"""
         return cls(
             constructor_id=data.get('constructorId', ''),
             name=data.get('name', ''),
@@ -52,7 +99,8 @@ class Constructor:
 
 @dataclass
 class DriverStanding:
-    """Data model for a driver's championship position"""
+    """Data model representing a driver's championship position and statistics"""
+    
     position: int
     position_text: str
     points: float
@@ -60,9 +108,19 @@ class DriverStanding:
     driver: Driver
     constructors: List[Constructor]
     
+    
+    """
+    * Creates a DriverStanding instance from Ergast API response data
+    *
+    * This class method parses the complex JSON data structure returned by
+    * the Ergast API standings endpoint and creates a complete DriverStanding
+    * object including embedded Driver and Constructor objects.
+    *
+    * **@param** data Dictionary containing standing data from Ergast API
+    * **@return** DriverStanding instance with all related objects populated
+    """
     @classmethod
     def from_ergast_data(cls, data: dict) -> 'DriverStanding':
-        """Create instance from Ergast API data"""
         driver = Driver.from_ergast_data(data['Driver'])
         constructors = [Constructor.from_ergast_data(c) for c in data['Constructors']]
         
