@@ -1,6 +1,21 @@
 # utils/i18n.py
 """
-Internationalization system for the application
+Internationalization system for multi-language application support
+
+This module provides comprehensive internationalization capabilities for the
+motorsport dashboard application, including translation management, language
+switching, and automatic translation file generation for supported languages.
+
+**Classes:**
+    TranslationManager - Main class for handling translations and language switching
+
+**Functions:**
+    tr - Convenience function for translating text keys
+    set_language - Convenience function for changing application language
+    get_translation_manager - Getter function for translation manager instance
+
+**Author:** Motorsport Apps Team
+**Version:** 1.0.0
 """
 
 import os
@@ -13,11 +28,20 @@ from PyQt6.QtCore import QObject, pyqtSignal
 logger = logging.getLogger(__name__)
 
 class TranslationManager(QObject):
-    """Translation manager for the application"""
+    """Translation manager for handling multi-language support and text localization"""
     
     # Signal emitted when language changes
     language_changed = pyqtSignal(str)  # New language code
     
+    """
+    * Initializes the translation manager with default settings and file loading
+    *
+    * This constructor sets up the translation system with default language
+    * settings, creates necessary directories, and loads all available
+    * translation files for the application.
+    *
+    * **@return** None
+    """
     def __init__(self):
         super().__init__()
         self.current_language = "en"  # Default language
@@ -31,8 +55,16 @@ class TranslationManager(QObject):
         # Load translations
         self._load_all_translations()
         
+    """
+    * Loads all available translation files from the translations directory
+    *
+    * This method scans the translations directory for JSON files and loads
+    * each one as a language translation set. If no files exist, it creates
+    * default translation files for supported languages.
+    *
+    * **@return** None
+    """
     def _load_all_translations(self):
-        """Load all available translations"""
         try:
             # Load translations from JSON files
             for lang_file in self.translations_dir.glob("*.json"):
@@ -49,8 +81,16 @@ class TranslationManager(QObject):
             logger.error(f"Error loading translations: {e}")
             self._create_default_translations()
     
+    """
+    * Creates default translation files for English and Spanish if they don't exist
+    *
+    * This method generates comprehensive default translation dictionaries for
+    * both English and Spanish languages, covering all UI elements, messages,
+    * and user-facing text in the application.
+    *
+    * **@return** None
+    """
     def _create_default_translations(self):
-        """Create default translations if they don't exist"""
         logger.info("Creating default translations...")
         
         # Spanish translations
@@ -334,8 +374,17 @@ class TranslationManager(QObject):
                 json.dump(translations, f, ensure_ascii=False, indent=2)
             logger.info(f"Created translation file: {file_path}")
     
+    """
+    * Changes the active language and emits language change signal
+    *
+    * This method updates the current language setting if the requested
+    * language is available in the loaded translations and emits a signal
+    * to notify other components of the language change.
+    *
+    * **@param** language_code String language code to switch to
+    * **@return** Boolean True if language change successful, False otherwise
+    """
     def set_language(self, language_code: str) -> bool:
-        """Change active language"""
         if language_code in self.translations:
             old_language = self.current_language
             self.current_language = language_code
@@ -346,15 +395,32 @@ class TranslationManager(QObject):
             logger.warning(f"Language {language_code} not available")
             return False
     
+    """
+    * Returns a dictionary of available languages with display names
+    *
+    * This method provides a mapping of language codes to their display
+    * names for use in language selection interfaces and menus.
+    *
+    * **@return** Dictionary mapping language codes to display names
+    """
     def get_available_languages(self) -> Dict[str, str]:
-        """Get available languages"""
         return {
             "es": "Español",
             "en": "English"
         }
     
+    """
+    * Translates a text key to the current language with parameter substitution
+    *
+    * This method looks up the translation for a given key in the current
+    * language, falls back to the default language if not found, and supports
+    * parameter substitution for dynamic text generation.
+    *
+    * **@param** key String translation key to look up
+    * **@param** kwargs Additional keyword arguments for text formatting
+    * **@return** String translated text or key in brackets if not found
+    """
     def tr(self, key: str, **kwargs) -> str:
-        """Translate a key"""
         # Try to get from current language
         translations = self.translations.get(self.current_language, {})
         text = translations.get(key)
@@ -378,22 +444,56 @@ class TranslationManager(QObject):
             logger.error(f"Error formatting translation '{key}': {e}")
             return text
     
+    """
+    * Returns the currently active language code
+    *
+    * This method provides access to the current language setting for
+    * components that need to know which language is currently active
+    * for conditional behavior or display purposes.
+    *
+    * **@return** String current language code
+    """
     def get_current_language(self) -> str:
-        """Get current language"""
         return self.current_language
 
 
 # Global translation manager instance
 _translation_manager = TranslationManager()
 
+"""
+* Convenience function for translating text keys with the global manager
+*
+* This function provides easy access to translation functionality without
+* requiring direct access to the translation manager instance, supporting
+* parameter substitution for dynamic text generation.
+*
+* **@param** key String translation key to translate
+* **@param** kwargs Additional keyword arguments for text formatting
+* **@return** String translated text
+"""
 def tr(key: str, **kwargs) -> str:
-    """Convenience function for translation"""
     return _translation_manager.tr(key, **kwargs)
 
+"""
+* Convenience function for changing language with the global manager
+*
+* This function provides easy access to language switching functionality
+* without requiring direct access to the translation manager instance.
+*
+* **@param** language_code String language code to switch to
+* **@return** Boolean True if language change successful, False otherwise
+"""
 def set_language(language_code: str) -> bool:
-    """Convenience function for changing language"""
     return _translation_manager.set_language(language_code)
 
+"""
+* Returns the global translation manager instance
+*
+* This function provides access to the global translation manager for
+* components that need direct access to advanced translation features
+* like signal connections or language availability checking.
+*
+* **@return** TranslationManager global translation manager instance
+"""
 def get_translation_manager() -> TranslationManager:
-    """Get translation manager instance"""
     return _translation_manager

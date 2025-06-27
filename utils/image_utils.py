@@ -1,6 +1,16 @@
 # utils/image_utils.py
 """
-High-quality image loading and processing utilities
+High-quality image loading and processing utilities for optimal display
+
+This module provides advanced image processing capabilities optimized for
+high-DPI displays and professional visual quality. It includes support for
+multiple resolution scaling, color conversion, and fallback generation.
+
+**Classes:**
+    ImageUtils - Static utility methods for image processing and optimization
+
+**Author:** Lotherd
+**Version:** 1.0.0
 """
 
 import os
@@ -14,8 +24,22 @@ from PyQt6.QtWidgets import QWidget, QLabel
 logger = logging.getLogger(__name__)
 
 class ImageUtils:
-    """Utilities for high-quality image loading and processing"""
+    """Static utilities for high-quality image loading and processing operations"""
     
+    
+    """
+    * Loads a high-quality pixmap with proper scaling and anti-aliasing
+    *
+    * This method loads an image file and scales it to the target size using
+    * high-quality rendering techniques. It supports high-DPI displays and
+    * optional background color application for transparent images.
+    *
+    * **@param** image_path String path to the image file to load
+    * **@param** target_size Tuple of (width, height) for target dimensions
+    * **@param** device_pixel_ratio Float device pixel ratio for high-DPI support
+    * **@param** background_color Optional QColor for transparent image backgrounds
+    * **@return** QPixmap high-quality scaled image or None if loading fails
+    """
     @staticmethod
     def load_high_quality_pixmap(
         image_path: str,
@@ -23,18 +47,6 @@ class ImageUtils:
         device_pixel_ratio: float = 1.0,
         background_color: Optional[QColor] = None
     ) -> Optional[QPixmap]:
-        """
-        Load a high-quality pixmap with proper scaling and anti-aliasing
-        
-        Args:
-            image_path: Path to the image file
-            target_size: Target size (width, height)
-            device_pixel_ratio: Device pixel ratio for high-DPI displays
-            background_color: Optional background color for transparency
-            
-        Returns:
-            High-quality QPixmap or None if loading fails
-        """
         try:
             if not os.path.exists(image_path):
                 logger.warning(f"Image file not found: {image_path}")
@@ -87,6 +99,21 @@ class ImageUtils:
             logger.error(f"Error loading image {image_path}: {e}")
             return None
     
+    
+    """
+    * Creates a high-quality fallback logo when image loading fails
+    *
+    * This method generates a professional-looking fallback logo with series-
+    * specific styling and typography when the actual logo image cannot be
+    * loaded, ensuring consistent visual presentation.
+    *
+    * **@param** series_type String type of series ('f1' or 'motogp')
+    * **@param** size Tuple of (width, height) for logo dimensions
+    * **@param** device_pixel_ratio Float device pixel ratio for scaling
+    * **@param** text_color QColor for text rendering
+    * **@param** background_color QColor for background fill
+    * **@return** QPixmap high-quality fallback logo
+    """
     @staticmethod
     def create_fallback_logo(
         series_type: str,
@@ -95,19 +122,6 @@ class ImageUtils:
         text_color: QColor = QColor("#ffffff"),
         background_color: QColor = QColor("#e10600")
     ) -> QPixmap:
-        """
-        Create a high-quality fallback logo when image loading fails
-        
-        Args:
-            series_type: Type of series ("f1" or "motogp")
-            size: Size (width, height)
-            device_pixel_ratio: Device pixel ratio
-            text_color: Text color
-            background_color: Background color
-            
-        Returns:
-            High-quality fallback QPixmap
-        """
         try:
             width, height = size
             scaled_width = int(width * device_pixel_ratio)
@@ -160,20 +174,25 @@ class ImageUtils:
             fallback.fill(background_color)
             return fallback
     
+    
+    """
+    * Configures a QLabel for optimal high-quality pixmap display
+    *
+    * This method sets up a QLabel widget with the optimal configuration
+    * for displaying high-quality pixmaps including scaling behavior,
+    * alignment, and size policies for professional presentation.
+    *
+    * **@param** label QLabel widget to configure for image display
+    * **@param** pixmap QPixmap image to display in the label
+    * **@param** maintain_aspect_ratio Boolean whether to preserve aspect ratio
+    * **@return** None
+    """
     @staticmethod
     def setup_high_quality_label(
         label: QLabel,
         pixmap: QPixmap,
         maintain_aspect_ratio: bool = True
     ):
-        """
-        Setup a QLabel for high-quality pixmap display
-        
-        Args:
-            label: QLabel to configure
-            pixmap: QPixmap to display
-            maintain_aspect_ratio: Whether to maintain aspect ratio
-        """
         try:
             label.setPixmap(pixmap)
             label.setScaledContents(False)  # Prevent Qt from scaling
@@ -191,23 +210,25 @@ class ImageUtils:
         except Exception as e:
             logger.error(f"Error setting up high-quality label: {e}")
     
+    
+    """
+    * Calculates optimal logo size to fit within container while maintaining aspect ratio
+    *
+    * This method determines the best size for a logo to fit within a given
+    * container while preserving the original aspect ratio and accounting
+    * for padding around the edges.
+    *
+    * **@param** original_size Tuple of (width, height) for original image
+    * **@param** container_size Tuple of (width, height) for container
+    * **@param** padding Integer padding to leave around the logo
+    * **@return** Tuple of (width, height) for optimal logo size
+    """
     @staticmethod
     def get_optimal_logo_size(
         original_size: Tuple[int, int],
         container_size: Tuple[int, int],
         padding: int = 20
     ) -> Tuple[int, int]:
-        """
-        Calculate optimal logo size to fit within container while maintaining aspect ratio
-        
-        Args:
-            original_size: Original image size (width, height)
-            container_size: Container size (width, height)
-            padding: Padding to leave around the logo
-            
-        Returns:
-            Optimal size (width, height)
-        """
         try:
             orig_width, orig_height = original_size
             container_width, container_height = container_size
@@ -234,16 +255,34 @@ class ImageUtils:
             logger.error(f"Error calculating optimal logo size: {e}")
             return (200, 100)  # Fallback size
     
+    
+    """
+    * Ensures the logo directory exists and creates it if necessary
+    *
+    * This method checks for the existence of the logo directory and creates
+    * it if it doesn't exist, ensuring the application can store and access
+    * logo files properly.
+    *
+    * **@return** Path object pointing to the logo directory
+    """
     @staticmethod
     def ensure_logo_directory():
-        """Ensure logo directory exists"""
         logo_dir = Path("logo")
         logo_dir.mkdir(exist_ok=True)
         return logo_dir
     
+    
+    """
+    * Checks which logo files exist and validates their properties
+    *
+    * This method scans the logo directory for F1 and MotoGP logo files,
+    * validates that they can be loaded properly, and returns a comprehensive
+    * status report for diagnostic and troubleshooting purposes.
+    *
+    * **@return** Dictionary containing status information for each logo file
+    """
     @staticmethod
     def check_logo_files() -> dict:
-        """Check which logo files exist and their properties"""
         logo_dir = ImageUtils.ensure_logo_directory()
         
         logo_files = {
