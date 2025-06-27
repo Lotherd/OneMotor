@@ -1,11 +1,35 @@
+# ui/styles/app_styles.py
+"""
+Centralized CSS styles for consistent application theming
+
+This module provides centralized styling definitions for all UI components
+in the motorsport dashboard application. It ensures consistent visual
+appearance across different widgets and components.
+
+**Classes:**
+    AppStyles - Static methods for generating CSS style strings
+
+**Author:** Lotherd
+**Version:** 1.0.0
+"""
+
 from config.settings import AppConfig
 
 class AppStyles:
-    """Centralized CSS styles"""
+    """Centralized CSS style definitions for consistent application theming"""
     
+    
+    """
+    * Generates CSS styling for primary action buttons
+    *
+    * This method creates the CSS style string for main action buttons using
+    * the F1 red color theme. It includes hover and pressed states for
+    * interactive feedback and disabled state styling.
+    *
+    * **@return** String containing complete CSS styling for main buttons
+    """
     @staticmethod
     def get_main_button_style() -> str:
-        """Style for main buttons"""
         return f"""
             QPushButton {{
                 background-color: {AppConfig.COLORS['f1_red']};
@@ -29,9 +53,18 @@ class AppStyles:
             }}
         """
     
+    
+    """
+    * Generates CSS styling for secondary action buttons
+    *
+    * This method creates the CSS style string for secondary buttons with
+    * a white background and border styling. It includes hover effects
+    * that change the border color to the F1 red theme.
+    *
+    * **@return** String containing complete CSS styling for secondary buttons
+    """
     @staticmethod
     def get_secondary_button_style() -> str:
-        """Style for secondary buttons"""
         return f"""
             QPushButton {{
                 background-color: {AppConfig.COLORS['white']};
@@ -51,9 +84,17 @@ class AppStyles:
             }}
         """
     
-    @staticmethod
+    
+    """
+    * Generates CSS styling for data table widgets
+    *
+    * This method creates comprehensive CSS styling for table widgets including
+    * grid lines, selection colors, header styling, and scroll bar appearance.
+    * It uses the F1 red theme for selections and headers.
+    *
+    * **@return** String containing complete CSS styling for table widgets
+    """
     def get_table_style() -> str:
-        """Style for tables"""
         return f"""
             QTableWidget {{
                 gridline-color: {AppConfig.COLORS['border']};
@@ -82,9 +123,19 @@ class AppStyles:
             }}
         """
     
+    
+    """
+    * Generates CSS styling for title labels with customizable size
+    *
+    * This method creates CSS styling for title labels using the F1 red color
+    * theme. The font size can be customized while maintaining consistent
+    * styling for margins, padding, and font weight.
+    *
+    * **@param** size Integer font size in pixels (default: 18)
+    * **@return** String containing complete CSS styling for title labels
+    """
     @staticmethod
     def get_title_style(size: int = 18) -> str:
-        """Style for titles"""
         return f"""
             QLabel {{
                 color: {AppConfig.COLORS['f1_red']};
@@ -95,9 +146,18 @@ class AppStyles:
             }}
         """
     
+    
+    """
+    * Generates CSS styling for status information labels
+    *
+    * This method creates CSS styling for status labels that display information
+    * messages to users. It uses a subtle background color and secondary text
+    * color for a non-intrusive appearance.
+    *
+    * **@return** String containing complete CSS styling for status labels
+    """
     @staticmethod
     def get_status_label_style() -> str:
-        """Style for status labels"""
         return f"""
             QLabel {{
                 color: {AppConfig.COLORS['text_secondary']};
@@ -109,9 +169,18 @@ class AppStyles:
             }}
         """
     
+   
+    """
+    * Generates CSS styling for tab widget components
+    *
+    * This method creates comprehensive CSS styling for tab widgets including
+    * the tab bar, individual tabs, and the main content pane. It uses the
+    * F1 red theme for active tabs and includes hover effects.
+    *
+    * **@return** String containing complete CSS styling for tab widgets
+    """
     @staticmethod
     def get_tab_style() -> str:
-        """Style for tabs"""
         return f"""
             QTabWidget::pane {{
                 border: 1px solid {AppConfig.COLORS['border']};
@@ -136,9 +205,18 @@ class AppStyles:
             }}
         """
     
+    
+    """
+    * Generates CSS styling for success message labels
+    *
+    * This method creates CSS styling for labels that display success messages
+    * using green colors and appropriate background styling to clearly indicate
+    * successful operations to the user.
+    *
+    * **@return** String containing complete CSS styling for success messages
+    """
     @staticmethod
     def get_success_style() -> str:
-        """Style for success messages"""
         return f"""
             QLabel {{
                 color: {AppConfig.COLORS['success']};
@@ -150,9 +228,18 @@ class AppStyles:
             }}
         """
     
+    
+    """
+    * Generates CSS styling for error message labels
+    *
+    * This method creates CSS styling for labels that display error messages
+    * using red colors and appropriate background styling to clearly indicate
+    * error conditions to the user.
+    *
+    * **@return** String containing complete CSS styling for error messages
+    """
     @staticmethod
     def get_error_style() -> str:
-        """Style for error messages"""
         return f"""
             QLabel {{
                 color: {AppConfig.COLORS['error']};
