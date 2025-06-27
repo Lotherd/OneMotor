@@ -1,6 +1,16 @@
 # config/settings.py
 """
 Enhanced application configuration with high-quality rendering settings
+
+This module contains the main configuration class for the motorsport dashboard
+application, including API endpoints, UI styling, rendering settings, and
+user preferences management.
+
+**Classes:**
+    AppConfig - Central configuration management class
+
+**Author:** Motorsport Apps Team
+**Version:** 1.0.0
 """
 
 import os
@@ -9,7 +19,7 @@ from pathlib import Path
 from typing import Dict, Any
 
 class AppConfig:
-    """Enhanced application configuration"""
+    """Enhanced application configuration manager for motorsport dashboard"""
     
     # Application Info
     APP_NAME = "Motorsport Dashboard"  
@@ -128,9 +138,17 @@ class AppConfig:
     # Default language
     DEFAULT_LANGUAGE = "en"
     
-    @classmethod
+    
+    """
+    * Retrieves the saved user language preference from settings file
+    *
+    * This method attempts to read the language preference from the settings.json
+    * file. If the file doesn't exist or cannot be read, it returns the default
+    * language setting.
+    *
+    * **@return** String language code (e.g., 'en', 'es')
+    """
     def get_language(cls) -> str:
-        """Get saved language preference"""
         try:
             if cls.SETTINGS_FILE.exists():
                 with open(cls.SETTINGS_FILE, 'r', encoding='utf-8') as f:
@@ -140,9 +158,18 @@ class AppConfig:
             pass
         return cls.DEFAULT_LANGUAGE
     
-    @classmethod
+    
+    """
+    * Saves the user's language preference to the settings file
+    *
+    * This method updates the settings.json file with the new language preference.
+    * If the file doesn't exist, it creates a new one. If it exists, it updates
+    * only the language field while preserving other settings.
+    *
+    * **@param** language_code String language code to save (e.g., 'en', 'es')
+    * **@return** None
+    """
     def set_language(cls, language_code: str):
-        """Save language preference"""
         try:
             settings = {}
             if cls.SETTINGS_FILE.exists():
@@ -156,9 +183,17 @@ class AppConfig:
         except Exception as e:
             print(f"Error saving language setting: {e}")
     
-    @classmethod
+    
+    """
+    * Gets the logo file path for a specific motorsport series
+    *
+    * This method returns the configured logo path for either F1 or MotoGP
+    * based on the series type parameter.
+    *
+    * **@param** series_type String type of series ('f1' or 'motogp')
+    * **@return** String path to the logo file or empty string if invalid type
+    """
     def get_logo_path(cls, series_type: str) -> str:
-        """Get logo path for specific series"""
         if series_type == "f1":
             return cls.LOGO_CONFIG['f1_logo_path']
         elif series_type == "motogp":
@@ -166,32 +201,74 @@ class AppConfig:
         else:
             return ""
     
-    @classmethod
+    
+    """
+    * Gets the configured card size dimensions
+    *
+    * This method returns the width and height dimensions for motorsport
+    * cards as configured in the CARD_CONFIG settings.
+    *
+    * **@return** Tuple containing (width, height) in pixels
+    """
     def get_card_size(cls) -> tuple:
-        """Get card size configuration"""
         return cls.CARD_CONFIG['card_size']
     
-    @classmethod
+    
+    """
+    * Gets the logo container size dimensions
+    *
+    * This method returns the width and height dimensions for logo containers
+    * as configured in the LOGO_CONFIG settings.
+    *
+    * **@return** Tuple containing (width, height) in pixels
+    """
     def get_logo_container_size(cls) -> tuple:
-        """Get logo container size"""
         return cls.LOGO_CONFIG['logo_container_size']
     
-    @classmethod
+    
+    """
+    * Gets the maximum logo size dimensions
+    *
+    * This method returns the maximum allowable width and height for logos
+    * within their containers as configured in the LOGO_CONFIG settings.
+    *
+    * **@return** Tuple containing (max_width, max_height) in pixels
+    """
     def get_logo_max_size(cls) -> tuple:
-        """Get maximum logo size"""
         return cls.LOGO_CONFIG['logo_max_size']
     
-    @classmethod
+    
+    """
+    * Checks if high quality rendering is enabled
+    *
+    * This method determines whether the application should use high quality
+    * rendering based on the logo_quality setting in RENDERING configuration.
+    *
+    * **@return** Boolean True if high quality rendering is enabled
+    """
     def is_high_quality_rendering(cls) -> bool:
-        """Check if high quality rendering is enabled"""
         return cls.RENDERING['logo_quality'] == 'high'
     
-    @classmethod
+    
+    """
+    * Gets the complete window configuration dictionary
+    *
+    * This method returns all window-related configuration settings including
+    * default size, minimum size, header height, and margin settings.
+    *
+    * **@return** Dictionary containing all window configuration parameters
+    """
     def get_window_config(cls) -> Dict[str, Any]:
-        """Get window configuration"""
         return cls.WINDOW_CONFIG
     
-    @classmethod
+    
+    """
+    * Gets the complete font configuration dictionary
+    *
+    * This method returns all font-related configuration settings including
+    * sizes for different UI elements like titles, buttons, and tables.
+    *
+    * **@return** Dictionary containing font sizes for various UI elements
+    """
     def get_font_config(cls) -> Dict[str, int]:
-        """Get font configuration"""
         return cls.FONTS
