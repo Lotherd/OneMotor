@@ -1,5 +1,5 @@
 """
-Enhanced main application window with exact card design integration
+Enhanced main application window with modern buttons and clean header
 """
 
 import logging
@@ -263,8 +263,143 @@ class ExactMotorsportCard(QFrame):
             # Apply normal shadow
             self._add_shadow()
 
+class MinimalistButton(QPushButton):
+    """Ultra high-quality minimalist button with crisp PNG icons"""
+    
+    def __init__(self, icon_path: str, size: int = 24):
+        super().__init__()
+        self.icon_path = icon_path
+        self.icon_size = size
+        self.setup_style()
+        self.setFixedSize(44, 44)  # Slightly larger for better visual quality
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.load_ultra_high_quality_icon()
+    
+    def load_ultra_high_quality_icon(self):
+        """Load ultra high-quality PNG icon with multiple resolution support"""
+        if os.path.exists(self.icon_path):
+            try:
+                from PyQt6.QtGui import QIcon
+                
+                # Create QIcon directly from file - this preserves maximum quality
+                icon = QIcon(self.icon_path)
+                
+                # If we need white color, we'll use a different approach
+                if not icon.isNull():
+                    # Create multiple sizes for different DPI
+                    sizes = [16, 20, 24, 32, 48, 64]  # Multiple resolutions
+                    
+                    # Load original high-res image
+                    original = QPixmap(self.icon_path)
+                    if original.isNull():
+                        logger.warning(f"Could not load original icon: {self.icon_path}")
+                        return
+                    
+                    # Create a new icon with multiple high-quality sizes
+                    multi_icon = QIcon()
+                    
+                    for size in sizes:
+                        # Scale with highest quality
+                        scaled = original.scaled(
+                            size * 2,  # Double size for better quality
+                            size * 2,
+                            Qt.AspectRatioMode.KeepAspectRatio,
+                            Qt.TransformationMode.SmoothTransformation
+                        )
+                        
+                        # Create white version with ultra-high quality
+                        white_pixmap = self.create_white_icon(scaled)
+                        
+                        # Add to multi-resolution icon
+                        multi_icon.addPixmap(white_pixmap)
+                    
+                    # Set the multi-resolution icon
+                    self.setIcon(multi_icon)
+                    self.setIconSize(QSize(self.icon_size, self.icon_size))
+                    
+                    logger.info(f"Loaded ultra-high quality icon: {self.icon_path}")
+                else:
+                    logger.warning(f"Icon is null: {self.icon_path}")
+                    self.create_fallback_icon()
+                    
+            except Exception as e:
+                logger.error(f"Error loading ultra-high quality icon {self.icon_path}: {e}")
+                self.create_fallback_icon()
+        else:
+            logger.warning(f"Icon file not found: {self.icon_path}")
+            self.create_fallback_icon()
+    
+    def create_white_icon(self, source_pixmap):
+        """Create ultra-crisp white version of icon using advanced techniques"""
+        # Create result pixmap with same size and transparency
+        result = QPixmap(source_pixmap.size())
+        result.fill(Qt.GlobalColor.transparent)
+        
+        # Ultra-high quality painter setup
+        painter = QPainter(result)
+        
+        # Enable ALL quality hints
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
+        painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform, True)
+        painter.setRenderHint(QPainter.RenderHint.TextAntialiasing, True)
+        
+        # Use a mask-based approach for better quality
+        # First, create an alpha mask from the original
+        painter.setCompositionMode(QPainter.CompositionMode.CompositionMode_SourceOver)
+        painter.drawPixmap(0, 0, source_pixmap)
+        
+        # Then apply white color while preserving alpha
+        painter.setCompositionMode(QPainter.CompositionMode.CompositionMode_SourceIn)
+        painter.fillRect(result.rect(), QColor(255, 255, 255, 255))
+        
+        painter.end()
+        return result
+    
+    def create_fallback_icon(self):
+        """Create ultra-crisp fallback icon"""
+        size = self.icon_size * 2  # Double resolution
+        fallback = QPixmap(size, size)
+        fallback.fill(Qt.GlobalColor.transparent)
+        
+        painter = QPainter(fallback)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
+        
+        # Create a crisp geometric shape
+        pen = QPen(QColor(255, 255, 255, 200), 3)
+        painter.setPen(pen)
+        
+        # Draw a clean circle
+        margin = size // 6
+        painter.drawEllipse(margin, margin, size - 2*margin, size - 2*margin)
+        painter.end()
+        
+        from PyQt6.QtGui import QIcon
+        icon = QIcon()
+        icon.addPixmap(fallback)
+        self.setIcon(icon)
+        self.setIconSize(QSize(self.icon_size, self.icon_size))
+    
+    def setup_style(self):
+        """Setup ultra-clean button styling"""
+        self.setStyleSheet("""
+            QPushButton {
+                background-color: transparent;
+                border: none;
+                border-radius: 22px;
+                padding: 10px;
+            }
+            QPushButton:hover {
+                background-color: rgba(255, 255, 255, 0.08);
+                border-radius: 22px;
+            }
+            QPushButton:pressed {
+                background-color: rgba(255, 255, 255, 0.15);
+                border-radius: 22px;
+            }
+        """)
+
 class MainWindow(QMainWindow):
-    """Enhanced main application window with the new card design"""
+    """Enhanced main application window with modern buttons and clean header"""
     
     def __init__(self):
         super().__init__()
@@ -408,29 +543,33 @@ class MainWindow(QMainWindow):
         self.stacked_widget.addWidget(home_widget)
     
     def create_f1_view(self):
-        """Create F1 view with modern header"""
+        """Create F1 view with modern clean header"""
         f1_widget = QWidget()
         layout = QVBoxLayout(f1_widget)
         layout.setContentsMargins(0, 0, 0, 0)
         
-        # Header
-        header = self.create_sub_header("FORMULA 1", "#e10600")
+        # Modern clean header
+        header = self.create_modern_sub_header("FORMULA 1", "#e10600")
         layout.addWidget(header)
         
         # F1 content
         self.f1_tab = F1TabWidget()
+        
+        # Connect refresh signal from F1 tab to header refresh button
+        # Note: refresh_button will be created in create_modern_sub_header
+        
         layout.addWidget(self.f1_tab)
         
         self.stacked_widget.addWidget(f1_widget)
     
     def create_motogp_view(self):
-        """Create MotoGP view with modern header"""
+        """Create MotoGP view with modern clean header"""
         motogp_widget = QWidget()
         layout = QVBoxLayout(motogp_widget)
         layout.setContentsMargins(0, 0, 0, 0)
         
-        # Header
-        header = self.create_sub_header("MOTOGP", "#0066cc")
+        # Modern clean header
+        header = self.create_modern_sub_header("MOTOGP", "#0066cc")
         layout.addWidget(header)
         
         # MotoGP content
@@ -439,8 +578,8 @@ class MainWindow(QMainWindow):
         
         self.stacked_widget.addWidget(motogp_widget)
     
-    def create_sub_header(self, title: str, color: str) -> QWidget:
-        """Create modern header for sub-views"""
+    def create_modern_sub_header(self, title: str, color: str) -> QWidget:
+        """Create minimalist clean header for sub-views"""
         header_widget = QWidget()
         header_widget.setFixedHeight(80)
         header_widget.setStyleSheet(f"""
@@ -452,31 +591,16 @@ class MainWindow(QMainWindow):
         """)
         
         layout = QHBoxLayout(header_widget)
-        layout.setContentsMargins(40, 0, 40, 0)
+        layout.setContentsMargins(30, 0, 30, 0)
         
-        # Back button
-        back_button = QPushButton("←")
-        back_button.setFixedSize(60, 60)
-        back_button.setStyleSheet(f"""
-            QPushButton {{
-                background: {color};
-                color: #ffffff;
-                border: none;
-                border-radius: 30px;
-                font-size: 24px;
-                font-weight: bold;
-            }}
-            QPushButton:hover {{
-                background: {self.lighten_color(color)};
-            }}
-            QPushButton:pressed {{
-                background: {self.darken_color(color)};
-            }}
-        """)
-        back_button.clicked.connect(self.show_home_view)
-        layout.addWidget(back_button)
+        # Minimalist Home button with PNG icon
+        self.home_button = MinimalistButton("logo/home.png", 20)
+        self.home_button.clicked.connect(self.show_home_view)
+        layout.addWidget(self.home_button)
         
-        # Title
+        layout.addSpacing(20)
+        
+        # Title - centered
         title_label = QLabel(title)
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         title_label.setStyleSheet("""
@@ -489,13 +613,28 @@ class MainWindow(QMainWindow):
             }
         """)
         layout.addWidget(title_label)
+        layout.setStretchFactor(title_label, 1)  # Make title expand to center
         
-        # Spacer for symmetry
-        spacer = QWidget()
-        spacer.setFixedWidth(60)
-        layout.addWidget(spacer)
+        layout.addSpacing(20)
+        
+        # Minimalist Refresh button with PNG icon
+        self.refresh_button = MinimalistButton("logo/refresh.png", 20)
+        self.refresh_button.clicked.connect(self.refresh_current_data)
+        layout.addWidget(self.refresh_button)
         
         return header_widget
+    
+    def refresh_current_data(self):
+        """Refresh data for current tab"""
+        current_index = self.stacked_widget.currentIndex()
+        
+        if current_index == 1:  # F1 view
+            # Get current tab in F1 widget
+            current_tab = self.f1_tab.tab_widget.currentIndex()
+            if current_tab == 0:  # Standings tab
+                self.f1_tab.standings_tab.load_standings()
+            elif current_tab == 1:  # Calendar tab
+                self.f1_tab.calendar_tab.load_calendar()
     
     def setup_menu(self):
         """Setup the application menu"""
@@ -573,22 +712,6 @@ class MainWindow(QMainWindow):
         """Handle language change event"""
         logger.info(f"Language changed to: {language_code}")
         self.setWindowTitle("Motorsport Dashboard")
-    
-    def lighten_color(self, color_hex: str) -> str:
-        """Lighten a color for hover effects"""
-        color = QColor(color_hex)
-        h, s, v, a = color.getHsv()
-        v = min(255, int(v * 1.3))
-        lighter_color = QColor.fromHsv(h, s, v, a)
-        return lighter_color.name()
-    
-    def darken_color(self, color: str) -> str:
-        """Darken a color for press effects"""
-        color_map = {
-            "#e10600": "#b30500",
-            "#0066cc": "#004499",
-        }
-        return color_map.get(color, color)
     
     def closeEvent(self, event):
         """Handle application close"""

@@ -1,6 +1,6 @@
 # ui/widgets/f1_tab.py
 """
-Fixed minimalist F1 widget with auto-load and font fixes
+F1 widget with dark theme and podium display
 """
 
 from PyQt6.QtWidgets import (
@@ -15,6 +15,7 @@ from PyQt6.QtWidgets import (
     QHeaderView,
     QTabWidget,
     QFrame,
+    QApplication,
 )
 from PyQt6.QtCore import Qt, pyqtSignal, QTimer
 from PyQt6.QtGui import QFont, QColor
@@ -28,108 +29,119 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class MinimalistTable(QTableWidget):
-    """Clean minimalist table widget"""
+class DarkTable(QTableWidget):
+    """Dark theme minimalist table widget"""
     
     def __init__(self):
         super().__init__()
-        self.setup_style()
+        self.setup_dark_style()
     
-    def setup_style(self):
-        """Setup clean minimalist table styling"""
+    def setup_dark_style(self):
+        """Setup dark minimalist table styling"""
         self.setStyleSheet("""
             QTableWidget {
-                background-color: #ffffff;
-                gridline-color: #f0f0f0;
-                color: #333333;
-                border: 1px solid #e0e0e0;
+                background-color: #1a1a1a;
+                gridline-color: #333333;
+                color: #ffffff;
+                border: 1px solid #333333;
                 border-radius: 8px;
-                selection-background-color: #f8f9fa;
-                selection-color: #333333;
+                selection-background-color: #e10600;
+                selection-color: #ffffff;
                 font-size: 14px;
+                font-weight: 400;
             }
             QHeaderView::section {
-                background-color: #f8f9fa;
-                color: #555555;
+                background-color: #e10600;
+                color: #ffffff;
                 padding: 16px 12px;
                 border: none;
-                border-bottom: 2px solid #e0e0e0;
-                font-weight: 600;
-                font-size: 13px;
+                border-bottom: 2px solid #333333;
+                font-weight: 700;
+                font-size: 12px;
                 text-transform: uppercase;
-                letter-spacing: 0.5px;
+                letter-spacing: 1px;
             }
             QTableWidget::item {
-                padding: 16px 12px;
-                border-bottom: 1px solid #f5f5f5;
+                padding: 14px 12px;
+                border-bottom: 1px solid #2a2a2a;
                 border-right: none;
+                background-color: #1a1a1a;
+            }
+            QTableWidget::item:alternate {
+                background-color: #1f1f1f;
             }
             QTableWidget::item:selected {
-                background-color: #f0f7ff;
-                color: #333333;
+                background-color: #e10600;
+                color: #ffffff;
+                font-weight: 500;
+            }
+            QTableWidget::item:hover {
+                background-color: #2a2a2a;
             }
             QScrollBar:vertical {
-                background-color: #f8f9fa;
-                width: 6px;
-                border-radius: 3px;
+                background-color: #2a2a2a;
+                width: 8px;
+                border-radius: 4px;
                 margin: 0;
             }
             QScrollBar::handle:vertical {
-                background-color: #cccccc;
-                border-radius: 3px;
+                background-color: #666666;
+                border-radius: 4px;
                 min-height: 20px;
             }
             QScrollBar::handle:vertical:hover {
-                background-color: #999999;
+                background-color: #e10600;
             }
             QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
                 height: 0px;
             }
         """)
         
-        self.setAlternatingRowColors(False)
+        self.setAlternatingRowColors(True)
         self.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         self.setSortingEnabled(False)
         self.verticalHeader().setVisible(False)
 
-class MinimalistButton(QPushButton):
-    """Clean minimalist button"""
+class DarkButton(QPushButton):
+    """Dark theme minimalist button"""
     
     def __init__(self, text: str, primary: bool = True):
         super().__init__(text)
-        self.setup_style(primary)
+        self.setup_dark_style(primary)
     
-    def setup_style(self, primary: bool):
-        """Setup button styling"""
+    def setup_dark_style(self, primary: bool):
+        """Setup dark button styling"""
         if primary:
             self.setStyleSheet("""
                 QPushButton {
                     background-color: #e10600;
-                    color: white;
+                    color: #ffffff;
                     border: none;
                     padding: 12px 24px;
                     font-size: 14px;
-                    font-weight: 500;
+                    font-weight: 600;
                     border-radius: 6px;
                     min-width: 120px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
                 }
                 QPushButton:hover {
-                    background-color: #c50500;
+                    background-color: #ff1a0a;
                 }
                 QPushButton:pressed {
-                    background-color: #a10400;
+                    background-color: #b30500;
                 }
                 QPushButton:disabled {
-                    background-color: #cccccc;
-                    color: #666666;
+                    background-color: #555555;
+                    color: #888888;
                 }
             """)
         else:
             self.setStyleSheet("""
                 QPushButton {
                     background-color: transparent;
-                    color: #666666;
-                    border: 1px solid #e0e0e0;
+                    color: #ffffff;
+                    border: 1px solid #555555;
                     padding: 12px 24px;
                     font-size: 14px;
                     font-weight: 500;
@@ -137,21 +149,67 @@ class MinimalistButton(QPushButton):
                     min-width: 120px;
                 }
                 QPushButton:hover {
-                    background-color: #f8f9fa;
-                    border-color: #cccccc;
+                    background-color: #2a2a2a;
+                    border-color: #e10600;
+                    color: #e10600;
                 }
                 QPushButton:pressed {
-                    background-color: #f0f0f0;
+                    background-color: #1a1a1a;
                 }
                 QPushButton:disabled {
-                    background-color: #f8f9fa;
-                    color: #cccccc;
-                    border-color: #f0f0f0;
+                    background-color: #1a1a1a;
+                    color: #555555;
+                    border-color: #333333;
                 }
             """)
 
+class PodiumWidget(QWidget):
+    """Widget to display podium with gold, silver, bronze colors"""
+    
+    def __init__(self, podium_list: List[str]):
+        super().__init__()
+        self.podium_list = podium_list
+        self.setup_ui()
+    
+    def setup_ui(self):
+        """Setup podium display"""
+        layout = QHBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(8)
+        
+        colors = ['#FFD700', '#C0C0C0', '#CD7F32']  # Gold, Silver, Bronze
+        positions = ['🥇', '🥈', '🥉']
+        
+        for i, driver in enumerate(self.podium_list[:3]):
+            if i < len(colors):
+                podium_label = QLabel(f"{positions[i]} {driver}")
+                podium_label.setStyleSheet(f"""
+                    QLabel {{
+                        color: {colors[i]};
+                        font-weight: 600;
+                        font-size: 13px;
+                        padding: 4px 8px;
+                        background-color: #2a2a2a;
+                        border-radius: 4px;
+                        border-left: 3px solid {colors[i]};
+                    }}
+                """)
+                layout.addWidget(podium_label)
+        
+        if len(self.podium_list) == 0:
+            tbd_label = QLabel("TBD")
+            tbd_label.setStyleSheet("""
+                QLabel {
+                    color: #666666;
+                    font-style: italic;
+                    font-size: 13px;
+                    padding: 4px 8px;
+                }
+            """)
+            layout.addWidget(tbd_label)
+
 class StandingsTab(QWidget):
-    """Clean standings tab with auto-load"""
+    """Dark theme standings tab with auto-load"""
     
     status_updated = pyqtSignal(str)
     
@@ -164,49 +222,52 @@ class StandingsTab(QWidget):
         self.setup_ui()
     
     def setup_ui(self):
-        """Setup standings tab UI"""
+        """Setup dark standings tab UI"""
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(30, 30, 30, 30)
-        layout.setSpacing(25)
+        layout.setContentsMargins(25, 25, 25, 25)
+        layout.setSpacing(20)
         
-        # Header with refresh button
-        header_layout = QHBoxLayout()
+        # Dark background
+        self.setStyleSheet("""
+            QWidget {
+                background-color: #0f0f0f;
+                color: #ffffff;
+            }
+        """)
+        
+        # Header without refresh button
+        header_layout = QVBoxLayout()
         
         title_label = QLabel("Championship Standings")
         title_label.setStyleSheet("""
             QLabel {
-                font-size: 24px;
+                font-size: 28px;
                 font-weight: 300;
-                color: #333333;
+                color: #ffffff;
                 margin-bottom: 10px;
+                letter-spacing: 1px;
             }
         """)
         header_layout.addWidget(title_label)
         
-        header_layout.addStretch()
-        
-        self.refresh_button = MinimalistButton("Refresh", primary=True)
-        self.refresh_button.clicked.connect(self.load_standings)
-        header_layout.addWidget(self.refresh_button)
-        
         layout.addLayout(header_layout)
         
-        # Status
+        # Status bar with dark theme
         self.status_label = QLabel("Loading standings...")
         self.status_label.setStyleSheet("""
             QLabel {
-                color: #666666;
+                color: #ffffff;
                 font-size: 14px;
-                padding: 12px;
-                background-color: #fff3cd;
+                padding: 12px 16px;
+                background-color: #2a2a2a;
                 border-radius: 6px;
-                border: 1px solid #ffeaa7;
+                border-left: 4px solid #ffc107;
             }
         """)
         layout.addWidget(self.status_label)
         
         # Standings table
-        self.standings_table = MinimalistTable()
+        self.standings_table = DarkTable()
         self.setup_standings_table()
         layout.addWidget(self.standings_table)
         
@@ -219,8 +280,8 @@ class StandingsTab(QWidget):
             self.load_standings()
     
     def setup_standings_table(self):
-        """Setup standings table"""
-        self.standings_table.setColumnCount(6)  # Simplified columns
+        """Setup dark standings table"""
+        self.standings_table.setColumnCount(6)
         
         headers = ["POS", "DRIVER", "TEAM", "POINTS", "WINS", "NATIONALITY"]
         self.standings_table.setHorizontalHeaderLabels(headers)
@@ -255,19 +316,17 @@ class StandingsTab(QWidget):
     
     def on_loading_started(self):
         """Handle loading start"""
-        self.status_label.setText("Loading standings...")
+        self.status_label.setText("🔄 Loading standings...")
         self.status_label.setStyleSheet("""
             QLabel {
-                color: #666666;
+                color: #ffffff;
                 font-size: 14px;
-                padding: 12px;
-                background-color: #fff3cd;
+                padding: 12px 16px;
+                background-color: #2a2a2a;
                 border-radius: 6px;
-                border: 1px solid #ffeaa7;
+                border-left: 4px solid #ffc107;
             }
         """)
-        self.refresh_button.setEnabled(False)
-        self.refresh_button.setText("Loading...")
         self.status_updated.emit("Loading F1 standings...")
     
     def on_standings_loaded(self, standings: List[DriverStanding]):
@@ -277,15 +336,15 @@ class StandingsTab(QWidget):
             self.has_loaded = True
             self.update_standings_table(standings)
             
-            self.status_label.setText(f"✓ Loaded {len(standings)} drivers")
+            self.status_label.setText(f"✅ Loaded {len(standings)} drivers")
             self.status_label.setStyleSheet("""
                 QLabel {
-                    color: #155724;
+                    color: #ffffff;
                     font-size: 14px;
-                    padding: 12px;
-                    background-color: #d4edda;
+                    padding: 12px 16px;
+                    background-color: #2a2a2a;
                     border-radius: 6px;
-                    border: 1px solid #c3e6cb;
+                    border-left: 4px solid #28a745;
                 }
             """)
             
@@ -297,42 +356,60 @@ class StandingsTab(QWidget):
     
     def on_error_occurred(self, error_message: str):
         """Handle error"""
-        self.status_label.setText(f"✗ {error_message}")
+        self.status_label.setText(f"❌ {error_message}")
         self.status_label.setStyleSheet("""
             QLabel {
-                color: #721c24;
+                color: #ffffff;
                 font-size: 14px;
-                padding: 12px;
-                background-color: #f8d7da;
+                padding: 12px 16px;
+                background-color: #2a2a2a;
                 border-radius: 6px;
-                border: 1px solid #f5c6cb;
+                border-left: 4px solid #dc3545;
             }
         """)
         self.status_updated.emit(f"Error: {error_message}")
     
     def on_loading_finished(self):
         """Handle loading finished"""
-        self.refresh_button.setEnabled(True)
-        self.refresh_button.setText("Refresh")
+        pass  # No refresh button to enable
     
     def update_standings_table(self, standings: List[DriverStanding]):
-        """Update standings table with clean styling - FIXED FONTS"""
+        """Update standings table with dark theme"""
         self.standings_table.setRowCount(len(standings))
         
         for row, standing in enumerate(standings):
-            # Position - FIXED: Use default font
+            # Position with podium highlighting
             pos_item = QTableWidgetItem(str(standing.position))
             pos_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             
-            # Highlight podium positions with background color only
-            if standing.position <= 3:
-                pos_item.setBackground(QColor("#f8f9fa"))
-                pos_item.setForeground(QColor("#e10600"))
+            # Highlight podium positions
+            if standing.position == 1:
+                pos_item.setBackground(QColor("#FFD700"))
+                pos_item.setForeground(QColor("#000000"))
+                font = pos_item.font()
+                font.setBold(True)
+                pos_item.setFont(font)
+            elif standing.position == 2:
+                pos_item.setBackground(QColor("#C0C0C0"))
+                pos_item.setForeground(QColor("#000000"))
+                font = pos_item.font()
+                font.setBold(True)
+                pos_item.setFont(font)
+            elif standing.position == 3:
+                pos_item.setBackground(QColor("#CD7F32"))
+                pos_item.setForeground(QColor("#000000"))
+                font = pos_item.font()
+                font.setBold(True)
+                pos_item.setFont(font)
             
             self.standings_table.setItem(row, 0, pos_item)
             
-            # Driver - FIXED: Use default font
+            # Driver name
             driver_item = QTableWidgetItem(standing.driver.full_name)
+            if standing.position <= 3:
+                font = driver_item.font()
+                font.setBold(True)
+                driver_item.setFont(font)
             self.standings_table.setItem(row, 1, driver_item)
             
             # Team
@@ -343,6 +420,10 @@ class StandingsTab(QWidget):
             # Points
             points_item = QTableWidgetItem(str(int(standing.points)))
             points_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            if standing.position <= 3:
+                font = points_item.font()
+                font.setBold(True)
+                points_item.setFont(font)
             self.standings_table.setItem(row, 3, points_item)
             
             # Wins
@@ -354,11 +435,11 @@ class StandingsTab(QWidget):
             nat_item = QTableWidgetItem(standing.driver.nationality)
             self.standings_table.setItem(row, 5, nat_item)
         
-        # Set row height without custom fonts
+        # Set row height
         self.standings_table.verticalHeader().setDefaultSectionSize(50)
 
 class CalendarTab(QWidget):
-    """Clean calendar tab with auto-load"""
+    """Dark theme calendar tab with podium display"""
     
     status_updated = pyqtSignal(str)
     
@@ -371,30 +452,33 @@ class CalendarTab(QWidget):
         self.setup_ui()
     
     def setup_ui(self):
-        """Setup calendar tab UI"""
+        """Setup dark calendar tab UI"""
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(30, 30, 30, 30)
-        layout.setSpacing(25)
+        layout.setContentsMargins(25, 25, 25, 25)
+        layout.setSpacing(20)
         
-        # Header with refresh button
-        header_layout = QHBoxLayout()
+        # Dark background
+        self.setStyleSheet("""
+            QWidget {
+                background-color: #0f0f0f;
+                color: #ffffff;
+            }
+        """)
+        
+        # Header without refresh button
+        header_layout = QVBoxLayout()
         
         title_label = QLabel("Race Calendar")
         title_label.setStyleSheet("""
             QLabel {
-                font-size: 24px;
+                font-size: 28px;
                 font-weight: 300;
-                color: #333333;
+                color: #ffffff;
                 margin-bottom: 10px;
+                letter-spacing: 1px;
             }
         """)
         header_layout.addWidget(title_label)
-        
-        header_layout.addStretch()
-        
-        self.refresh_button = MinimalistButton("Refresh", primary=True)
-        self.refresh_button.clicked.connect(self.load_calendar)
-        header_layout.addWidget(self.refresh_button)
         
         layout.addLayout(header_layout)
         
@@ -402,18 +486,18 @@ class CalendarTab(QWidget):
         self.status_label = QLabel("Loading calendar...")
         self.status_label.setStyleSheet("""
             QLabel {
-                color: #666666;
+                color: #ffffff;
                 font-size: 14px;
-                padding: 12px;
-                background-color: #fff3cd;
+                padding: 12px 16px;
+                background-color: #2a2a2a;
                 border-radius: 6px;
-                border: 1px solid #ffeaa7;
+                border-left: 4px solid #ffc107;
             }
         """)
         layout.addWidget(self.status_label)
         
         # Calendar table
-        self.calendar_table = MinimalistTable()
+        self.calendar_table = DarkTable()
         self.setup_calendar_table()
         layout.addWidget(self.calendar_table)
         
@@ -429,7 +513,7 @@ class CalendarTab(QWidget):
         """Setup calendar table"""
         self.calendar_table.setColumnCount(5)
         
-        headers = ["ROUND", "GRAND PRIX", "DATE", "CIRCUIT", "WINNER"]
+        headers = ["ROUND", "GRAND PRIX", "DATE", "CIRCUIT", "PODIUM"]
         self.calendar_table.setHorizontalHeaderLabels(headers)
         
         # Configure calendar table columns
@@ -438,13 +522,13 @@ class CalendarTab(QWidget):
         cal_header.setSectionResizeMode(1, QHeaderView.ResizeMode.Interactive) # GP Name
         cal_header.setSectionResizeMode(2, QHeaderView.ResizeMode.Fixed)       # Date
         cal_header.setSectionResizeMode(3, QHeaderView.ResizeMode.Interactive) # Circuit
-        cal_header.setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)     # Winner
+        cal_header.setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)     # Podium
         
         # Set widths
         self.calendar_table.setColumnWidth(0, 80)
-        self.calendar_table.setColumnWidth(1, 300)
+        self.calendar_table.setColumnWidth(1, 280)
         self.calendar_table.setColumnWidth(2, 120)
-        self.calendar_table.setColumnWidth(3, 300)
+        self.calendar_table.setColumnWidth(3, 280)
     
     def load_calendar(self):
         """Load race calendar"""
@@ -461,19 +545,17 @@ class CalendarTab(QWidget):
     
     def on_loading_started(self):
         """Handle loading start"""
-        self.status_label.setText("Loading race calendar...")
+        self.status_label.setText("🔄 Loading race calendar...")
         self.status_label.setStyleSheet("""
             QLabel {
-                color: #666666;
+                color: #ffffff;
                 font-size: 14px;
-                padding: 12px;
-                background-color: #fff3cd;
+                padding: 12px 16px;
+                background-color: #2a2a2a;
                 border-radius: 6px;
-                border: 1px solid #ffeaa7;
+                border-left: 4px solid #ffc107;
             }
         """)
-        self.refresh_button.setEnabled(False)
-        self.refresh_button.setText("Loading...")
         self.status_updated.emit("Loading race calendar...")
     
     def on_calendar_loaded(self, races: List[Race]):
@@ -483,15 +565,15 @@ class CalendarTab(QWidget):
             self.has_loaded = True
             self.update_calendar_table(races)
             
-            self.status_label.setText(f"✓ Loaded {len(races)} races")
+            self.status_label.setText(f"✅ Loaded {len(races)} races")
             self.status_label.setStyleSheet("""
                 QLabel {
-                    color: #155724;
+                    color: #ffffff;
                     font-size: 14px;
-                    padding: 12px;
-                    background-color: #d4edda;
+                    padding: 12px 16px;
+                    background-color: #2a2a2a;
                     border-radius: 6px;
-                    border: 1px solid #c3e6cb;
+                    border-left: 4px solid #28a745;
                 }
             """)
             
@@ -503,30 +585,29 @@ class CalendarTab(QWidget):
     
     def on_error_occurred(self, error_message: str):
         """Handle error"""
-        self.status_label.setText(f"✗ {error_message}")
+        self.status_label.setText(f"❌ {error_message}")
         self.status_label.setStyleSheet("""
             QLabel {
-                color: #721c24;
+                color: #ffffff;
                 font-size: 14px;
-                padding: 12px;
-                background-color: #f8d7da;
+                padding: 12px 16px;
+                background-color: #2a2a2a;
                 border-radius: 6px;
-                border: 1px solid #f5c6cb;
+                border-left: 4px solid #dc3545;
             }
         """)
         self.status_updated.emit(f"Error: {error_message}")
     
     def on_loading_finished(self):
         """Handle loading finished"""
-        self.refresh_button.setEnabled(True)
-        self.refresh_button.setText("Refresh")
+        pass  # No refresh button to enable
     
     def update_calendar_table(self, races: List[Race]):
-        """Update calendar table - FIXED FONTS"""
+        """Update calendar table with podium display"""
         self.calendar_table.setRowCount(len(races))
         
         for row, race in enumerate(races):
-            # Round - FIXED: Use default font
+            # Round
             round_item = QTableWidgetItem(str(race.round))
             round_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             self.calendar_table.setItem(row, 0, round_item)
@@ -544,18 +625,15 @@ class CalendarTab(QWidget):
             circuit_item = QTableWidgetItem(race.circuit)
             self.calendar_table.setItem(row, 3, circuit_item)
             
-            # Winner (first from podium)
-            winner_text = race.podium[0] if race.podium else "TBD"
-            winner_item = QTableWidgetItem(winner_text)
-            if race.podium:  # Highlight completed races
-                winner_item.setForeground(QColor("#e10600"))
-            self.calendar_table.setItem(row, 4, winner_item)
+            # Podium widget
+            podium_widget = PodiumWidget(race.podium)
+            self.calendar_table.setCellWidget(row, 4, podium_widget)
         
-        # Set row height without custom fonts
-        self.calendar_table.verticalHeader().setDefaultSectionSize(50)
+        # Set row height to accommodate podium widget
+        self.calendar_table.verticalHeader().setDefaultSectionSize(60)
 
 class F1TabWidget(QWidget):
-    """Minimalist F1 widget with separate tabs and auto-load"""
+    """Dark theme F1 widget with separate tabs and auto-load"""
     
     status_updated = pyqtSignal(str)
     
@@ -565,36 +643,50 @@ class F1TabWidget(QWidget):
         self.setup_ui()
     
     def setup_ui(self):
-        """Setup the minimalist tabbed interface"""
+        """Setup the dark minimalist tabbed interface"""
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
         
-        # Clean tab widget
+        # Dark background for main widget
+        self.setStyleSheet("""
+            QWidget {
+                background-color: #0f0f0f;
+                color: #ffffff;
+            }
+        """)
+        
+        # Dark tab widget
         self.tab_widget = QTabWidget()
         self.tab_widget.setStyleSheet("""
             QTabWidget::pane {
                 border: none;
-                background-color: #ffffff;
+                background-color: #0f0f0f;
+            }
+            QTabBar {
+                background-color: #1a1a1a;
             }
             QTabBar::tab {
-                background-color: #f8f9fa;
-                color: #666666;
+                background-color: #2a2a2a;
+                color: #cccccc;
                 padding: 15px 30px;
                 margin-right: 2px;
                 border: none;
                 font-size: 14px;
                 font-weight: 500;
                 min-width: 120px;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
             }
             QTabBar::tab:selected {
-                background-color: #ffffff;
+                background-color: #0f0f0f;
                 color: #e10600;
                 border-bottom: 3px solid #e10600;
+                font-weight: 600;
             }
             QTabBar::tab:hover:!selected {
-                background-color: #f0f0f0;
-                color: #333333;
+                background-color: #333333;
+                color: #ffffff;
             }
         """)
         
@@ -606,11 +698,50 @@ class F1TabWidget(QWidget):
         self.standings_tab.status_updated.connect(self.status_updated.emit)
         self.calendar_tab.status_updated.connect(self.status_updated.emit)
         
-        # Add tabs
-        self.tab_widget.addTab(self.standings_tab, "Standings")
-        self.tab_widget.addTab(self.calendar_tab, "Calendar")
+        # Add tabs with icons
+        self.add_tab_with_icon(self.standings_tab, "logo/standing.png", "Standings")
+        self.add_tab_with_icon(self.calendar_tab, "logo/calendar.png", "Calendar")
         
         layout.addWidget(self.tab_widget)
+    
+    def add_tab_with_icon(self, widget, icon_path, text):
+        """Add tab with PNG icon"""
+        import os
+        from PyQt6.QtGui import QIcon, QPixmap, QPainter
+        from PyQt6.QtCore import QSize
+        
+        if os.path.exists(icon_path):
+            # Load and process icon
+            pixmap = QPixmap(icon_path)
+            if not pixmap.isNull():
+                # Scale icon
+                scaled_pixmap = pixmap.scaled(
+                    16, 16,
+                    Qt.AspectRatioMode.KeepAspectRatio,
+                    Qt.TransformationMode.SmoothTransformation
+                )
+                
+                # Create white version
+                white_pixmap = QPixmap(scaled_pixmap.size())
+                white_pixmap.fill(Qt.GlobalColor.transparent)
+                
+                painter = QPainter(white_pixmap)
+                painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+                painter.setCompositionMode(QPainter.CompositionMode.CompositionMode_SourceOver)
+                painter.drawPixmap(0, 0, scaled_pixmap)
+                painter.setCompositionMode(QPainter.CompositionMode.CompositionMode_SourceIn)
+                painter.fillRect(white_pixmap.rect(), QColor(255, 255, 255))
+                painter.end()
+                
+                # Set tab with icon
+                icon = QIcon(white_pixmap)
+                self.tab_widget.addTab(widget, icon, text)
+            else:
+                # Fallback without icon
+                self.tab_widget.addTab(widget, text)
+        else:
+            # Fallback without icon
+            self.tab_widget.addTab(widget, text)
     
     def auto_load_initial_data(self):
         """Auto-load initial data - standings will load automatically"""
@@ -627,5 +758,5 @@ class F1TabWidget(QWidget):
         standings_headers = ["POS", "DRIVER", "TEAM", "POINTS", "WINS", "NATIONALITY"]
         self.standings_tab.standings_table.setHorizontalHeaderLabels(standings_headers)
         
-        calendar_headers = ["ROUND", "GRAND PRIX", "DATE", "CIRCUIT", "WINNER"]
+        calendar_headers = ["ROUND", "GRAND PRIX", "DATE", "CIRCUIT", "PODIUM"]
         self.calendar_tab.calendar_table.setHorizontalHeaderLabels(calendar_headers)
