@@ -1,5 +1,18 @@
+# ui/main_window.py
 """
-Enhanced main application window with modern buttons and clean header
+Enhanced main application window with modern buttons and clean header design
+
+This module provides the main application window that serves as the primary
+interface for the motorsport dashboard. It includes navigation between F1 and
+MotoGP sections, language management, and modern card-based home interface.
+
+**Classes:**
+    ExactMotorsportCard - High-quality motorsport series selection card
+    MinimalistButton - Ultra high-quality minimalist button with PNG icons
+    MainWindow - Main application window with navigation and language support
+
+**Author:** Lotherd
+**Version:** 1.0.0
 """
 
 import logging
@@ -25,10 +38,22 @@ from utils.image_utils import ImageUtils
 logger = logging.getLogger(__name__)
 
 class ExactMotorsportCard(QFrame):
-    """Exact recreation of the motorsport card design"""
+    """Exact recreation of the motorsport card design with high-quality rendering"""
     
     clicked = pyqtSignal()
     
+    """
+    * Initializes a motorsport selection card with series-specific styling
+    *
+    * This constructor creates a high-quality card widget for motorsport series
+    * selection with gradient backgrounds, logos, and interactive hover effects
+    * designed to provide an engaging user experience.
+    *
+    * **@param** title String main title text for the card
+    * **@param** subtitle String subtitle text for the card
+    * **@param** series_type String type of series ('f1' or 'motogp')
+    * **@return** None
+    """
     def __init__(self, title: str, subtitle: str, series_type: str):
         super().__init__()
         self.series_type = series_type
@@ -40,8 +65,18 @@ class ExactMotorsportCard(QFrame):
         self._apply_styles()
         self._add_shadow()
     
+    """
+    * Builds the complete UI structure for the motorsport card
+    *
+    * This method creates the card layout including accent lines, logo area,
+    * separator, and text sections with proper spacing and alignment for
+    * a professional appearance.
+    *
+    * **@param** title String main title text to display
+    * **@param** subtitle String subtitle text to display
+    * **@return** None
+    """
     def _build_ui(self, title: str, subtitle: str):
-        """Build the exact card UI structure"""
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
@@ -83,19 +118,42 @@ class ExactMotorsportCard(QFrame):
         
         layout.addWidget(container)
     
+    """
+    * Returns the accent color for the specific motorsport series
+    *
+    * This method provides the theme-appropriate accent color based on the
+    * motorsport series type, using F1 red for Formula 1 and blue for MotoGP.
+    *
+    * **@return** String hex color code for the series accent color
+    """
     def _accent_color(self) -> str:
-        """Get accent color for the series"""
         return '#e10600' if self.series_type == 'f1' else '#1e88e5'
     
+    """
+    * Returns the gradient color stops for the card background
+    *
+    * This method provides the gradient colors used for the card background
+    * based on the motorsport series, creating distinct visual themes for
+    * F1 and MotoGP cards.
+    *
+    * **@return** Tuple of (start_color, end_color) hex strings
+    """
     def _gradient_stops(self) -> tuple:
-        """Get gradient colors for the series"""
         if self.series_type == 'f1':
             return ('#7d1414', '#a01e1e')  # F1 red gradient
         else:
             return ('#1e3a5f', '#2e4a6f')  # MotoGP blue gradient
     
+    """
+    * Creates the logo display area with high-quality rendering
+    *
+    * This method builds the logo section of the card with support for both
+    * image logos and text fallbacks, using high-quality rendering techniques
+    * for crisp display on all screen types.
+    *
+    * **@return** QWidget containing the logo display area
+    """
     def _create_logo_widget(self) -> QWidget:
-        """Create the logo area with high-quality rendering and better centering"""
         widget = QWidget()
         widget.setStyleSheet("background: transparent;")
         widget.setFixedHeight(200)  # Increased from 160 to 200
@@ -126,8 +184,17 @@ class ExactMotorsportCard(QFrame):
         layout.addWidget(logo_label)
         return widget
     
+    """
+    * Creates a text-based logo fallback when image loading fails
+    *
+    * This method generates styled text logos as fallbacks when image logos
+    * are not available, ensuring the cards always display appropriately
+    * styled branding for each motorsport series.
+    *
+    * **@param** label QLabel widget to apply the text logo styling to
+    * **@return** None
+    """
     def _create_text_logo(self, label: QLabel):
-        """Create text-based logo fallback with larger size"""
         if self.series_type == 'f1':
             label.setText("F1")
             label.setStyleSheet("""
@@ -152,8 +219,18 @@ class ExactMotorsportCard(QFrame):
                 }
             """)
     
+    """
+    * Creates the text display area with title and subtitle
+    *
+    * This method builds the text section of the card with properly styled
+    * title and subtitle labels that maintain visual hierarchy and readability
+    * against the card's gradient background.
+    *
+    * **@param** title String main title text to display
+    * **@param** subtitle String subtitle text to display
+    * **@return** QWidget containing the text display area
+    """
     def _create_text_widget(self, title: str, subtitle: str) -> QWidget:
-        """Create the text area with title and subtitle"""
         widget = QWidget()
         widget.setStyleSheet("background: transparent;")
         widget.setFixedHeight(140)  # Increased from 120 to 140
@@ -197,8 +274,16 @@ class ExactMotorsportCard(QFrame):
         
         return widget
     
+    """
+    * Applies gradient background styling to the card
+    *
+    * This method sets up the CSS gradient background styling for the card
+    * using the appropriate colors for the motorsport series to create
+    * visually distinct and appealing card designs.
+    *
+    * **@return** None
+    """
     def _apply_styles(self):
-        """Apply the gradient background styles"""
         gradient_start, gradient_end = self._gradient_stops()
         self.setStyleSheet(f"""
             ExactMotorsportCard {{
@@ -210,16 +295,33 @@ class ExactMotorsportCard(QFrame):
             }}
         """)
     
+    """
+    * Adds drop shadow effect to enhance card visual depth
+    *
+    * This method applies a subtle drop shadow effect to the card to create
+    * visual depth and separation from the background, enhancing the overall
+    * professional appearance of the interface.
+    *
+    * **@return** None
+    """
     def _add_shadow(self):
-        """Add the drop shadow effect"""
         shadow = QGraphicsDropShadowEffect()
         shadow.setBlurRadius(20)
         shadow.setOffset(0, 10)
         shadow.setColor(QColor(0, 0, 0, 100))
         self.setGraphicsEffect(shadow)
     
+    """
+    * Handles mouse enter events for enhanced hover effects
+    *
+    * This method creates an enhanced hover effect by changing the shadow
+    * properties when the mouse cursor enters the card area, providing
+    * immediate visual feedback to the user.
+    *
+    * **@param** event QEvent object containing event information
+    * **@return** None
+    """
     def enterEvent(self, event):
-        """Enhanced hover effect"""
         self.is_hovered = True
         hover_shadow = QGraphicsDropShadowEffect()
         hover_shadow.setBlurRadius(30)
@@ -228,14 +330,32 @@ class ExactMotorsportCard(QFrame):
         self.setGraphicsEffect(hover_shadow)
         super().enterEvent(event)
     
+    """
+    * Handles mouse leave events to reset shadow to normal state
+    *
+    * This method resets the card's shadow effect back to the normal state
+    * when the mouse cursor leaves the card area, completing the hover
+    * interaction cycle.
+    *
+    * **@param** event QEvent object containing event information
+    * **@return** None
+    """
     def leaveEvent(self, event):
-        """Reset to normal shadow"""
         self.is_hovered = False
         self._add_shadow()
         super().leaveEvent(event)
     
+    """
+    * Handles mouse press events with visual feedback and click emission
+    *
+    * This method processes mouse clicks on the card by providing immediate
+    * visual feedback through shadow changes and emitting the clicked signal
+    * after a brief delay for better user experience.
+    *
+    * **@param** event QMouseEvent object containing click information
+    * **@return** None
+    """
     def mousePressEvent(self, event):
-        """Handle click with visual feedback"""
         if event.button() == Qt.MouseButton.LeftButton:
             # Press effect
             press_shadow = QGraphicsDropShadowEffect()
@@ -250,8 +370,16 @@ class ExactMotorsportCard(QFrame):
         
         super().mousePressEvent(event)
     
+    """
+    * Resets shadow state based on current hover status
+    *
+    * This method restores the appropriate shadow effect based on whether
+    * the mouse is currently hovering over the card, ensuring consistent
+    * visual feedback throughout the interaction cycle.
+    *
+    * **@return** None
+    """
     def _reset_shadow_state(self):
-        """Reset shadow to appropriate state based on hover"""
         if self.is_hovered:
             # Apply hover shadow
             hover_shadow = QGraphicsDropShadowEffect()
@@ -264,8 +392,19 @@ class ExactMotorsportCard(QFrame):
             self._add_shadow()
 
 class MinimalistButton(QPushButton):
-    """Ultra high-quality minimalist button with crisp PNG icons"""
+    """Ultra high-quality minimalist button with crisp PNG icons and smooth interactions"""
     
+    """
+    * Initializes a minimalist button with ultra high-quality icon rendering
+    *
+    * This constructor creates a button with minimalist design and ultra-crisp
+    * icon rendering that supports multiple DPI levels and includes smooth
+    * hover and press animations for premium user experience.
+    *
+    * **@param** icon_path String path to the PNG icon file
+    * **@param** size Integer icon size in pixels
+    * **@return** None
+    """
     def __init__(self, icon_path: str, size: int = 24):
         super().__init__()
         self.icon_path = icon_path
@@ -275,8 +414,16 @@ class MinimalistButton(QPushButton):
         self.setCursor(Qt.CursorShape.PointingHandCursor)
         self.load_ultra_high_quality_icon()
     
+    """
+    * Loads ultra high-quality PNG icon with multiple resolution support
+    *
+    * This method implements advanced icon loading with support for multiple
+    * resolutions, high-DPI displays, and automatic white color conversion
+    * for dark theme compatibility.
+    *
+    * **@return** None
+    """
     def load_ultra_high_quality_icon(self):
-        """Load ultra high-quality PNG icon with multiple resolution support"""
         if os.path.exists(self.icon_path):
             try:
                 from PyQt6.QtGui import QIcon
@@ -329,8 +476,17 @@ class MinimalistButton(QPushButton):
             logger.warning(f"Icon file not found: {self.icon_path}")
             self.create_fallback_icon()
     
+    """
+    * Creates ultra-crisp white version of icon using advanced rendering techniques
+    *
+    * This method converts colored icons to white versions using advanced
+    * composition techniques while preserving alpha transparency and
+    * maintaining ultra-crisp rendering quality.
+    *
+    * **@param** source_pixmap QPixmap source icon to convert
+    * **@return** QPixmap white version of the icon
+    """
     def create_white_icon(self, source_pixmap):
-        """Create ultra-crisp white version of icon using advanced techniques"""
         # Create result pixmap with same size and transparency
         result = QPixmap(source_pixmap.size())
         result.fill(Qt.GlobalColor.transparent)
@@ -355,8 +511,16 @@ class MinimalistButton(QPushButton):
         painter.end()
         return result
     
+    """
+    * Creates ultra-crisp fallback icon when image loading fails
+    *
+    * This method generates a geometric fallback icon with clean lines and
+    * appropriate styling when the specified icon file cannot be loaded,
+    * ensuring buttons always display properly.
+    *
+    * **@return** None
+    """
     def create_fallback_icon(self):
-        """Create ultra-crisp fallback icon"""
         size = self.icon_size * 2  # Double resolution
         fallback = QPixmap(size, size)
         fallback.fill(Qt.GlobalColor.transparent)
@@ -379,8 +543,16 @@ class MinimalistButton(QPushButton):
         self.setIcon(icon)
         self.setIconSize(QSize(self.icon_size, self.icon_size))
     
+    """
+    * Sets up ultra-clean button styling with hover and press effects
+    *
+    * This method applies minimalist styling to the button with subtle
+    * transparency effects for hover and press states, creating a clean
+    * and modern interface element.
+    *
+    * **@return** None
+    """
     def setup_style(self):
-        """Setup ultra-clean button styling"""
         self.setStyleSheet("""
             QPushButton {
                 background-color: transparent;
@@ -399,8 +571,17 @@ class MinimalistButton(QPushButton):
         """)
 
 class MainWindow(QMainWindow):
-    """Enhanced main application window with modern buttons and clean header"""
+    """Enhanced main application window with modern navigation and language support"""
     
+    """
+    * Initializes the main application window with complete setup
+    *
+    * This constructor creates the main window with translation system
+    * initialization, UI setup, and menu configuration for the complete
+    * motorsport dashboard application experience.
+    *
+    * **@return** None
+    """
     def __init__(self):
         super().__init__()
         
@@ -414,8 +595,16 @@ class MainWindow(QMainWindow):
         self.setup_ui()
         self.setup_menu()
     
+    """
+    * Configures main window properties and styling
+    *
+    * This method sets up the window title, size, minimum dimensions, and
+    * applies the main background gradient styling to create an attractive
+    * and professional application appearance.
+    *
+    * **@return** None
+    """
     def setup_window(self):
-        """Configure main window properties"""
         self.setWindowTitle("Motorsport Dashboard")
         self.setGeometry(100, 100, 1400, 900)
         self.setMinimumSize(1200, 800)
@@ -429,8 +618,16 @@ class MainWindow(QMainWindow):
             }
         """)
     
+    """
+    * Sets up the complete main user interface structure
+    *
+    * This method creates the central widget, stacked widget for navigation,
+    * and all the main views including home, F1, and MotoGP interfaces
+    * with proper layout and initialization.
+    *
+    * **@return** None
+    """
     def setup_ui(self):
-        """Setup the main user interface"""
         # Central widget
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -452,8 +649,16 @@ class MainWindow(QMainWindow):
         # Start with home view
         self.stacked_widget.setCurrentIndex(0)
     
+    """
+    * Creates the home view with motorsport series selection cards
+    *
+    * This method builds the main home interface featuring large, interactive
+    * cards for F1 and MotoGP selection with proper spacing, typography,
+    * and visual hierarchy for an engaging user experience.
+    *
+    * **@return** None
+    """
     def create_home_view(self):
-        """Create the home view with the new card design"""
         home_widget = QWidget()
         home_widget.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
         home_widget.setStyleSheet("""
@@ -542,8 +747,16 @@ class MainWindow(QMainWindow):
         
         self.stacked_widget.addWidget(home_widget)
     
+    """
+    * Creates the F1 view with modern clean header and content area
+    *
+    * This method builds the F1 interface including the navigation header
+    * and the F1 tab widget with proper layout and styling for a cohesive
+    * user experience within the F1 section.
+    *
+    * **@return** None
+    """
     def create_f1_view(self):
-        """Create F1 view with modern clean header"""
         f1_widget = QWidget()
         layout = QVBoxLayout(f1_widget)
         layout.setContentsMargins(0, 0, 0, 0)
@@ -562,8 +775,16 @@ class MainWindow(QMainWindow):
         
         self.stacked_widget.addWidget(f1_widget)
     
+    """
+    * Creates the MotoGP view with modern clean header and content area
+    *
+    * This method builds the MotoGP interface including the navigation header
+    * and the MotoGP tab widget with proper layout and styling consistent
+    * with the overall application design.
+    *
+    * **@return** None
+    """
     def create_motogp_view(self):
-        """Create MotoGP view with modern clean header"""
         motogp_widget = QWidget()
         layout = QVBoxLayout(motogp_widget)
         layout.setContentsMargins(0, 0, 0, 0)
@@ -578,8 +799,18 @@ class MainWindow(QMainWindow):
         
         self.stacked_widget.addWidget(motogp_widget)
     
+    """
+    * Creates minimalist clean header for sub-views with navigation and actions
+    *
+    * This method builds the header bar for F1 and MotoGP views featuring
+    * minimalist home and refresh buttons, centered title, and series-specific
+    * color accent for visual consistency.
+    *
+    * **@param** title String title text to display in the header
+    * **@param** color String hex color for the accent border
+    * **@return** QWidget containing the complete header interface
+    """
     def create_modern_sub_header(self, title: str, color: str) -> QWidget:
-        """Create minimalist clean header for sub-views"""
         header_widget = QWidget()
         header_widget.setFixedHeight(80)
         header_widget.setStyleSheet(f"""
@@ -624,8 +855,16 @@ class MainWindow(QMainWindow):
         
         return header_widget
     
+    """
+    * Refreshes data for the currently active tab and section
+    *
+    * This method determines which view and tab are currently active and
+    * triggers the appropriate data refresh operation for F1 standings
+    * or calendar as needed.
+    *
+    * **@return** None
+    """
     def refresh_current_data(self):
-        """Refresh data for current tab"""
         current_index = self.stacked_widget.currentIndex()
         
         if current_index == 1:  # F1 view
@@ -636,8 +875,16 @@ class MainWindow(QMainWindow):
             elif current_tab == 1:  # Calendar tab
                 self.f1_tab.calendar_tab.load_calendar()
     
+    """
+    * Sets up the application menu bar with language selection
+    *
+    * This method creates the menu bar with language selection options and
+    * applies dark theme styling consistent with the overall application
+    * design for a cohesive user experience.
+    *
+    * **@return** None
+    """
     def setup_menu(self):
-        """Setup the application menu"""
         menubar = self.menuBar()
         menubar.setStyleSheet("""
             QMenuBar {
@@ -684,22 +931,55 @@ class MainWindow(QMainWindow):
         es_action.triggered.connect(lambda: self.change_language("es"))
         lang_menu.addAction(es_action)
     
+    """
+    * Navigates to the home view and resets the interface
+    *
+    * This method switches the stacked widget to display the home view
+    * with the motorsport series selection cards, providing easy navigation
+    * back to the main interface.
+    *
+    * **@return** None
+    """
     def show_home_view(self):
-        """Show the home view"""
         self.stacked_widget.setCurrentIndex(0)
     
+    """
+    * Navigates to F1 view and triggers automatic data loading
+    *
+    * This method switches to the F1 interface and initiates automatic
+    * data loading after a brief delay to ensure smooth UI transitions
+    * and optimal user experience.
+    *
+    * **@return** None
+    """
     def show_f1_view(self):
-        """Show F1 view and trigger data loading"""
         self.stacked_widget.setCurrentIndex(1)
         # Auto-load F1 data after a short delay
         QTimer.singleShot(300, self.f1_tab.auto_load_initial_data)
     
+    """
+    * Navigates to the MotoGP view interface
+    *
+    * This method switches the stacked widget to display the MotoGP view
+    * with development information and planned features for the MotoGP
+    * functionality.
+    *
+    * **@return** None
+    """
     def show_motogp_view(self):
-        """Show MotoGP view"""
         self.stacked_widget.setCurrentIndex(2)
     
+    """
+    * Changes the application language and saves the preference
+    *
+    * This method updates the application language through the translation
+    * manager, saves the preference to settings, and displays a confirmation
+    * message to the user.
+    *
+    * **@param** language_code String language code (e.g., 'en', 'es')
+    * **@return** None
+    """
     def change_language(self, language_code: str):
-        """Change application language"""
         if self.translation_manager.set_language(language_code):
             AppConfig.set_language(language_code)
             QMessageBox.information(
@@ -708,11 +988,29 @@ class MainWindow(QMainWindow):
                 "Language updated successfully."
             )
     
+    """
+    * Handles language change events from the translation manager
+    *
+    * This method responds to language change events by updating the window
+    * title and logging the language change for debugging and monitoring
+    * purposes.
+    *
+    * **@param** language_code String new language code that was set
+    * **@return** None
+    """
     def on_language_changed(self, language_code: str):
-        """Handle language change event"""
         logger.info(f"Language changed to: {language_code}")
         self.setWindowTitle("Motorsport Dashboard")
     
+    """
+    * Handles application close events with graceful shutdown
+    *
+    * This method processes the application close event and accepts it
+    * to allow the application to shut down gracefully, ensuring proper
+    * cleanup of resources and settings.
+    *
+    * **@param** event QCloseEvent object containing close event information
+    * **@return** None
+    """
     def closeEvent(self, event):
-        """Handle application close"""
         event.accept()
