@@ -1,6 +1,16 @@
 # ui/widgets/motogp_tab.py
 """
-Widget for MotoGP tab with multi-language support
+Widget for MotoGP tab with multi-language support and development roadmap
+
+This module provides the MotoGP user interface that displays development
+status, planned features, and roadmap information. It includes full
+internationalization support and interactive elements for user engagement.
+
+**Classes:**
+    MotoGPTabWidget - Main widget for MotoGP tab with development information
+
+**Author:** Lotherd
+**Version:** 1.0.0
 """
 
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QLabel, QPushButton, 
@@ -12,15 +22,31 @@ from ui.styles.app_styles import AppStyles
 from utils.i18n import tr
 
 class MotoGPTabWidget(QWidget):
-    """Main widget for MotoGP tab"""
+    """Main widget for MotoGP tab displaying development status and roadmap"""
     
+    """
+    * Initializes the MotoGP tab widget with complete UI setup
+    *
+    * This constructor creates the MotoGP interface that informs users about
+    * the development status, planned features, and provides navigation options
+    * while the MotoGP functionality is being developed.
+    *
+    * **@return** None
+    """
     def __init__(self):
         super().__init__()
         self.setup_ui()
     
+    """
+    * Sets up the complete user interface for the MotoGP development tab
+    *
+    * This method creates the entire layout including the title, development
+    * status information, feature list, notification section, and action
+    * buttons to provide a comprehensive development preview.
+    *
+    * **@return** None
+    """
     def setup_ui(self):
-        """Configure user interface"""
-        
         # Main layout
         self.layout = QVBoxLayout(self)
         self.layout.setSpacing(20)
@@ -73,8 +99,16 @@ class MotoGPTabWidget(QWidget):
         # Spacer
         self.layout.addStretch()
     
+    """
+    * Creates and configures the planned features list display
+    *
+    * This method builds the visual representation of planned MotoGP features
+    * using translated text and styled labels to show users what functionality
+    * will be available when development is complete.
+    *
+    * **@return** None
+    """
     def setup_features_list(self):
-        """Configure future features list"""
         features_layout = QVBoxLayout()
         
         # Create labels for each feature
@@ -109,8 +143,16 @@ class MotoGPTabWidget(QWidget):
         
         self.layout.addLayout(center_layout)
     
+    """
+    * Sets up the notification section with user engagement elements
+    *
+    * This method creates the notification area that keeps users informed
+    * about development progress and provides action buttons for navigation
+    * and additional information access.
+    *
+    * **@return** None
+    """
     def setup_notification_section(self):
-        """Configure notification section"""
         notification_layout = QVBoxLayout()
         
         # Section title
@@ -173,16 +215,31 @@ class MotoGPTabWidget(QWidget):
         
         self.layout.addLayout(center_layout)
     
+    """
+    * Switches the main application view to the F1 tab
+    *
+    * This method handles navigation from the MotoGP tab to the F1 tab by
+    * finding the parent tab widget and changing the current index to
+    * display the F1 functionality.
+    *
+    * **@return** None
+    """
     def switch_to_f1(self):
-        """Switch to F1 tab"""
         # Emit signal to change tab (will be connected from main_window)
         parent_tabs = self.parent()
         if hasattr(parent_tabs, 'setCurrentIndex'):
             parent_tabs.setCurrentIndex(0)  # F1 tab is first (index 0)
     
+    """
+    * Displays the comprehensive development roadmap in a dialog
+    *
+    * This method creates and shows a detailed roadmap dialog that outlines
+    * the development phases for the MotoGP functionality, providing users
+    * with transparency about the planned development timeline.
+    *
+    * **@return** None
+    """
     def show_roadmap(self):
-        """Show development roadmap"""
-        
         # Build roadmap text with translations
         roadmap_items = []
         
@@ -213,8 +270,16 @@ class MotoGPTabWidget(QWidget):
         
         QMessageBox.information(self, tr("roadmap_title"), roadmap_text)
     
+    """
+    * Updates all translatable text elements when language changes
+    *
+    * This method refreshes all user-visible text in the MotoGP widget
+    * including titles, descriptions, feature lists, and button text to
+    * reflect the currently selected language setting.
+    *
+    * **@return** None
+    """
     def update_translations(self):
-        """Update translations when language changes"""
         # Update title
         self.title_label.setText(tr("motogp_title"))
         

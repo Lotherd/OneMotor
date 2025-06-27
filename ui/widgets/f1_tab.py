@@ -1,6 +1,21 @@
 # ui/widgets/f1_tab.py
 """
-F1 widget with dark theme and podium display
+F1 widget with dark theme and podium display functionality
+
+This module provides the complete F1 user interface including standings
+and calendar tabs with dark theming, podium visualization, and automatic
+data loading capabilities for a modern motorsport dashboard experience.
+
+**Classes:**
+    DarkTable - Dark themed table widget for data display
+    DarkButton - Dark themed button with primary/secondary styling
+    PodiumWidget - Widget for displaying race podium results
+    StandingsTab - Tab for displaying F1 championship standings
+    CalendarTab - Tab for displaying F1 race calendar with results
+    F1TabWidget - Main F1 widget container with tabbed interface
+
+**Author:** Lotherd
+**Version:** 1.0.0
 """
 
 from PyQt6.QtWidgets import (
@@ -30,14 +45,31 @@ import logging
 logger = logging.getLogger(__name__)
 
 class DarkTable(QTableWidget):
-    """Dark theme minimalist table widget"""
+    """Dark theme minimalist table widget for motorsport data display"""
     
+    """
+    * Initializes the dark themed table widget with styling
+    *
+    * This constructor creates a table widget with dark theme styling optimized
+    * for motorsport data display including alternating row colors, custom
+    * scroll bars, and F1-themed selection colors.
+    *
+    * **@return** None
+    """
     def __init__(self):
         super().__init__()
         self.setup_dark_style()
     
+    """
+    * Applies comprehensive dark theme styling to the table widget
+    *
+    * This method configures all visual aspects of the table including background
+    * colors, grid lines, headers, selection highlighting, and scroll bar styling
+    * to create a cohesive dark theme experience.
+    *
+    * **@return** None
+    """
     def setup_dark_style(self):
-        """Setup dark minimalist table styling"""
         self.setStyleSheet("""
             QTableWidget {
                 background-color: #1a1a1a;
@@ -103,14 +135,34 @@ class DarkTable(QTableWidget):
         self.verticalHeader().setVisible(False)
 
 class DarkButton(QPushButton):
-    """Dark theme minimalist button"""
+    """Dark theme minimalist button with primary and secondary styling options"""
     
+    """
+    * Initializes a dark themed button with specified styling type
+    *
+    * This constructor creates a button with dark theme styling that can be
+    * configured as either a primary (filled) or secondary (outlined) button
+    * based on the design requirements.
+    *
+    * **@param** text String text to display on the button
+    * **@param** primary Boolean indicating if this is a primary button
+    * **@return** None
+    """
     def __init__(self, text: str, primary: bool = True):
         super().__init__(text)
         self.setup_dark_style(primary)
     
+    """
+    * Applies dark theme styling based on button type (primary or secondary)
+    *
+    * This method configures the button's visual appearance including colors,
+    * borders, padding, and hover effects based on whether it's designated
+    * as a primary or secondary button.
+    *
+    * **@param** primary Boolean indicating primary (True) or secondary (False) styling
+    * **@return** None
+    """
     def setup_dark_style(self, primary: bool):
-        """Setup dark button styling"""
         if primary:
             self.setStyleSheet("""
                 QPushButton {
@@ -164,15 +216,33 @@ class DarkButton(QPushButton):
             """)
 
 class PodiumWidget(QWidget):
-    """Widget to display podium with gold, silver, bronze colors"""
+    """Widget for displaying race podium results with gold, silver, bronze styling"""
     
+    """
+    * Initializes the podium display widget with driver names
+    *
+    * This constructor creates a widget that displays the race podium (top 3
+    * finishers) with appropriate gold, silver, and bronze styling to
+    * clearly indicate the finishing positions.
+    *
+    * **@param** podium_list List of driver names in finishing order
+    * **@return** None
+    """
     def __init__(self, podium_list: List[str]):
         super().__init__()
         self.podium_list = podium_list
         self.setup_ui()
     
+    """
+    * Sets up the podium display UI with colored position indicators
+    *
+    * This method creates the visual layout for the podium display including
+    * colored labels for each position (gold for 1st, silver for 2nd, bronze
+    * for 3rd) and handles cases where podium data is not available.
+    *
+    * **@return** None
+    """
     def setup_ui(self):
-        """Setup podium display"""
         layout = QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(8)
@@ -209,10 +279,20 @@ class PodiumWidget(QWidget):
             layout.addWidget(tbd_label)
 
 class StandingsTab(QWidget):
-    """Dark theme standings tab with auto-load"""
+    """Dark theme standings tab with automatic data loading capabilities"""
     
     status_updated = pyqtSignal(str)
     
+    """
+    * Initializes the F1 standings tab with data service integration
+    *
+    * This constructor sets up the standings tab with dark theme styling and
+    * prepares the data loading infrastructure for automatic F1 championship
+    * standings retrieval and display.
+    *
+    * **@param** data_service DataService instance for API operations
+    * **@return** None
+    """
     def __init__(self, data_service):
         super().__init__()
         self.data_service = data_service
@@ -221,8 +301,16 @@ class StandingsTab(QWidget):
         self.has_loaded = False
         self.setup_ui()
     
+    """
+    * Sets up the complete UI layout for the standings tab
+    *
+    * This method creates the dark themed user interface including the title,
+    * status display, and standings table. It also initiates automatic data
+    * loading when the tab becomes visible.
+    *
+    * **@return** None
+    """
     def setup_ui(self):
-        """Setup dark standings tab UI"""
         layout = QVBoxLayout(self)
         layout.setContentsMargins(25, 25, 25, 25)
         layout.setSpacing(20)
@@ -274,13 +362,29 @@ class StandingsTab(QWidget):
         # Auto-load when tab becomes visible
         QTimer.singleShot(500, self.auto_load_if_needed)
     
+    """
+    * Automatically loads standings data if not already loaded
+    *
+    * This method checks if standings data has been loaded and initiates
+    * the loading process if needed. It prevents redundant API calls while
+    * ensuring data is available when the tab is accessed.
+    *
+    * **@return** None
+    """
     def auto_load_if_needed(self):
-        """Auto-load standings if not already loaded"""
         if not self.has_loaded:
             self.load_standings()
     
+    """
+    * Configures the standings table structure and column behavior
+    *
+    * This method sets up the table headers, column widths, and resize behavior
+    * for optimal display of F1 championship standings data including position,
+    * driver, team, points, wins, and nationality information.
+    *
+    * **@return** None
+    """
     def setup_standings_table(self):
-        """Setup dark standings table"""
         self.standings_table.setColumnCount(6)
         
         headers = ["POS", "DRIVER", "TEAM", "POINTS", "WINS", "NATIONALITY"]
@@ -302,8 +406,16 @@ class StandingsTab(QWidget):
         self.standings_table.setColumnWidth(3, 80)
         self.standings_table.setColumnWidth(4, 60)
     
+    """
+    * Initiates background loading of F1 championship standings
+    *
+    * This method starts the background data loading process using a separate
+    * thread to prevent UI blocking. It sets up signal connections for
+    * progress updates and result handling.
+    *
+    * **@return** None
+    """
     def load_standings(self):
-        """Load F1 standings"""
         if self.data_loader and self.data_loader.isRunning():
             return
         
@@ -314,8 +426,16 @@ class StandingsTab(QWidget):
         self.data_loader.loading_finished.connect(self.on_loading_finished)
         self.data_loader.start()
     
+    """
+    * Handles the loading started event with UI status updates
+    *
+    * This method updates the UI to indicate that data loading has begun,
+    * changing the status label appearance and emitting progress signals
+    * for other components that may need to respond.
+    *
+    * **@return** None
+    """
     def on_loading_started(self):
-        """Handle loading start"""
         self.status_label.setText("🔄 Loading standings...")
         self.status_label.setStyleSheet("""
             QLabel {
@@ -329,8 +449,17 @@ class StandingsTab(QWidget):
         """)
         self.status_updated.emit("Loading F1 standings...")
     
+    """
+    * Processes successfully loaded standings data and updates the UI
+    *
+    * This method receives the loaded standings data, stores it locally,
+    * updates the table display, and changes the status to indicate
+    * successful completion of the loading operation.
+    *
+    * **@param** standings List of DriverStanding objects to display
+    * **@return** None
+    """
     def on_standings_loaded(self, standings: List[DriverStanding]):
-        """Handle standings loaded"""
         try:
             self.current_standings = standings
             self.has_loaded = True
@@ -354,8 +483,17 @@ class StandingsTab(QWidget):
             logger.error(f"Error updating table: {e}")
             self.on_error_occurred(f"Error displaying data: {str(e)}")
     
+    """
+    * Handles error conditions during data loading with appropriate UI feedback
+    *
+    * This method updates the UI to display error information when data loading
+    * fails, changing the status label to use error styling and logging the
+    * error for debugging purposes.
+    *
+    * **@param** error_message String description of the error that occurred
+    * **@return** None
+    """
     def on_error_occurred(self, error_message: str):
-        """Handle error"""
         self.status_label.setText(f"❌ {error_message}")
         self.status_label.setStyleSheet("""
             QLabel {
@@ -369,12 +507,28 @@ class StandingsTab(QWidget):
         """)
         self.status_updated.emit(f"Error: {error_message}")
     
+    """
+    * Handles the completion of data loading operations
+    *
+    * This method is called when data loading finishes, regardless of success
+    * or failure. It can be used for cleanup operations or final UI updates.
+    *
+    * **@return** None
+    """
     def on_loading_finished(self):
-        """Handle loading finished"""
         pass  # No refresh button to enable
     
+    """
+    * Updates the standings table with driver championship data and podium highlighting
+    *
+    * This method populates the table with standings data and applies special
+    * highlighting for podium positions (1st, 2nd, 3rd) using gold, silver,
+    * and bronze colors to make the championship leaders stand out.
+    *
+    * **@param** standings List of DriverStanding objects to display in the table
+    * **@return** None
+    """
     def update_standings_table(self, standings: List[DriverStanding]):
-        """Update standings table with dark theme"""
         self.standings_table.setRowCount(len(standings))
         
         for row, standing in enumerate(standings):
@@ -439,10 +593,20 @@ class StandingsTab(QWidget):
         self.standings_table.verticalHeader().setDefaultSectionSize(50)
 
 class CalendarTab(QWidget):
-    """Dark theme calendar tab with podium display"""
+    """Dark theme calendar tab with podium display and automatic data loading"""
     
     status_updated = pyqtSignal(str)
     
+    """
+    * Initializes the F1 race calendar tab with data service integration
+    *
+    * This constructor sets up the calendar tab with dark theme styling and
+    * prepares the data loading infrastructure for automatic F1 race calendar
+    * retrieval and podium results display.
+    *
+    * **@param** data_service DataService instance for API operations
+    * **@return** None
+    """
     def __init__(self, data_service):
         super().__init__()
         self.data_service = data_service
@@ -451,8 +615,16 @@ class CalendarTab(QWidget):
         self.has_loaded = False
         self.setup_ui()
     
+    """
+    * Sets up the complete UI layout for the race calendar tab
+    *
+    * This method creates the dark themed user interface including the title,
+    * status display, and calendar table with podium results. It also initiates
+    * automatic data loading when the tab becomes visible.
+    *
+    * **@return** None
+    """
     def setup_ui(self):
-        """Setup dark calendar tab UI"""
         layout = QVBoxLayout(self)
         layout.setContentsMargins(25, 25, 25, 25)
         layout.setSpacing(20)
@@ -504,13 +676,29 @@ class CalendarTab(QWidget):
         # Auto-load when tab becomes visible
         QTimer.singleShot(1000, self.auto_load_if_needed)
     
+    """
+    * Automatically loads calendar data if not already loaded
+    *
+    * This method checks if calendar data has been loaded and initiates
+    * the loading process if needed. It prevents redundant API calls while
+    * ensuring data is available when the tab is accessed.
+    *
+    * **@return** None
+    """
     def auto_load_if_needed(self):
-        """Auto-load calendar if not already loaded"""
         if not self.has_loaded:
             self.load_calendar()
     
+    """
+    * Configures the calendar table structure and column behavior
+    *
+    * This method sets up the table headers, column widths, and resize behavior
+    * for optimal display of F1 race calendar data including round number,
+    * race name, date, circuit, and podium results.
+    *
+    * **@return** None
+    """
     def setup_calendar_table(self):
-        """Setup calendar table"""
         self.calendar_table.setColumnCount(5)
         
         headers = ["ROUND", "GRAND PRIX", "DATE", "CIRCUIT", "PODIUM"]
@@ -530,8 +718,16 @@ class CalendarTab(QWidget):
         self.calendar_table.setColumnWidth(2, 120)
         self.calendar_table.setColumnWidth(3, 280)
     
+    """
+    * Initiates background loading of F1 race calendar for 2025 season
+    *
+    * This method starts the background data loading process using a separate
+    * thread to prevent UI blocking. It sets up signal connections for
+    * progress updates and result handling.
+    *
+    * **@return** None
+    """
     def load_calendar(self):
-        """Load race calendar"""
         if self.calendar_loader and self.calendar_loader.isRunning():
             return
             
@@ -543,8 +739,16 @@ class CalendarTab(QWidget):
         self.calendar_loader.loading_finished.connect(self.on_loading_finished)
         self.calendar_loader.start()
     
+    """
+    * Handles the calendar loading started event with UI status updates
+    *
+    * This method updates the UI to indicate that calendar loading has begun,
+    * changing the status label appearance and emitting progress signals
+    * for other components that may need to respond.
+    *
+    * **@return** None
+    """
     def on_loading_started(self):
-        """Handle loading start"""
         self.status_label.setText("🔄 Loading race calendar...")
         self.status_label.setStyleSheet("""
             QLabel {
@@ -558,8 +762,17 @@ class CalendarTab(QWidget):
         """)
         self.status_updated.emit("Loading race calendar...")
     
+    """
+    * Processes successfully loaded calendar data and updates the UI
+    *
+    * This method receives the loaded calendar data, stores it locally,
+    * updates the table display with race information and podium results,
+    * and changes the status to indicate successful completion.
+    *
+    * **@param** races List of Race objects containing calendar and results data
+    * **@return** None
+    """
     def on_calendar_loaded(self, races: List[Race]):
-        """Handle calendar loaded"""
         try:
             self.current_calendar = races
             self.has_loaded = True
@@ -583,8 +796,17 @@ class CalendarTab(QWidget):
             logger.error(f"Error updating calendar: {e}")
             self.on_error_occurred(f"Error displaying calendar: {str(e)}")
     
+    """
+    * Handles error conditions during calendar loading with appropriate UI feedback
+    *
+    * This method updates the UI to display error information when calendar
+    * loading fails, changing the status label to use error styling and
+    * logging the error for debugging purposes.
+    *
+    * **@param** error_message String description of the error that occurred
+    * **@return** None
+    """
     def on_error_occurred(self, error_message: str):
-        """Handle error"""
         self.status_label.setText(f"❌ {error_message}")
         self.status_label.setStyleSheet("""
             QLabel {
@@ -598,12 +820,29 @@ class CalendarTab(QWidget):
         """)
         self.status_updated.emit(f"Error: {error_message}")
     
+    """
+    * Handles the completion of calendar loading operations
+    *
+    * This method is called when calendar loading finishes, regardless of
+    * success or failure. It can be used for cleanup operations or final
+    * UI updates.
+    *
+    * **@return** None
+    """
     def on_loading_finished(self):
-        """Handle loading finished"""
         pass  # No refresh button to enable
     
+    """
+    * Updates the calendar table with race data and embedded podium widgets
+    *
+    * This method populates the table with race calendar information and
+    * creates embedded podium widgets for each race to display the top 3
+    * finishers when results are available.
+    *
+    * **@param** races List of Race objects containing race and results information
+    * **@return** None
+    """
     def update_calendar_table(self, races: List[Race]):
-        """Update calendar table with podium display"""
         self.calendar_table.setRowCount(len(races))
         
         for row, race in enumerate(races):
@@ -633,17 +872,34 @@ class CalendarTab(QWidget):
         self.calendar_table.verticalHeader().setDefaultSectionSize(60)
 
 class F1TabWidget(QWidget):
-    """Dark theme F1 widget with separate tabs and auto-load"""
+    """Main F1 widget container with dark themed tabbed interface and auto-loading"""
     
     status_updated = pyqtSignal(str)
     
+    """
+    * Initializes the main F1 widget with data service and tab structure
+    *
+    * This constructor creates the main F1 interface container with tabbed
+    * navigation between standings and calendar views, dark theme styling,
+    * and integrated data service for API operations.
+    *
+    * **@return** None
+    """
     def __init__(self):
         super().__init__()
         self.data_service = DataService()
         self.setup_ui()
     
+    """
+    * Sets up the complete dark themed tabbed interface for F1 data
+    *
+    * This method creates the main UI structure including the dark styled
+    * tab widget, individual tabs for standings and calendar, and connects
+    * the status update signals for coordinated UI feedback.
+    *
+    * **@return** None
+    """
     def setup_ui(self):
-        """Setup the dark minimalist tabbed interface"""
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
@@ -704,8 +960,19 @@ class F1TabWidget(QWidget):
         
         layout.addWidget(self.tab_widget)
     
+    """
+    * Adds a tab to the widget with an optional PNG icon
+    *
+    * This method attempts to load and display a PNG icon for the tab while
+    * gracefully falling back to text-only display if the icon cannot be
+    * loaded. It processes the icon to create a white version for dark theme.
+    *
+    * **@param** widget QWidget to be added as tab content
+    * **@param** icon_path String path to the PNG icon file
+    * **@param** text String display text for the tab
+    * **@return** None
+    """
     def add_tab_with_icon(self, widget, icon_path, text):
-        """Add tab with PNG icon"""
         import os
         from PyQt6.QtGui import QIcon, QPixmap, QPainter
         from PyQt6.QtCore import QSize
@@ -743,13 +1010,29 @@ class F1TabWidget(QWidget):
             # Fallback without icon
             self.tab_widget.addTab(widget, text)
     
+    """
+    * Automatically loads initial F1 data when the widget becomes active
+    *
+    * This method is called to trigger automatic data loading for the F1
+    * tabs. The actual loading is handled by individual tabs when they
+    * become visible to optimize performance.
+    *
+    * **@return** None
+    """
     def auto_load_initial_data(self):
-        """Auto-load initial data - standings will load automatically"""
         # The standings tab will auto-load when it becomes visible
         pass
     
+    """
+    * Updates all translatable text elements when language changes
+    *
+    * This method refreshes all user-visible text in the F1 widget including
+    * tab titles and table headers to reflect the currently selected language
+    * setting in the application.
+    *
+    * **@return** None
+    """
     def update_translations(self):
-        """Update translations when language changes"""
         # Update tab titles
         self.tab_widget.setTabText(0, "Standings")
         self.tab_widget.setTabText(1, "Calendar")
