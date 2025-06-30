@@ -1,52 +1,60 @@
 # ui/widgets/f1_navigation.py
 """
-Improved F1 navigation system with real career data and working session results
+Complete F1 navigation system with all session types and race history
 
-This module provides a complete navigation system with real career statistics
-and properly working session data loading for all F1 weekend sessions.
+This module provides comprehensive navigation with:
+- Qualifying, Race, Sprint results
+- Pit stops and lap-by-lap history
+- Enhanced driver career statistics
+- Integration with OpenF1 and Ergast APIs
 
 **Classes:**
-    NavigationTabWidget - Main navigation container with back functionality
-    DriverInfoTab - Integrated driver information with real career stats
-    RaceResultsTab - Integrated race results with working session data
-    SessionResultsTab - Individual session results display
+    NavigationTabWidget - Main navigation container
+    DriverInfoTab - Complete driver information with career stats
+    CompleteRaceResultsTab - All race weekend sessions
+    PitStopsTab - Detailed pit stop analysis
+    LapHistoryTab - Lap-by-lap race analysis
+    SessionResultsTable - Enhanced table for all data types
 
 **Author:** Lotherd
-**Version:** 2.0.0
+**Version:** 3.0.0
 """
 
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, 
     QTableWidget, QTableWidgetItem, QHeaderView, QTabWidget,
-    QScrollArea, QFrame, QGridLayout, QStackedWidget, QProgressBar
+    QScrollArea, QFrame, QGridLayout, QStackedWidget, QProgressBar,
+    QSplitter, QTextEdit, QSpinBox, QComboBox, QCheckBox
 )
 from PyQt6.QtCore import Qt, pyqtSignal, QTimer
-from PyQt6.QtGui import QFont, QColor
+from PyQt6.QtGui import QFont, QColor, QPalette
 
 from models.driver import DriverStanding
 from models.race import Race
-from services.enhanced_data_service import EnhancedDataService, SessionDataLoader, CareerStatsLoader
+from services.enhanced_data_service import EnhancedDataService, CompleteSessionDataLoader, CareerStatsLoader
 from typing import List, Dict, Any
 import logging
 
 logger = logging.getLogger(__name__)
 
 class DarkTabWidget(QTabWidget):
-    """Dark themed tab widget with consistent styling"""
+    """Enhanced dark themed tab widget"""
     
     def __init__(self):
         super().__init__()
         self.setup_dark_style()
     
     def setup_dark_style(self):
-        """Apply consistent dark theme styling"""
+        """Apply enhanced dark theme styling"""
         self.setStyleSheet("""
             QTabWidget::pane {
                 border: none;
                 background-color: #0f0f0f;
+                border-radius: 8px;
             }
             QTabBar {
                 background-color: #1a1a1a;
+                border-bottom: 2px solid #333333;
             }
             QTabBar::tab {
                 background-color: #2a2a2a;
@@ -56,7 +64,7 @@ class DarkTabWidget(QTabWidget):
                 border: none;
                 font-size: 14px;
                 font-weight: 500;
-                min-width: 100px;
+                min-width: 120px;
                 border-top-left-radius: 8px;
                 border-top-right-radius: 8px;
             }
@@ -72,8 +80,8 @@ class DarkTabWidget(QTabWidget):
             }
         """)
 
-class DriverInfoTab(QWidget):
-    """Integrated driver information tab with real career statistics"""
+class EnhancedDriverInfoTab(QWidget):
+    """Enhanced driver information with complete career statistics"""
     
     def __init__(self, driver_standing: DriverStanding):
         super().__init__()
@@ -85,7 +93,7 @@ class DriverInfoTab(QWidget):
         self.load_career_stats()
     
     def setup_ui(self):
-        """Set up the driver information UI"""
+        """Setup enhanced driver information UI"""
         layout = QVBoxLayout(self)
         layout.setContentsMargins(20, 20, 20, 20)
         layout.setSpacing(20)
@@ -98,79 +106,100 @@ class DriverInfoTab(QWidget):
             }
         """)
         
-        # Driver header
-        header_widget = self.create_driver_header()
+        # Enhanced driver header
+        header_widget = self.create_enhanced_driver_header()
         layout.addWidget(header_widget)
         
-        # Tabbed content
+        # Enhanced tabbed content
         self.tab_widget = DarkTabWidget()
         
         # Overview tab
-        self.overview_tab = self.create_overview_tab()
+        self.overview_tab = self.create_enhanced_overview_tab()
         self.tab_widget.addTab(self.overview_tab, "📊 Overview")
         
-        # Career stats tab (will be populated when data loads)
+        # Career stats tab (loading initially)
         self.career_tab = self.create_loading_career_tab()
         self.tab_widget.addTab(self.career_tab, "🏆 Career Stats")
         
-        # Season tab
-        season_tab = self.create_season_tab()
+        # Current season tab
+        season_tab = self.create_current_season_tab()
         self.tab_widget.addTab(season_tab, "📅 2025 Season")
+        
+        # Team history tab
+        team_tab = self.create_team_history_tab()
+        self.tab_widget.addTab(team_tab, "🏁 Teams")
         
         layout.addWidget(self.tab_widget)
     
     def load_career_stats(self):
-        """Load real career statistics for the driver"""
+        """Load comprehensive career statistics"""
+        logger.info(f"🔄 Loading career stats for {self.driver.driver_id}")
         self.career_loader = self.data_service.create_career_stats_loader(self.driver.driver_id)
+        self.career_loader.loading_progress.connect(self.on_career_loading_progress)
         self.career_loader.stats_loaded.connect(self.on_career_stats_loaded)
         self.career_loader.error_occurred.connect(self.on_career_stats_error)
         self.career_loader.start()
     
+    def on_career_loading_progress(self, status: str):
+        """Handle career loading progress"""
+        logger.info(f"Career loading: {status}")
+        # Update loading tab if it exists
+        if hasattr(self, 'loading_label'):
+            self.loading_label.setText(status)
+    
     def on_career_stats_loaded(self, stats: Dict[str, Any]):
-        """Handle loaded career statistics"""
+        """Handle successfully loaded career statistics"""
         self.career_stats = stats
+        logger.info(f"✅ Career stats loaded for {self.driver.full_name}")
+        logger.info(f"Stats: {stats}")
+        
         # Update career tab with real data
         new_career_tab = self.create_career_tab_with_data(stats)
         self.tab_widget.removeTab(1)  # Remove loading tab
         self.tab_widget.insertTab(1, new_career_tab, "🏆 Career Stats")
-        logger.info(f"Career stats loaded for {self.driver.full_name}")
+        
+        # Also update team history if we have team data
+        if stats.get('teams'):
+            team_tab = self.create_team_history_tab_with_data(stats)
+            self.tab_widget.removeTab(3)  # Remove placeholder team tab
+            self.tab_widget.insertTab(3, team_tab, "🏁 Teams")
     
     def on_career_stats_error(self, error: str):
         """Handle career statistics loading error"""
-        logger.error(f"Error loading career stats: {error}")
+        logger.error(f"❌ Error loading career stats: {error}")
         # Show error tab instead
         error_tab = self.create_error_career_tab(error)
         self.tab_widget.removeTab(1)  # Remove loading tab
         self.tab_widget.insertTab(1, error_tab, "🏆 Career Stats")
     
-    def create_driver_header(self) -> QWidget:
-        """Create the driver header section with enhanced styling"""
+    def create_enhanced_driver_header(self) -> QWidget:
+        """Create enhanced driver header with more information"""
         header = QFrame()
-        header.setFixedHeight(140)
+        header.setFixedHeight(160)
         header.setStyleSheet("""
             QFrame {
                 background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
                             stop:0 #1a1a1a, stop:1 #2d2d2d);
                 border: 1px solid #333333;
-                border-radius: 12px;
+                border-radius: 15px;
                 margin-bottom: 10px;
             }
         """)
         
         layout = QHBoxLayout(header)
-        layout.setContentsMargins(25, 20, 25, 20)
+        layout.setContentsMargins(30, 25, 30, 25)
         
-        # Driver photo placeholder with team colors
+        # Driver photo/initials with enhanced styling
         photo_label = QLabel()
-        photo_label.setFixedSize(90, 90)
+        photo_label.setFixedSize(100, 100)
         photo_label.setStyleSheet("""
             QLabel {
                 background-color: #e10600;
-                border-radius: 45px;
+                border-radius: 50px;
                 color: white;
-                font-size: 32px;
+                font-size: 36px;
                 font-weight: bold;
-                border: 3px solid #ffffff;
+                border: 4px solid #ffffff;
             }
         """)
         photo_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -178,44 +207,45 @@ class DriverInfoTab(QWidget):
         photo_label.setText(initials)
         layout.addWidget(photo_label)
         
-        # Driver info section
+        # Enhanced driver info section
         info_layout = QVBoxLayout()
         
-        # Name
+        # Name with enhanced styling
         name_label = QLabel(self.driver.full_name)
         name_label.setStyleSheet("""
             QLabel {
                 color: #ffffff;
-                font-size: 28px;
+                font-size: 32px;
                 font-weight: bold;
-                margin-bottom: 8px;
+                margin-bottom: 10px;
             }
         """)
         info_layout.addWidget(name_label)
         
-        # Team and position
+        # Enhanced subtitle with more info
         team_name = self.driver_standing.constructors[0].name if self.driver_standing.constructors else "N/A"
-        subtitle = f"{team_name} • #{self.driver_standing.position} in Championship"
+        subtitle = f"{team_name} • #{self.driver_standing.position} in Championship • {self.driver.nationality}"
         subtitle_label = QLabel(subtitle)
         subtitle_label.setStyleSheet("""
             QLabel {
                 color: #cccccc;
                 font-size: 16px;
-                margin-bottom: 15px;
+                margin-bottom: 20px;
             }
         """)
         info_layout.addWidget(subtitle_label)
         
-        # Quick stats row
+        # Enhanced quick stats row
         stats_layout = QHBoxLayout()
         quick_stats = [
-            ("Points", str(int(self.driver_standing.points))),
-            ("Wins", str(self.driver_standing.wins)),
-            ("Position", f"#{self.driver_standing.position}")
+            ("Points", str(int(self.driver_standing.points)), "#e10600"),
+            ("Position", f"#{self.driver_standing.position}", "#ffffff"),
+            ("Wins", str(self.driver_standing.wins), "#ffd700"),
+            ("Code", self.driver.code or "N/A", "#00ff88")
         ]
         
-        for label, value in quick_stats:
-            stat_widget = self.create_quick_stat(label, value)
+        for label, value, color in quick_stats:
+            stat_widget = self.create_enhanced_quick_stat(label, value, color)
             stats_layout.addWidget(stat_widget)
         
         info_layout.addLayout(stats_layout)
@@ -225,17 +255,17 @@ class DriverInfoTab(QWidget):
         
         return header
     
-    def create_quick_stat(self, label: str, value: str) -> QWidget:
-        """Create a quick stat widget"""
+    def create_enhanced_quick_stat(self, label: str, value: str, color: str) -> QWidget:
+        """Create enhanced quick stat widget with colors"""
         widget = QFrame()
-        widget.setFixedSize(90, 70)
-        widget.setStyleSheet("""
-            QFrame {
+        widget.setFixedSize(100, 80)
+        widget.setStyleSheet(f"""
+            QFrame {{
                 background-color: #333333;
-                border: 1px solid #555555;
-                border-radius: 8px;
+                border: 2px solid {color};
+                border-radius: 10px;
                 margin: 5px;
-            }
+            }}
         """)
         
         layout = QVBoxLayout(widget)
@@ -243,12 +273,12 @@ class DriverInfoTab(QWidget):
         layout.setSpacing(4)
         
         value_label = QLabel(value)
-        value_label.setStyleSheet("""
-            QLabel {
-                color: #e10600;
-                font-size: 18px;
+        value_label.setStyleSheet(f"""
+            QLabel {{
+                color: {color};
+                font-size: 20px;
                 font-weight: bold;
-            }
+            }}
         """)
         value_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
@@ -267,62 +297,63 @@ class DriverInfoTab(QWidget):
         
         return widget
     
-    def create_overview_tab(self) -> QWidget:
-        """Create the overview tab with basic information"""
+    def create_enhanced_overview_tab(self) -> QWidget:
+        """Create enhanced overview tab"""
         widget = QWidget()
         layout = QVBoxLayout(widget)
         layout.setContentsMargins(15, 15, 15, 15)
         
-        # Driver details in a professional grid
+        # Enhanced details in a professional grid
         details_frame = QFrame()
         details_frame.setStyleSheet("""
             QFrame {
                 background-color: #1a1a1a;
                 border: 1px solid #333333;
-                border-radius: 10px;
-                padding: 20px;
+                border-radius: 12px;
+                padding: 25px;
             }
         """)
         
         grid_layout = QGridLayout(details_frame)
-        grid_layout.setSpacing(20)
+        grid_layout.setSpacing(25)
         
-        # Driver details
+        # Enhanced driver details
         details = [
             ("Full Name", self.driver.full_name),
             ("Nationality", self.driver.nationality),
             ("Date of Birth", self.driver.date_of_birth or "N/A"),
             ("Driver Code", self.driver.code or "N/A"),
-            ("Permanent Number", self.driver.permanent_number or "N/A"),
+            ("Permanent Number", f"#{self.driver.permanent_number}" if self.driver.permanent_number else "N/A"),
             ("Current Team", self.driver_standing.constructors[0].name if self.driver_standing.constructors else "N/A"),
             ("Championship Position", f"#{self.driver_standing.position}"),
-            ("Points This Season", str(int(self.driver_standing.points))),
+            ("Points This Season", f"{int(self.driver_standing.points)} pts"),
             ("Wins This Season", str(self.driver_standing.wins)),
+            ("Driver ID", self.driver.driver_id),
         ]
         
         for i, (label, value) in enumerate(details):
             row = i // 2
             col = (i % 2) * 2
             
-            # Label
+            # Enhanced label
             label_widget = QLabel(f"{label}:")
             label_widget.setStyleSheet("""
                 QLabel {
                     color: #e10600;
                     font-weight: bold;
-                    font-size: 14px;
+                    font-size: 15px;
                 }
             """)
             
-            # Value
+            # Enhanced value
             value_widget = QLabel(str(value))
             value_widget.setStyleSheet("""
                 QLabel {
                     color: #ffffff;
-                    font-size: 14px;
-                    padding: 10px;
+                    font-size: 15px;
+                    padding: 12px;
                     background-color: #2a2a2a;
-                    border-radius: 6px;
+                    border-radius: 8px;
                     border: 1px solid #444444;
                 }
             """)
@@ -336,7 +367,7 @@ class DriverInfoTab(QWidget):
         return widget
     
     def create_loading_career_tab(self) -> QWidget:
-        """Create a loading tab for career statistics"""
+        """Create enhanced loading tab for career statistics"""
         widget = QWidget()
         layout = QVBoxLayout(widget)
         layout.setContentsMargins(50, 50, 50, 50)
@@ -347,49 +378,49 @@ class DriverInfoTab(QWidget):
             QFrame {
                 background-color: #1a1a1a;
                 border: 1px solid #333333;
-                border-radius: 10px;
-                padding: 40px;
+                border-radius: 12px;
+                padding: 50px;
             }
         """)
         
         loading_layout = QVBoxLayout(loading_frame)
         
-        loading_label = QLabel("🔄 Loading Career Statistics...")
-        loading_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        loading_label.setStyleSheet("""
+        self.loading_label = QLabel("🔄 Loading Career Statistics...")
+        self.loading_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.loading_label.setStyleSheet("""
             QLabel {
                 color: #ffffff;
-                font-size: 18px;
+                font-size: 20px;
                 font-weight: bold;
-                margin-bottom: 20px;
+                margin-bottom: 25px;
             }
         """)
-        loading_layout.addWidget(loading_label)
+        loading_layout.addWidget(self.loading_label)
         
-        # Progress bar
+        # Enhanced progress bar
         progress_bar = QProgressBar()
         progress_bar.setRange(0, 0)  # Indeterminate
         progress_bar.setStyleSheet("""
             QProgressBar {
-                border: 1px solid #333333;
-                border-radius: 6px;
+                border: 2px solid #333333;
+                border-radius: 8px;
                 background-color: #2a2a2a;
-                height: 8px;
+                height: 12px;
             }
             QProgressBar::chunk {
                 background-color: #e10600;
-                border-radius: 4px;
+                border-radius: 6px;
             }
         """)
         loading_layout.addWidget(progress_bar)
         
-        desc_label = QLabel("Fetching career data from F1 archives...")
+        desc_label = QLabel("Fetching comprehensive career data from F1 archives...")
         desc_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         desc_label.setStyleSheet("""
             QLabel {
                 color: #cccccc;
-                font-size: 14px;
-                margin-top: 15px;
+                font-size: 16px;
+                margin-top: 20px;
             }
         """)
         loading_layout.addWidget(desc_label)
@@ -400,117 +431,108 @@ class DriverInfoTab(QWidget):
         return widget
     
     def create_career_tab_with_data(self, stats: Dict[str, Any]) -> QWidget:
-        """Create career tab with real statistics data"""
+        """Create career tab with comprehensive statistics"""
         widget = QWidget()
         layout = QVBoxLayout(widget)
         layout.setContentsMargins(15, 15, 15, 15)
         
-        # Career stats frame
+        # Enhanced career stats frame
         career_frame = QFrame()
         career_frame.setStyleSheet("""
             QFrame {
                 background-color: #1a1a1a;
                 border: 1px solid #333333;
-                border-radius: 10px;
-                padding: 25px;
+                border-radius: 12px;
+                padding: 30px;
             }
         """)
         
         career_layout = QVBoxLayout(career_frame)
         
-        # Title
+        # Enhanced title
         title_label = QLabel("Career Highlights")
         title_label.setStyleSheet("""
             QLabel {
                 color: #e10600;
-                font-size: 24px;
+                font-size: 28px;
                 font-weight: bold;
-                margin-bottom: 25px;
+                margin-bottom: 30px;
             }
         """)
         career_layout.addWidget(title_label)
         
-        # Stats grid
+        # Enhanced stats grid
         stats_grid = QGridLayout()
-        stats_grid.setSpacing(15)
+        stats_grid.setSpacing(20)
         
-        # Prepare stats for display
+        # Comprehensive career data
         career_data = [
-            ("Total Races", stats.get('total_races', 'N/A')),
-            ("Career Wins", stats.get('total_wins', 'N/A')),
-            ("Podium Finishes", stats.get('total_podiums', 'N/A')),
-            ("Pole Positions", stats.get('total_poles', 'N/A')),
-            ("Career Points", stats.get('total_points', 'N/A')),
-            ("World Championships", stats.get('championships', 'N/A')),
-            ("Seasons Active", stats.get('seasons_active', 'N/A')),
-            ("Win Percentage", f"{stats.get('win_percentage', 0)}%" if stats.get('win_percentage') else 'N/A'),
-            ("Podium Percentage", f"{stats.get('podium_percentage', 0)}%" if stats.get('podium_percentage') else 'N/A'),
+            ("Total Races", stats.get('total_races', 'N/A'), "#4dabf7"),
+            ("Career Wins", stats.get('total_wins', 'N/A'), "#ffd700"),
+            ("Podium Finishes", stats.get('total_podiums', 'N/A'), "#ff922b"),
+            ("Pole Positions", stats.get('total_poles', 'N/A'), "#51cf66"),
+            ("Career Points", stats.get('total_points', 'N/A'), "#e10600"),
+            ("Championships", stats.get('championships', 'N/A'), "#9775fa"),
+            ("Seasons Active", stats.get('seasons_active', 'N/A'), "#74c0fc"),
+            ("Win Rate", f"{stats.get('win_percentage', 0)}%" if stats.get('win_percentage') else 'N/A', "#ffd700"),
+            ("Podium Rate", f"{stats.get('podium_percentage', 0)}%" if stats.get('podium_percentage') else 'N/A', "#ff922b"),
+            ("Best Finish", f"P{stats.get('best_finish', 'N/A')}" if stats.get('best_finish', 'N/A') != 'N/A' else 'N/A', "#51cf66"),
+            ("Points/Race", stats.get('points_per_race', 'N/A'), "#e10600"),
+            ("Fastest Laps", stats.get('total_fastest_laps', 'N/A'), "#ff6b6b"),
         ]
         
-        for i, (label, value) in enumerate(career_data):
-            row = i // 3
-            col = i % 3
+        for i, (label, value, color) in enumerate(career_data):
+            row = i // 4
+            col = i % 4
             
-            stat_widget = self.create_career_stat_widget(label, str(value))
+            stat_widget = self.create_enhanced_career_stat_widget(label, str(value), color)
             stats_grid.addWidget(stat_widget, row, col)
         
         career_layout.addLayout(stats_grid)
         
-        # Career period info
-        if stats.get('first_season') and stats.get('last_season'):
-            period_label = QLabel(f"Career: {stats['first_season']} - {stats['last_season']}")
+        # Enhanced career period info
+        if stats.get('career_span'):
+            period_label = QLabel(f"Career Span: {stats['career_span']}")
             period_label.setStyleSheet("""
                 QLabel {
                     color: #cccccc;
-                    font-size: 16px;
-                    margin-top: 20px;
+                    font-size: 18px;
+                    margin-top: 25px;
                     font-style: italic;
+                    text-align: center;
                 }
             """)
             career_layout.addWidget(period_label)
-        
-        # Teams list
-        if stats.get('teams'):
-            teams_label = QLabel(f"Teams: {', '.join(stats['teams'][:5])}")  # Show first 5 teams
-            teams_label.setStyleSheet("""
-                QLabel {
-                    color: #cccccc;
-                    font-size: 14px;
-                    margin-top: 10px;
-                }
-            """)
-            teams_label.setWordWrap(True)
-            career_layout.addWidget(teams_label)
         
         layout.addWidget(career_frame)
         layout.addStretch()
         
         return widget
     
-    def create_career_stat_widget(self, label: str, value: str) -> QWidget:
-        """Create a career statistic widget"""
+    def create_enhanced_career_stat_widget(self, label: str, value: str, color: str) -> QWidget:
+        """Create enhanced career statistic widget with colors"""
         widget = QFrame()
-        widget.setFixedSize(140, 80)
-        widget.setStyleSheet("""
-            QFrame {
+        widget.setFixedSize(160, 90)
+        widget.setStyleSheet(f"""
+            QFrame {{
                 background-color: #2a2a2a;
-                border: 1px solid #444444;
-                border-radius: 8px;
+                border: 2px solid {color};
+                border-radius: 10px;
                 margin: 5px;
-            }
+            }}
         """)
         
         layout = QVBoxLayout(widget)
-        layout.setContentsMargins(10, 10, 10, 10)
-        layout.setSpacing(5)
+        layout.setContentsMargins(12, 12, 12, 12)
+        layout.setSpacing(6)
         
         value_label = QLabel(value)
-        value_label.setStyleSheet("""
-            QLabel {
-                color: #e10600;
-                font-size: 20px;
+        value_label.setStyleSheet(f"""
+            QLabel {{
+                color: {color};
+                font-size: 22px;
                 font-weight: bold;
-            }
+            }}
         """)
         value_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
@@ -530,54 +552,8 @@ class DriverInfoTab(QWidget):
         
         return widget
     
-    def create_error_career_tab(self, error: str) -> QWidget:
-        """Create error tab when career data loading fails"""
-        widget = QWidget()
-        layout = QVBoxLayout(widget)
-        layout.setContentsMargins(30, 30, 30, 30)
-        
-        error_frame = QFrame()
-        error_frame.setStyleSheet("""
-            QFrame {
-                background-color: #1a1a1a;
-                border: 1px solid #dc3545;
-                border-radius: 10px;
-                padding: 30px;
-            }
-        """)
-        
-        error_layout = QVBoxLayout(error_frame)
-        
-        error_title = QLabel("❌ Career Data Unavailable")
-        error_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        error_title.setStyleSheet("""
-            QLabel {
-                color: #dc3545;
-                font-size: 20px;
-                font-weight: bold;
-                margin-bottom: 15px;
-            }
-        """)
-        error_layout.addWidget(error_title)
-        
-        error_text = QLabel(f"Unable to load career statistics:\n{error}")
-        error_text.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        error_text.setStyleSheet("""
-            QLabel {
-                color: #cccccc;
-                font-size: 14px;
-            }
-        """)
-        error_text.setWordWrap(True)
-        error_layout.addWidget(error_text)
-        
-        layout.addWidget(error_frame)
-        layout.addStretch()
-        
-        return widget
-    
-    def create_season_tab(self) -> QWidget:
-        """Create the 2025 season tab"""
+    def create_current_season_tab(self) -> QWidget:
+        """Create enhanced current season tab"""
         widget = QWidget()
         layout = QVBoxLayout(widget)
         layout.setContentsMargins(15, 15, 15, 15)
@@ -588,8 +564,8 @@ class DriverInfoTab(QWidget):
             QFrame {
                 background-color: #1a1a1a;
                 border: 1px solid #333333;
-                border-radius: 10px;
-                padding: 25px;
+                border-radius: 12px;
+                padding: 30px;
             }
         """)
         
@@ -599,29 +575,29 @@ class DriverInfoTab(QWidget):
         title_label.setStyleSheet("""
             QLabel {
                 color: #e10600;
-                font-size: 24px;
+                font-size: 28px;
                 font-weight: bold;
-                margin-bottom: 20px;
+                margin-bottom: 25px;
             }
         """)
         season_layout.addWidget(title_label)
         
-        # Current season stats grid
+        # Enhanced current season stats grid
         season_stats = [
-            ("Championship Position", f"#{self.driver_standing.position}"),
-            ("Total Points", f"{int(self.driver_standing.points)} pts"),
-            ("Race Wins", str(self.driver_standing.wins)),
-            ("Current Team", self.driver_standing.constructors[0].name if self.driver_standing.constructors else "N/A")
+            ("Championship Position", f"#{self.driver_standing.position}", "#e10600"),
+            ("Total Points", f"{int(self.driver_standing.points)} pts", "#ffd700"),
+            ("Race Wins", str(self.driver_standing.wins), "#51cf66"),
+            ("Current Team", self.driver_standing.constructors[0].name if self.driver_standing.constructors else "N/A", "#74c0fc")
         ]
         
         stats_grid = QGridLayout()
-        stats_grid.setSpacing(15)
+        stats_grid.setSpacing(20)
         
-        for i, (label, value) in enumerate(season_stats):
+        for i, (label, value, color) in enumerate(season_stats):
             row = i // 2
             col = i % 2
             
-            stat_widget = self.create_season_stat_widget(label, value)
+            stat_widget = self.create_enhanced_season_stat_widget(label, value, color)
             stats_grid.addWidget(stat_widget, row, col)
         
         season_layout.addLayout(stats_grid)
@@ -631,38 +607,38 @@ class DriverInfoTab(QWidget):
         
         return widget
     
-    def create_season_stat_widget(self, label: str, value: str) -> QWidget:
-        """Create a season statistic widget"""
+    def create_enhanced_season_stat_widget(self, label: str, value: str, color: str) -> QWidget:
+        """Create enhanced season statistic widget"""
         widget = QFrame()
-        widget.setFixedHeight(70)
-        widget.setStyleSheet("""
-            QFrame {
+        widget.setFixedHeight(80)
+        widget.setStyleSheet(f"""
+            QFrame {{
                 background-color: #2a2a2a;
-                border: 1px solid #444444;
-                border-radius: 8px;
+                border: 2px solid {color};
+                border-radius: 10px;
                 margin: 5px;
-            }
+            }}
         """)
         
         layout = QHBoxLayout(widget)
-        layout.setContentsMargins(15, 10, 15, 10)
+        layout.setContentsMargins(20, 15, 20, 15)
         
         label_widget = QLabel(label)
         label_widget.setStyleSheet("""
             QLabel {
                 color: #cccccc;
-                font-size: 14px;
+                font-size: 16px;
                 font-weight: 500;
             }
         """)
         
         value_label = QLabel(value)
-        value_label.setStyleSheet("""
-            QLabel {
-                color: #e10600;
-                font-size: 18px;
+        value_label.setStyleSheet(f"""
+            QLabel {{
+                color: {color};
+                font-size: 20px;
                 font-weight: bold;
-            }
+            }}
         """)
         value_label.setAlignment(Qt.AlignmentFlag.AlignRight)
         
@@ -671,19 +647,164 @@ class DriverInfoTab(QWidget):
         layout.addWidget(value_label)
         
         return widget
+    
+    def create_team_history_tab(self) -> QWidget:
+        """Create placeholder team history tab"""
+        widget = QWidget()
+        layout = QVBoxLayout(widget)
+        layout.setContentsMargins(30, 30, 30, 30)
+        
+        loading_label = QLabel("Loading team history...")
+        loading_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        loading_label.setStyleSheet("""
+            QLabel {
+                color: #cccccc;
+                font-size: 16px;
+            }
+        """)
+        layout.addWidget(loading_label)
+        
+        return widget
+    
+    def create_team_history_tab_with_data(self, stats: Dict[str, Any]) -> QWidget:
+        """Create team history tab with actual data"""
+        widget = QWidget()
+        layout = QVBoxLayout(widget)
+        layout.setContentsMargins(15, 15, 15, 15)
+        
+        teams_frame = QFrame()
+        teams_frame.setStyleSheet("""
+            QFrame {
+                background-color: #1a1a1a;
+                border: 1px solid #333333;
+                border-radius: 12px;
+                padding: 25px;
+            }
+        """)
+        
+        teams_layout = QVBoxLayout(teams_frame)
+        
+        title_label = QLabel("Team History")
+        title_label.setStyleSheet("""
+            QLabel {
+                color: #e10600;
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+        """)
+        teams_layout.addWidget(title_label)
+        
+        # Teams list
+        if stats.get('teams'):
+            teams_list = stats['teams']
+            for i, team in enumerate(teams_list[:10]):  # Show first 10 teams
+                team_widget = QLabel(f"• {team}")
+                team_widget.setStyleSheet("""
+                    QLabel {
+                        color: #ffffff;
+                        font-size: 16px;
+                        padding: 8px;
+                        margin: 2px;
+                        background-color: #2a2a2a;
+                        border-radius: 6px;
+                        border-left: 4px solid #e10600;
+                    }
+                """)
+                teams_layout.addWidget(team_widget)
+        
+        layout.addWidget(teams_frame)
+        layout.addStretch()
+        
+        return widget
+    
+    def create_error_career_tab(self, error: str) -> QWidget:
+        """Create enhanced error tab"""
+        widget = QWidget()
+        layout = QVBoxLayout(widget)
+        layout.setContentsMargins(30, 30, 30, 30)
+        
+        error_frame = QFrame()
+        error_frame.setStyleSheet("""
+            QFrame {
+                background-color: #1a1a1a;
+                border: 2px solid #dc3545;
+                border-radius: 12px;
+                padding: 40px;
+            }
+        """)
+        
+        error_layout = QVBoxLayout(error_frame)
+        
+        error_title = QLabel("❌ Career Data Unavailable")
+        error_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        error_title.setStyleSheet("""
+            QLabel {
+                color: #dc3545;
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+        """)
+        error_layout.addWidget(error_title)
+        
+        error_text = QLabel(f"Unable to load career statistics:\n{error}")
+        error_text.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        error_text.setStyleSheet("""
+            QLabel {
+                color: #cccccc;
+                font-size: 16px;
+            }
+        """)
+        error_text.setWordWrap(True)
+        error_layout.addWidget(error_text)
+        
+        layout.addWidget(error_frame)
+        layout.addStretch()
+        
+        return widget
 
-class SessionResultsTable(QTableWidget):
-    """Dark themed table for session results with proper formatting"""
+class PitStopsTab(QWidget):
+    """Enhanced pit stops analysis tab"""
     
-    def __init__(self):
+    def __init__(self, pit_stops_data: List[Dict[str, Any]]):
         super().__init__()
-        self.setup_dark_style()
-        self.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
-        self.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.pit_stops_data = pit_stops_data
+        self.setup_ui()
     
-    def setup_dark_style(self):
-        """Apply dark theme styling to the table"""
+    def setup_ui(self):
+        """Setup pit stops analysis UI"""
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(15, 15, 15, 15)
+        
+        # Dark background
         self.setStyleSheet("""
+            QWidget {
+                background-color: #0f0f0f;
+                color: #ffffff;
+            }
+        """)
+        
+        # Title
+        title_label = QLabel(f"Pit Stop Analysis - {len(self.pit_stops_data)} stops")
+        title_label.setStyleSheet("""
+            QLabel {
+                color: #e10600;
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+        """)
+        layout.addWidget(title_label)
+        
+        # Pit stops table
+        self.pit_table = self.create_pit_stops_table()
+        layout.addWidget(self.pit_table)
+    
+    def create_pit_stops_table(self) -> QTableWidget:
+        """Create enhanced pit stops table"""
+        table = QTableWidget()
+        table.setStyleSheet("""
             QTableWidget {
                 background-color: #1a1a1a;
                 gridline-color: #333333;
@@ -707,23 +828,225 @@ class SessionResultsTable(QTableWidget):
                 padding: 10px 8px;
                 border-bottom: 1px solid #2a2a2a;
             }
-            QTableWidget::item:alternate {
-                background-color: #1f1f1f;
-            }
-            QTableWidget::item:selected {
-                background-color: #e10600;
+        """)
+        
+        headers = ["DRIVER", "LAP", "STOP #", "TIME", "DURATION"]
+        table.setColumnCount(len(headers))
+        table.setHorizontalHeaderLabels(headers)
+        table.setRowCount(len(self.pit_stops_data))
+        
+        # Configure columns
+        table.setColumnWidth(0, 180)
+        table.setColumnWidth(1, 80)
+        table.setColumnWidth(2, 80)
+        table.setColumnWidth(3, 120)
+        table.setColumnWidth(4, 120)
+        
+        # Populate data
+        for row, stop in enumerate(self.pit_stops_data):
+            # Driver
+            driver = stop.get('driver', {})
+            driver_name = f"{driver.get('givenName', '')} {driver.get('familyName', '')}"
+            table.setItem(row, 0, QTableWidgetItem(driver_name))
+            
+            # Lap
+            lap_item = QTableWidgetItem(stop.get('lap', 'N/A'))
+            lap_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            table.setItem(row, 1, lap_item)
+            
+            # Stop number
+            stop_item = QTableWidgetItem(stop.get('stop', 'N/A'))
+            stop_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            table.setItem(row, 2, stop_item)
+            
+            # Time
+            time_item = QTableWidgetItem(stop.get('time', 'N/A'))
+            time_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            table.setItem(row, 3, time_item)
+            
+            # Duration
+            duration = stop.get('duration', 'N/A')
+            if duration != 'N/A':
+                try:
+                    duration_float = float(duration)
+                    duration = f"{duration_float:.3f}s"
+                except:
+                    pass
+            
+            duration_item = QTableWidgetItem(duration)
+            duration_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            
+            # Color code based on duration
+            if duration != 'N/A':
+                try:
+                    duration_val = float(duration.replace('s', ''))
+                    if duration_val < 3.0:
+                        duration_item.setForeground(QColor("#51cf66"))  # Fast
+                    elif duration_val > 5.0:
+                        duration_item.setForeground(QColor("#ff6b6b"))  # Slow
+                    else:
+                        duration_item.setForeground(QColor("#ffd700"))  # Average
+                except:
+                    pass
+            
+            table.setItem(row, 4, duration_item)
+        
+        table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        
+        return table
+
+class LapHistoryTab(QWidget):
+    """Enhanced lap-by-lap history tab"""
+    
+    def __init__(self, lap_data: List[Dict[str, Any]]):
+        super().__init__()
+        self.lap_data = lap_data
+        self.setup_ui()
+    
+    def setup_ui(self):
+        """Setup lap history UI"""
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(15, 15, 15, 15)
+        
+        # Dark background
+        self.setStyleSheet("""
+            QWidget {
+                background-color: #0f0f0f;
                 color: #ffffff;
-            }
-            QTableWidget::item:hover {
-                background-color: #2a2a2a;
             }
         """)
         
-        self.setAlternatingRowColors(True)
-        self.verticalHeader().setVisible(False)
+        # Title and controls
+        header_layout = QHBoxLayout()
+        
+        title_label = QLabel(f"Lap-by-Lap History - {len(self.lap_data)} laps")
+        title_label.setStyleSheet("""
+            QLabel {
+                color: #e10600;
+                font-size: 24px;
+                font-weight: bold;
+            }
+        """)
+        header_layout.addWidget(title_label)
+        
+        header_layout.addStretch()
+        
+        # Lap selector
+        lap_selector = QComboBox()
+        lap_selector.setStyleSheet("""
+            QComboBox {
+                background-color: #2a2a2a;
+                color: #ffffff;
+                border: 1px solid #444444;
+                border-radius: 6px;
+                padding: 8px 12px;
+                font-size: 14px;
+                min-width: 120px;
+            }
+            QComboBox::drop-down {
+                border: none;
+            }
+            QComboBox::down-arrow {
+                border: none;
+            }
+        """)
+        
+        if self.lap_data:
+            lap_numbers = [f"Lap {lap.get('number', i+1)}" for i, lap in enumerate(self.lap_data)]
+            lap_selector.addItems(["All Laps"] + lap_numbers)
+        
+        header_layout.addWidget(QLabel("View:"))
+        header_layout.addWidget(lap_selector)
+        
+        layout.addLayout(header_layout)
+        
+        # Lap details table
+        self.lap_table = self.create_lap_history_table()
+        layout.addWidget(self.lap_table)
+    
+    def create_lap_history_table(self) -> QTableWidget:
+        """Create enhanced lap history table"""
+        table = QTableWidget()
+        table.setStyleSheet("""
+            QTableWidget {
+                background-color: #1a1a1a;
+                gridline-color: #333333;
+                color: #ffffff;
+                border: 1px solid #333333;
+                border-radius: 8px;
+                selection-background-color: #e10600;
+                selection-color: #ffffff;
+                font-size: 13px;
+            }
+            QHeaderView::section {
+                background-color: #e10600;
+                color: #ffffff;
+                padding: 12px 8px;
+                border: none;
+                font-weight: bold;
+                font-size: 11px;
+                text-transform: uppercase;
+            }
+            QTableWidget::item {
+                padding: 10px 8px;
+                border-bottom: 1px solid #2a2a2a;
+            }
+        """)
+        
+        headers = ["LAP", "POSITION", "TIME", "DRIVER"]
+        table.setColumnCount(len(headers))
+        table.setHorizontalHeaderLabels(headers)
+        
+        # Flatten lap data to show all timings
+        all_timings = []
+        for lap in self.lap_data:
+            lap_number = lap.get('number', '1')
+            for timing in lap.get('Timings', []):
+                timing_data = {
+                    'lap': lap_number,
+                    'position': timing.get('position', 'N/A'),
+                    'time': timing.get('time', 'N/A'),
+                    'driver_id': timing.get('driverId', 'N/A')
+                }
+                all_timings.append(timing_data)
+        
+        table.setRowCount(len(all_timings))
+        
+        # Configure columns
+        table.setColumnWidth(0, 80)
+        table.setColumnWidth(1, 100)
+        table.setColumnWidth(2, 120)
+        table.setColumnWidth(3, 180)
+        
+        # Populate data
+        for row, timing in enumerate(all_timings):
+            # Lap
+            lap_item = QTableWidgetItem(str(timing['lap']))
+            lap_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            table.setItem(row, 0, lap_item)
+            
+            # Position
+            pos_item = QTableWidgetItem(str(timing['position']))
+            pos_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            table.setItem(row, 1, pos_item)
+            
+            # Time
+            time_item = QTableWidgetItem(timing['time'])
+            time_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            table.setItem(row, 2, time_item)
+            
+            # Driver
+            driver_item = QTableWidgetItem(timing['driver_id'])
+            table.setItem(row, 3, driver_item)
+        
+        table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        
+        return table
 
-class RaceResultsTab(QWidget):
-    """Improved race results tab with working session data"""
+class CompleteRaceResultsTab(QWidget):
+    """Complete race results with all session types and history"""
     
     def __init__(self, race: Race):
         super().__init__()
@@ -734,7 +1057,7 @@ class RaceResultsTab(QWidget):
         self.load_all_sessions()
     
     def setup_ui(self):
-        """Set up the race results UI"""
+        """Setup complete race results UI"""
         layout = QVBoxLayout(self)
         layout.setContentsMargins(20, 20, 20, 20)
         layout.setSpacing(20)
@@ -747,8 +1070,8 @@ class RaceResultsTab(QWidget):
             }
         """)
         
-        # Race header
-        header_widget = self.create_race_header()
+        # Enhanced race header
+        header_widget = self.create_enhanced_race_header()
         layout.addWidget(header_widget)
         
         # Loading status
@@ -757,56 +1080,60 @@ class RaceResultsTab(QWidget):
         self.loading_label.setStyleSheet("""
             QLabel {
                 color: #ffffff;
-                font-size: 16px;
-                padding: 20px;
+                font-size: 18px;
+                padding: 25px;
                 background-color: #1a1a1a;
                 border: 1px solid #333333;
-                border-radius: 8px;
+                border-radius: 10px;
             }
         """)
         layout.addWidget(self.loading_label)
         
-        # Sessions tab widget (initially hidden)
+        # Enhanced sessions tab widget
         self.sessions_tab = DarkTabWidget()
         self.sessions_tab.hide()
         layout.addWidget(self.sessions_tab)
     
-    def create_race_header(self) -> QWidget:
-        """Create the race header section"""
+    def create_enhanced_race_header(self) -> QWidget:
+        """Create enhanced race header"""
         header = QFrame()
-        header.setFixedHeight(100)
+        header.setFixedHeight(120)
         header.setStyleSheet("""
             QFrame {
                 background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
                             stop:0 #1a1a1a, stop:1 #2d2d2d);
                 border: 1px solid #333333;
-                border-radius: 10px;
+                border-radius: 12px;
             }
         """)
         
         layout = QVBoxLayout(header)
-        layout.setContentsMargins(20, 15, 20, 15)
+        layout.setContentsMargins(25, 20, 25, 20)
         
         # Race name
         race_label = QLabel(self.race.race_name)
         race_label.setStyleSheet("""
             QLabel {
                 color: #ffffff;
-                font-size: 22px;
+                font-size: 26px;
                 font-weight: bold;
-                margin-bottom: 5px;
+                margin-bottom: 8px;
             }
         """)
         layout.addWidget(race_label)
         
-        # Race details
+        # Enhanced race details
         details_layout = QHBoxLayout()
         
         circuit_label = QLabel(f"📍 {self.race.circuit}")
         circuit_label.setStyleSheet("""
             QLabel {
                 color: #cccccc;
-                font-size: 14px;
+                font-size: 16px;
+                padding: 6px 12px;
+                background-color: #2a2a2a;
+                border-radius: 6px;
+                border-left: 3px solid #4dabf7;
             }
         """)
         details_layout.addWidget(circuit_label)
@@ -817,7 +1144,11 @@ class RaceResultsTab(QWidget):
         date_label.setStyleSheet("""
             QLabel {
                 color: #cccccc;
-                font-size: 14px;
+                font-size: 16px;
+                padding: 6px 12px;
+                background-color: #2a2a2a;
+                border-radius: 6px;
+                border-left: 3px solid #51cf66;
             }
         """)
         details_layout.addWidget(date_label)
@@ -826,8 +1157,12 @@ class RaceResultsTab(QWidget):
         round_label.setStyleSheet("""
             QLabel {
                 color: #e10600;
-                font-size: 14px;
+                font-size: 16px;
                 font-weight: bold;
+                padding: 6px 12px;
+                background-color: #2a2a2a;
+                border-radius: 6px;
+                border: 2px solid #e10600;
                 margin-left: 20px;
             }
         """)
@@ -838,8 +1173,8 @@ class RaceResultsTab(QWidget):
         return header
     
     def load_all_sessions(self):
-        """Load all available session data"""
-        self.session_loader = self.data_service.create_session_loader(self.race.season, self.race.round)
+        """Load all available session data including advanced data"""
+        self.session_loader = self.data_service.create_complete_session_loader(self.race.season, self.race.round)
         self.session_loader.session_loaded.connect(self.on_session_loaded)
         self.session_loader.loading_progress.connect(self.on_loading_progress)
         self.session_loader.all_sessions_loaded.connect(self.on_all_sessions_loaded)
@@ -852,55 +1187,112 @@ class RaceResultsTab(QWidget):
     
     def on_session_loaded(self, session_name: str, results: List[Dict[str, Any]]):
         """Handle individual session data loaded"""
-        logger.info(f"Loaded {session_name}: {len(results)} results")
+        logger.info(f"✅ Loaded {session_name}: {len(results)} results")
     
     def on_session_error(self, session_name: str, error: str):
         """Handle session loading error"""
-        logger.warning(f"Error loading {session_name}: {error}")
+        logger.warning(f"❌ Error loading {session_name}: {error}")
     
     def on_all_sessions_loaded(self, all_data: Dict[str, List[Dict[str, Any]]]):
         """Handle all session data loaded"""
         self.session_data = all_data
         self.loading_label.hide()
-        self.create_session_tabs()
+        self.create_enhanced_session_tabs()
         self.sessions_tab.show()
     
-    def create_session_tabs(self):
-        """Create tabs for each available session"""
+    def create_enhanced_session_tabs(self):
+        """Create enhanced tabs for each available session"""
         if not self.session_data:
-            # No data available
             no_data_tab = self.create_no_data_tab()
             self.sessions_tab.addTab(no_data_tab, "ℹ️ No Data")
             return
         
-        # Session order for tabs (only show available sessions)
+        # Enhanced session order with icons
         session_order = [
-            ("Practice 1", "🏃 Practice 1"),
-            ("Practice 2", "🏃 Practice 2"), 
-            ("Practice 3", "🏃 Practice 3"),
-            ("Sprint", "⚡ Sprint Race"),
             ("Qualifying", "⏱️ Qualifying"),
-            ("Race", "🏁 Race")
+            ("Race", "🏁 Race"),
+            ("Sprint", "⚡ Sprint"),
         ]
         
+        # Add standard sessions
         for session_key, tab_label in session_order:
             if session_key in self.session_data and self.session_data[session_key]:
-                session_tab = self.create_session_tab(session_key, self.session_data[session_key])
+                session_tab = self.create_enhanced_session_tab(session_key, self.session_data[session_key])
                 self.sessions_tab.addTab(session_tab, tab_label)
+        
+        # Add advanced data tabs
+        if "Pit Stops" in self.session_data and self.session_data["Pit Stops"]:
+            pit_tab = PitStopsTab(self.session_data["Pit Stops"])
+            self.sessions_tab.addTab(pit_tab, "🔧 Pit Stops")
+        
+        if "Lap Times" in self.session_data and self.session_data["Lap Times"]:
+            lap_tab = LapHistoryTab(self.session_data["Lap Times"])
+            self.sessions_tab.addTab(lap_tab, "📊 Lap History")
         
         # If no sessions were added, show no data tab
         if self.sessions_tab.count() == 0:
             no_data_tab = self.create_no_data_tab()
             self.sessions_tab.addTab(no_data_tab, "ℹ️ No Data")
     
-    def create_session_tab(self, session_name: str, results: List[Dict[str, Any]]) -> QWidget:
-        """Create a tab for a specific session"""
+    def create_enhanced_session_tab(self, session_name: str, results: List[Dict[str, Any]]) -> QWidget:
+        """Create enhanced tab for a specific session"""
         widget = QWidget()
         layout = QVBoxLayout(widget)
-        layout.setContentsMargins(10, 10, 10, 10)
+        layout.setContentsMargins(15, 15, 15, 15)
         
-        # Results table
-        table = SessionResultsTable()
+        # Session info
+        info_layout = QHBoxLayout()
+        
+        info_label = QLabel(f"{len(results)} results")
+        info_label.setStyleSheet("""
+            QLabel {
+                color: #e10600;
+                font-size: 16px;
+                font-weight: bold;
+                padding: 8px 12px;
+                background-color: #2a2a2a;
+                border-radius: 6px;
+            }
+        """)
+        info_layout.addWidget(info_label)
+        info_layout.addStretch()
+        
+        layout.addLayout(info_layout)
+        
+        # Enhanced results table
+        table = self.create_enhanced_results_table(session_name, results)
+        layout.addWidget(table)
+        
+        return widget
+    
+    def create_enhanced_results_table(self, session_name: str, results: List[Dict[str, Any]]) -> QTableWidget:
+        """Create enhanced results table"""
+        table = QTableWidget()
+        table.setStyleSheet("""
+            QTableWidget {
+                background-color: #1a1a1a;
+                gridline-color: #333333;
+                color: #ffffff;
+                border: 1px solid #333333;
+                border-radius: 8px;
+                selection-background-color: #e10600;
+                selection-color: #ffffff;
+                font-size: 14px;
+            }
+            QHeaderView::section {
+                background-color: #e10600;
+                color: #ffffff;
+                padding: 14px 10px;
+                border: none;
+                font-weight: bold;
+                font-size: 12px;
+                text-transform: uppercase;
+            }
+            QTableWidget::item {
+                padding: 12px 10px;
+                border-bottom: 1px solid #2a2a2a;
+            }
+        """)
         
         # Configure table based on session type
         if "Practice" in session_name:
@@ -912,68 +1304,33 @@ class RaceResultsTab(QWidget):
         elif "Race" in session_name:
             self.setup_race_table(table, results)
         
-        layout.addWidget(table)
-        return widget
-    
-    def setup_practice_table(self, table: SessionResultsTable, results: List[Dict[str, Any]]):
-        """Set up table for practice session"""
-        headers = ["POS", "DRIVER", "TEAM", "BEST TIME", "LAPS"]
-        table.setColumnCount(len(headers))
-        table.setHorizontalHeaderLabels(headers)
-        table.setRowCount(len(results))
+        table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         
-        # Configure column widths
-        table.setColumnWidth(0, 60)
-        table.setColumnWidth(1, 180)
-        table.setColumnWidth(2, 180)
-        table.setColumnWidth(3, 120)
-        table.setColumnWidth(4, 80)
-        
-        # Populate data
-        for row, result in enumerate(results):
-            # Position
-            pos_item = QTableWidgetItem(result.get('position', 'N/A'))
-            pos_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            table.setItem(row, 0, pos_item)
-            
-            # Driver
-            driver = result.get('Driver', {})
-            driver_name = f"{driver.get('givenName', '')} {driver.get('familyName', '')}"
-            table.setItem(row, 1, QTableWidgetItem(driver_name))
-            
-            # Team
-            constructor = result.get('Constructor', {})
-            table.setItem(row, 2, QTableWidgetItem(constructor.get('name', 'N/A')))
-            
-            # Best time
-            best_time = result.get('BestTime', {}).get('time', 'N/A')
-            time_item = QTableWidgetItem(best_time)
-            time_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            table.setItem(row, 3, time_item)
-            
-            # Laps
-            laps_item = QTableWidgetItem(result.get('laps', 'N/A'))
-            laps_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            table.setItem(row, 4, laps_item)
+        return table
     
-    def setup_qualifying_table(self, table: SessionResultsTable, results: List[Dict[str, Any]]):
-        """Set up table for qualifying session"""
+    def setup_qualifying_table(self, table: QTableWidget, results: List[Dict[str, Any]]):
+        """Setup enhanced qualifying table"""
         headers = ["POS", "DRIVER", "TEAM", "Q1", "Q2", "Q3"]
         table.setColumnCount(len(headers))
         table.setHorizontalHeaderLabels(headers)
         table.setRowCount(len(results))
         
         # Configure column widths
-        table.setColumnWidth(0, 60)
-        table.setColumnWidth(1, 180)
-        table.setColumnWidth(2, 180)
+        table.setColumnWidth(0, 70)
+        table.setColumnWidth(1, 200)
+        table.setColumnWidth(2, 200)
+        table.setColumnWidth(3, 120)
+        table.setColumnWidth(4, 120)
+        table.setColumnWidth(5, 120)
         
         # Populate data
         for row, result in enumerate(results):
-            # Highlight top 3
-            if result.get('position') in ['1', '2', '3']:
+            # Enhanced podium highlighting
+            position = result.get('position', '0')
+            if position in ['1', '2', '3']:
                 colors = {'1': "#FFD700", '2': "#C0C0C0", '3': "#CD7F32"}
-                color = QColor(colors[result.get('position')])
+                color = QColor(colors[position])
                 
                 for col in range(table.columnCount()):
                     item = table.item(row, col) or QTableWidgetItem()
@@ -984,7 +1341,7 @@ class RaceResultsTab(QWidget):
                     item.setFont(font)
             
             # Position
-            pos_item = QTableWidgetItem(result.get('position', 'N/A'))
+            pos_item = QTableWidgetItem(position)
             pos_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             table.setItem(row, 0, pos_item)
             
@@ -998,47 +1355,43 @@ class RaceResultsTab(QWidget):
             table.setItem(row, 2, QTableWidgetItem(constructor.get('name', 'N/A')))
             
             # Q1, Q2, Q3 times
-            q1_item = QTableWidgetItem(result.get('Q1', 'N/A'))
-            q1_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            table.setItem(row, 3, q1_item)
-            
-            q2_item = QTableWidgetItem(result.get('Q2', 'N/A'))
-            q2_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            table.setItem(row, 4, q2_item)
-            
-            q3_item = QTableWidgetItem(result.get('Q3', 'N/A'))
-            q3_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            table.setItem(row, 5, q3_item)
+            for i, q_session in enumerate(['Q1', 'Q2', 'Q3']):
+                time_item = QTableWidgetItem(result.get(q_session, 'N/A'))
+                time_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+                table.setItem(row, 3 + i, time_item)
     
-    def setup_race_table(self, table: SessionResultsTable, results: List[Dict[str, Any]], is_sprint: bool = False):
-        """Set up table for race session"""
-        headers = ["POS", "DRIVER", "TEAM", "LAPS", "TIME/RETIRED", "PTS"]
+    def setup_race_table(self, table: QTableWidget, results: List[Dict[str, Any]], is_sprint: bool = False):
+        """Setup enhanced race table"""
+        headers = ["POS", "DRIVER", "TEAM", "LAPS", "TIME/RETIRED", "PTS", "STATUS"]
         table.setColumnCount(len(headers))
         table.setHorizontalHeaderLabels(headers)
         table.setRowCount(len(results))
         
         # Configure column widths
-        table.setColumnWidth(0, 60)
+        table.setColumnWidth(0, 70)
         table.setColumnWidth(1, 180)
-        table.setColumnWidth(2, 180)
+        table.setColumnWidth(2, 160)
         table.setColumnWidth(3, 80)
-        table.setColumnWidth(5, 60)
+        table.setColumnWidth(4, 140)
+        table.setColumnWidth(5, 70)
+        table.setColumnWidth(6, 120)
         
         # Populate data
         for row, result in enumerate(results):
-            # Highlight podium positions
-            if result.get('position') in ['1', '2', '3']:
+            # Enhanced podium highlighting
+            position = result.get('position', '0')
+            if position in ['1', '2', '3']:
                 pos_colors = {'1': "#FFD700", '2': "#C0C0C0", '3': "#CD7F32"}
-                color = QColor(pos_colors[result.get('position')])
+                color = QColor(pos_colors[position])
                 
-                pos_item = QTableWidgetItem(result.get('position'))
+                pos_item = QTableWidgetItem(position)
                 pos_item.setBackground(color)
                 pos_item.setForeground(QColor("#000000"))
                 font = pos_item.font()
                 font.setBold(True)
                 pos_item.setFont(font)
             else:
-                pos_item = QTableWidgetItem(result.get('position', 'N/A'))
+                pos_item = QTableWidgetItem(position)
             
             pos_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             table.setItem(row, 0, pos_item)
@@ -1065,20 +1418,33 @@ class RaceResultsTab(QWidget):
             points_item = QTableWidgetItem(result.get('points', '0'))
             points_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             table.setItem(row, 5, points_item)
+            
+            # Status
+            status_item = QTableWidgetItem(result.get('status', 'N/A'))
+            # Color code status
+            status = result.get('status', 'N/A')
+            if 'Finished' in status or '+' in status:
+                status_item.setForeground(QColor("#51cf66"))
+            elif 'Retired' in status or 'DNF' in status:
+                status_item.setForeground(QColor("#ff6b6b"))
+            else:
+                status_item.setForeground(QColor("#ffd700"))
+            
+            table.setItem(row, 6, status_item)
     
     def create_no_data_tab(self) -> QWidget:
-        """Create tab when no session data is available"""
+        """Create enhanced no data tab"""
         widget = QWidget()
         layout = QVBoxLayout(widget)
-        layout.setContentsMargins(30, 30, 30, 30)
+        layout.setContentsMargins(40, 40, 40, 40)
         
         info_frame = QFrame()
         info_frame.setStyleSheet("""
             QFrame {
                 background-color: #1a1a1a;
                 border: 1px solid #333333;
-                border-radius: 8px;
-                padding: 30px;
+                border-radius: 12px;
+                padding: 40px;
             }
         """)
         
@@ -1089,31 +1455,32 @@ class RaceResultsTab(QWidget):
         title_label.setStyleSheet("""
             QLabel {
                 color: #e10600;
-                font-size: 24px;
+                font-size: 28px;
                 font-weight: bold;
-                margin-bottom: 20px;
+                margin-bottom: 25px;
             }
         """)
         info_layout.addWidget(title_label)
         
         info_text = f"""
         <div style="text-align: center; color: #ffffff;">
-            <p style="font-size: 16px; margin-bottom: 10px;"><strong>Circuit:</strong> {self.race.circuit}</p>
-            <p style="font-size: 16px; margin-bottom: 10px;"><strong>Date:</strong> {self.race.date}</p>
-            <p style="font-size: 16px; margin-bottom: 20px;"><strong>Round:</strong> {self.race.round}</p>
+            <p style="font-size: 18px; margin-bottom: 15px;"><strong>Circuit:</strong> {self.race.circuit}</p>
+            <p style="font-size: 18px; margin-bottom: 15px;"><strong>Date:</strong> {self.race.date}</p>
+            <p style="font-size: 18px; margin-bottom: 25px;"><strong>Round:</strong> {self.race.round}</p>
             
-            <div style="background-color: #2a2a2a; padding: 20px; border-radius: 8px; border-left: 4px solid #ffc107;">
+            <div style="background-color: #2a2a2a; padding: 25px; border-radius: 10px; border-left: 5px solid #ffc107;">
                 <h3 style="color: #ffffff; margin-top: 0;">Session Results Not Available</h3>
-                <p style="color: #cccccc;">
+                <p style="color: #cccccc; font-size: 16px;">
                     Session data is not available for this race. This could be because:
                 </p>
-                <ul style="text-align: left; color: #cccccc; margin: 15px 0;">
+                <ul style="text-align: left; color: #cccccc; margin: 20px 0; font-size: 16px;">
                     <li>The race hasn't taken place yet</li>
                     <li>Session data is not published in the API</li>
                     <li>Only Qualifying and Race data are available</li>
+                    <li>Advanced data (pit stops, laps) may not be available for all races</li>
                 </ul>
-                <p style="color: #cccccc; margin-bottom: 0;">
-                    Try again later or check if Qualifying/Race tabs have data.
+                <p style="color: #cccccc; margin-bottom: 0; font-size: 16px;">
+                    Check back after the race weekend for complete session data.
                 </p>
             </div>
         </div>

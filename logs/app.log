@@ -7824,3 +7824,812 @@ TypeError: AppConfig.get_language() missing 1 required positional argument: 'cls
 2025-06-30 12:42:43,442 - services.api_client - WARNING - Attempt 1 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/2025/24/results.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/24/results.json
 2025-06-30 12:42:43,442 - services.data_service - INFO - Loaded 24 races for 2025
 2025-06-30 12:42:44,097 - __main__ - INFO - Application exited with code: 0
+2025-06-30 12:55:52,179 - __main__ - INFO - Logging system initialized
+2025-06-30 12:55:52,179 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-30 12:55:52,180 - __main__ - INFO - Application directories created
+2025-06-30 12:55:52,225 - __main__ - INFO - Qt application configured
+2025-06-30 12:55:52,777 - utils.i18n - INFO - Loaded translations for: en
+2025-06-30 12:55:52,778 - utils.i18n - INFO - Loaded translations for: es
+2025-06-30 12:55:52,797 - utils.i18n - INFO - Language changed from en to en
+2025-06-30 12:55:52,856 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-30 12:55:52,863 - ui.main_window - INFO - Loaded logo for f1
+2025-06-30 12:55:52,894 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-30 12:55:52,897 - ui.main_window - INFO - Loaded logo for motogp
+2025-06-30 12:55:52,924 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/home.png
+2025-06-30 12:55:52,930 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/refresh.png
+2025-06-30 12:55:52,934 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 12:55:52,934 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 12:55:53,000 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/home.png
+2025-06-30 12:55:53,004 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/refresh.png
+2025-06-30 12:55:53,360 - __main__ - INFO - Main window created and shown
+2025-06-30 12:55:53,360 - __main__ - INFO - Application ready - entering event loop
+2025-06-30 12:55:53,845 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-30 12:55:54,845 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 12:55:56,808 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 12:55:56,808 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-30 12:55:57,561 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-30 12:55:57,809 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-30 12:55:58,562 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-30 12:55:58,809 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-30 12:55:59,563 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-30 12:55:59,810 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-30 12:56:00,562 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-30 12:56:00,810 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-30 12:56:01,792 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-30 12:56:01,810 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-30 12:56:02,565 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-30 12:56:02,811 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-30 12:56:03,565 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-30 12:56:03,812 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-30 12:56:04,784 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-30 12:56:04,812 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-30 12:56:05,579 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-30 12:56:05,813 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-30 12:56:06,567 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-30 12:56:06,814 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-30 12:56:07,571 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-30 12:56:07,814 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-30 12:56:08,573 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-30 12:56:08,815 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-30 12:56:09,574 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-30 12:56:09,815 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-30 12:56:10,289 - services.api_client - ERROR - Request failed for http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpi.ca', port=443): Read timed out. (read timeout=15)
+2025-06-30 12:56:10,290 - services.api_client - WARNING - Attempt 1 failed with http://api.jolpi.ca/ergast/f1: Error accessing http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpi.ca', port=443): Read timed out. (read timeout=15)
+2025-06-30 12:56:10,292 - services.api_client - WARNING - Switching to endpoint: https://api.jolpi.ca/ergast/f1
+2025-06-30 12:56:10,292 - services.api_client - INFO - Retrying with endpoint: https://api.jolpi.ca/ergast/f1
+2025-06-30 12:56:10,570 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-30 12:56:10,816 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-30 12:56:10,816 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-30 12:56:11,196 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-30 12:56:11,197 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-30 12:56:11,930 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-30 12:56:11,931 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-30 12:56:12,303 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-30 12:56:12,931 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-30 12:56:13,306 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-30 12:56:13,931 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-30 12:56:14,305 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-30 12:56:14,932 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-30 12:56:15,306 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-30 12:56:15,933 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-30 12:56:16,307 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-30 12:56:16,934 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-30 12:56:17,310 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-30 12:56:17,934 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-30 12:56:18,307 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-30 12:56:18,935 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-30 12:56:19,309 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-30 12:56:19,935 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-30 12:56:20,311 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-30 12:56:20,312 - services.data_service - INFO - Loaded 24 races for 2025
+2025-06-30 12:57:04,079 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 12:57:04,093 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/drivers/max_verstappen/seasons.json?limit=100
+2025-06-30 12:57:06,431 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/drivers/max_verstappen/seasons.json?limit=100
+2025-06-30 12:57:06,431 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:07,185 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:07,432 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:08,186 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:08,433 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:09,193 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:09,434 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:10,185 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:10,435 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:11,191 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:11,436 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:12,189 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:12,436 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:13,188 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:13,437 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:14,192 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:14,437 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:15,190 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:15,437 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:16,192 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:16,438 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:17,196 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:17,438 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:18,190 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:18,439 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:19,191 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:19,439 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:20,195 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:20,439 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:21,357 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:21,439 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:22,189 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:22,439 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:23,191 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:23,440 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:24,231 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:24,441 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2021/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:25,193 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2021/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:25,441 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2021/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:26,196 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2021/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:26,442 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2021/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:27,195 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2021/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:27,442 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2022/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:28,197 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2022/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:28,443 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2022/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:29,199 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2022/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:29,444 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2022/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:30,201 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2022/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:30,444 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2023/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:31,198 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2023/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:31,445 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2023/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:32,199 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2023/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:32,445 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2023/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:33,201 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2023/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:33,445 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2024/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:34,200 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2024/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:34,446 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2024/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:35,200 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2024/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:35,447 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2024/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:36,199 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2024/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:36,447 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:37,200 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/driverStandings.json
+2025-06-30 12:57:37,448 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:38,198 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/results.json?limit=100
+2025-06-30 12:57:38,448 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:39,201 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 12:57:39,202 - services.enhanced_data_service - INFO - Loaded career stats for max_verstappen: 220 races, 65 wins
+2025-06-30 12:57:39,220 - ui.widgets.f1_navigation - INFO - Career stats loaded for Max Verstappen
+2025-06-30 14:59:36,721 - __main__ - INFO - Application exited with code: 0
+2025-06-30 15:25:23,803 - __main__ - INFO - Logging system initialized
+2025-06-30 15:25:23,803 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-30 15:25:23,804 - __main__ - INFO - Application directories created
+2025-06-30 15:25:23,847 - __main__ - INFO - Qt application configured
+2025-06-30 15:25:24,429 - utils.i18n - INFO - Loaded translations for: en
+2025-06-30 15:25:24,430 - utils.i18n - INFO - Loaded translations for: es
+2025-06-30 15:25:24,461 - ui.widgets - WARNING - Enhanced navigation components not available: cannot import name 'NavigationTabWidget' from 'ui.widgets.f1_navigation' (C:\LOCAL Project\OneMotor\ui\widgets\f1_navigation.py)
+2025-06-30 15:25:24,463 - utils.i18n - INFO - Language changed from en to en
+2025-06-30 15:25:24,514 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-30 15:25:24,517 - ui.main_window - INFO - Loaded logo for f1
+2025-06-30 15:25:24,537 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-30 15:25:24,540 - ui.main_window - INFO - Loaded logo for motogp
+2025-06-30 15:25:24,567 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/home.png
+2025-06-30 15:25:24,571 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/refresh.png
+2025-06-30 15:25:24,571 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:25:24,572 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:25:24,572 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:25:24,583 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:25:24,751 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/home.png
+2025-06-30 15:25:24,754 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/refresh.png
+2025-06-30 15:25:25,040 - __main__ - INFO - Main window created and shown
+2025-06-30 15:25:25,040 - __main__ - INFO - Application ready - entering event loop
+2025-06-30 15:25:25,338 - ui.widgets.f1_tab - INFO - 🔄 Auto-loading F1 standings...
+2025-06-30 15:25:25,339 - ui.widgets.f1_tab - INFO - 🔄 Starting F1 standings load...
+2025-06-30 15:25:25,372 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-30 15:25:25,372 - ui.widgets.f1_tab - INFO - 📊 F1 standings loading started...
+2025-06-30 15:25:25,667 - ui.widgets.f1_tab - INFO - 🔄 Auto-loading F1 calendar...
+2025-06-30 15:25:25,667 - ui.widgets.f1_tab - INFO - 🔄 Starting F1 calendar load...
+2025-06-30 15:25:25,670 - ui.widgets.f1_tab - INFO - 📅 F1 calendar loading started...
+2025-06-30 15:25:25,743 - ui.widgets.f1_tab - INFO - 🔍 Checking F1 API availability...
+2025-06-30 15:25:25,744 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 15:25:26,372 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 15:25:27,573 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-30 15:25:27,574 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-30 15:25:27,665 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 15:25:27,666 - services.enhanced_data_service - INFO - ✅ races data available
+2025-06-30 15:25:27,667 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/results.json
+2025-06-30 15:25:28,326 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 15:25:28,326 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-30 15:25:28,440 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/results.json
+2025-06-30 15:25:28,441 - services.enhanced_data_service - INFO - ✅ results data available
+2025-06-30 15:25:28,668 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/qualifying.json
+2025-06-30 15:25:29,103 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-30 15:25:29,327 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-30 15:25:29,438 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/qualifying.json
+2025-06-30 15:25:29,439 - services.enhanced_data_service - INFO - ✅ qualifying data available
+2025-06-30 15:25:29,668 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/sprint.json
+2025-06-30 15:25:30,103 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-30 15:25:30,328 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-30 15:25:30,440 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/sprint.json
+2025-06-30 15:25:30,440 - services.enhanced_data_service - INFO - ✅ sprint data available
+2025-06-30 15:25:30,668 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/driverStandings.json
+2025-06-30 15:25:31,103 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-30 15:25:31,328 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-30 15:25:31,439 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/driverStandings.json
+2025-06-30 15:25:31,440 - services.enhanced_data_service - INFO - ✅ standings data available
+2025-06-30 15:25:32,102 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-30 15:25:32,266 - services.enhanced_data_service - ERROR - OpenF1 sessions error: HTTPSConnectionPool(host='api.openf1.org', port=443): Max retries exceeded with url: /v1/sessions?year=2025 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1028)')))
+2025-06-30 15:25:32,266 - services.enhanced_data_service - INFO - ✅ OpenF1 data available: 0 sessions
+2025-06-30 15:25:32,267 - ui.widgets.f1_tab - INFO - 📊 API Status: {'races': True, 'results': True, 'qualifying': True, 'sprint': True, 'standings': True, 'openf1': False}
+2025-06-30 15:25:32,267 - ui.widgets.f1_tab - INFO - ✅ Available: races, results, qualifying, sprint, standings
+2025-06-30 15:25:32,267 - ui.widgets.f1_tab - WARNING - ❌ Unavailable: openf1
+2025-06-30 15:25:32,268 - ui.widgets.f1_tab - INFO - ✅ F1 standings loaded successfully: 21 drivers
+2025-06-30 15:25:32,271 - ui.widgets.f1_tab - INFO - 🏁 F1 standings loading finished
+2025-06-30 15:25:32,328 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-30 15:25:33,105 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-30 15:25:33,329 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-30 15:25:34,104 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-30 15:25:34,330 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-30 15:25:35,114 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-30 15:25:35,331 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-30 15:25:36,113 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-30 15:25:36,332 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-30 15:25:37,200 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-30 15:25:37,332 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-30 15:25:38,193 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-30 15:25:38,333 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-30 15:25:39,111 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-30 15:25:39,333 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-30 15:25:40,111 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-30 15:25:40,334 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-30 15:25:40,633 - ui.widgets.f1_tab - INFO - 🚀 Auto-loading initial F1 data...
+2025-06-30 15:25:41,111 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-30 15:25:41,334 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-30 15:25:41,959 - ui.widgets.f1_tab - INFO - 🖱️ Driver clicked: Oscar Piastri
+2025-06-30 15:25:41,960 - ui.widgets.f1_tab - INFO - 🏎️ Showing driver info for: Oscar Piastri
+2025-06-30 15:25:41,964 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:25:41,993 - ui.widgets.f1_navigation - INFO - 🔄 Loading career stats for piastri
+2025-06-30 15:25:41,996 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/drivers/piastri/seasons.json?limit=100
+2025-06-30 15:25:42,021 - ui.widgets.f1_navigation - INFO - Career loading: Loading career data for piastri...
+2025-06-30 15:25:42,111 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-30 15:25:42,334 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-30 15:25:43,110 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-30 15:25:43,335 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-30 15:25:43,945 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/drivers/piastri/seasons.json?limit=100
+2025-06-30 15:25:43,945 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2023/drivers/piastri/driverStandings.json
+2025-06-30 15:25:43,945 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2023 (1/3)...
+2025-06-30 15:25:44,111 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-30 15:25:44,335 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-30 15:25:44,758 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2023/drivers/piastri/driverStandings.json
+2025-06-30 15:25:44,946 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2023/drivers/piastri/results.json?limit=100
+2025-06-30 15:25:45,118 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-30 15:25:45,336 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-30 15:25:45,828 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2023/drivers/piastri/results.json?limit=100
+2025-06-30 15:25:45,947 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2023/drivers/piastri/qualifying.json?limit=100
+2025-06-30 15:25:46,111 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-30 15:25:46,337 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-30 15:25:47,001 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2023/drivers/piastri/qualifying.json?limit=100
+2025-06-30 15:25:47,003 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2024/drivers/piastri/driverStandings.json
+2025-06-30 15:25:47,003 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2024 (2/3)...
+2025-06-30 15:25:47,112 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-30 15:25:47,338 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-30 15:25:48,011 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2024/drivers/piastri/driverStandings.json
+2025-06-30 15:25:48,011 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2024/drivers/piastri/results.json?limit=100
+2025-06-30 15:25:48,115 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-30 15:25:48,338 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-30 15:25:49,104 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2024/drivers/piastri/results.json?limit=100
+2025-06-30 15:25:49,104 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2024/drivers/piastri/qualifying.json?limit=100
+2025-06-30 15:25:49,115 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-30 15:25:49,339 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-30 15:25:50,113 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-30 15:25:50,170 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2024/drivers/piastri/qualifying.json?limit=100
+2025-06-30 15:25:50,171 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/drivers/piastri/driverStandings.json
+2025-06-30 15:25:50,171 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2025 (3/3)...
+2025-06-30 15:25:50,339 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-30 15:25:51,117 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-30 15:25:51,172 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/drivers/piastri/driverStandings.json
+2025-06-30 15:25:51,172 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/drivers/piastri/results.json?limit=100
+2025-06-30 15:25:51,340 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-30 15:25:52,025 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/drivers/piastri/results.json?limit=100
+2025-06-30 15:25:52,114 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-30 15:25:52,115 - services.data_service - INFO - Loaded 24 races for 2025
+2025-06-30 15:25:52,115 - ui.widgets.f1_tab - INFO - ✅ F1 calendar loaded successfully: 24 races
+2025-06-30 15:25:52,131 - ui.widgets.f1_tab - INFO - 🏁 F1 calendar loading finished
+2025-06-30 15:25:52,173 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/drivers/piastri/qualifying.json?limit=100
+2025-06-30 15:25:53,040 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/drivers/piastri/qualifying.json?limit=100
+2025-06-30 15:25:53,041 - services.enhanced_data_service - INFO - ✅ Career stats loaded for piastri: 57 races, 7 wins, 1 championships
+2025-06-30 15:25:53,041 - ui.widgets.f1_navigation - INFO - Career loading: Career statistics compiled successfully!
+2025-06-30 15:25:53,042 - ui.widgets.f1_navigation - INFO - ✅ Career stats loaded for Oscar Piastri
+2025-06-30 15:25:53,042 - ui.widgets.f1_navigation - INFO - Stats: {'total_races': 57, 'total_wins': 7, 'total_podiums': 19, 'total_poles': 4, 'total_fastest_laps': 6, 'total_points': 605.0, 'championships': 1, 'seasons_active': 3, 'first_season': '2023', 'last_season': '2025', 'teams': ['McLaren'], 'win_percentage': 12.3, 'podium_percentage': 33.3, 'points_per_race': 10.6, 'best_finish': 1, 'worst_finish': 20, 'career_span': '2023-2025'}
+2025-06-30 15:26:03,514 - ui.widgets.f1_tab - INFO - 🔙 Going back to main tabs
+2025-06-30 15:26:04,760 - ui.widgets.f1_tab - INFO - 🖱️ Driver clicked: Max Verstappen
+2025-06-30 15:26:04,761 - ui.widgets.f1_tab - INFO - 🏎️ Showing driver info for: Max Verstappen
+2025-06-30 15:26:04,763 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:26:04,776 - ui.widgets.f1_navigation - INFO - 🔄 Loading career stats for max_verstappen
+2025-06-30 15:26:04,778 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/drivers/max_verstappen/seasons.json?limit=100
+2025-06-30 15:26:04,793 - ui.widgets.f1_navigation - INFO - Career loading: Loading career data for max_verstappen...
+2025-06-30 15:26:06,766 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/drivers/max_verstappen/seasons.json?limit=100
+2025-06-30 15:26:06,767 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:26:06,767 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2015 (1/11)...
+2025-06-30 15:26:07,579 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:26:07,767 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:08,641 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:08,768 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:26:09,670 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:26:09,671 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2016 (2/11)...
+2025-06-30 15:26:09,769 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:26:10,584 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:26:10,770 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:11,224 - ui.widgets.f1_tab - INFO - 🔙 Going back to main tabs
+2025-06-30 15:26:11,880 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:11,880 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:26:12,958 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:26:12,959 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:26:13,769 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:26:13,960 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:14,825 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:14,960 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:26:15,886 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:26:15,961 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:26:16,776 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:26:16,962 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:17,864 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:17,963 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:26:18,214 - ui.widgets.f1_tab - INFO - 🖱️ Circuit clicked: Australian Grand Prix
+2025-06-30 15:26:18,215 - ui.widgets.f1_tab - INFO - 🏁 Showing race results for: Australian Grand Prix
+2025-06-30 15:26:18,216 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:26:18,224 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/qualifying.json
+2025-06-30 15:26:18,861 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:26:18,963 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:26:19,779 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:26:19,964 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:20,190 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/qualifying.json
+2025-06-30 15:26:20,194 - services.enhanced_data_service - INFO - ✅ Loaded Qualifying: 20 results
+2025-06-30 15:26:20,196 - ui.widgets.f1_navigation - INFO - ✅ Loaded Qualifying: 20 results
+2025-06-30 15:26:20,196 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-30 15:26:20,852 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:20,964 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:26:20,978 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-30 15:26:20,980 - services.enhanced_data_service - INFO - ✅ Loaded Race: 20 results
+2025-06-30 15:26:20,980 - ui.widgets.f1_navigation - INFO - ✅ Loaded Race: 20 results
+2025-06-30 15:26:21,196 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/sprint.json
+2025-06-30 15:26:21,853 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:26:21,965 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:26:21,976 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/sprint.json
+2025-06-30 15:26:21,976 - services.enhanced_data_service - INFO - ℹ️ No data available for Sprint
+2025-06-30 15:26:22,197 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/pitstops.json
+2025-06-30 15:26:22,775 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:26:22,965 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:22,977 - services.api_client - ERROR - Request failed for http://api.jolpi.ca/ergast/f1/2025/1/pitstops.json: 429 Client Error: Too Many Requests for url: https://api.jolpi.ca/ergast/f1/2025/1/pitstops.json
+2025-06-30 15:26:22,978 - services.api_client - WARNING - Attempt 1 failed with http://api.jolpi.ca/ergast/f1: Error accessing http://api.jolpi.ca/ergast/f1/2025/1/pitstops.json: 429 Client Error: Too Many Requests for url: https://api.jolpi.ca/ergast/f1/2025/1/pitstops.json
+2025-06-30 15:26:22,979 - services.api_client - WARNING - Switching to endpoint: https://api.jolpi.ca/ergast/f1
+2025-06-30 15:26:22,979 - services.api_client - INFO - Retrying with endpoint: https://api.jolpi.ca/ergast/f1
+2025-06-30 15:26:23,198 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/1/pitstops.json
+2025-06-30 15:26:23,587 - services.api_client - ERROR - Request failed for https://api.jolpi.ca/ergast/f1/2025/1/pitstops.json: 429 Client Error: Too Many Requests for url: https://api.jolpi.ca/ergast/f1/2025/1/pitstops.json
+2025-06-30 15:26:23,588 - services.api_client - WARNING - Attempt 2 failed with https://api.jolpi.ca/ergast/f1: Error accessing https://api.jolpi.ca/ergast/f1/2025/1/pitstops.json: 429 Client Error: Too Many Requests for url: https://api.jolpi.ca/ergast/f1/2025/1/pitstops.json
+2025-06-30 15:26:23,588 - services.api_client - WARNING - Switching to endpoint: https://openf1.org/v1
+2025-06-30 15:26:23,589 - services.api_client - INFO - Retrying with endpoint: https://openf1.org/v1
+2025-06-30 15:26:23,740 - services.api_client - ERROR - Request failed for http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100: 429 Client Error: Too Many Requests for url: https://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:23,740 - services.api_client - WARNING - Attempt 1 failed with http://api.jolpi.ca/ergast/f1: Error accessing http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100: 429 Client Error: Too Many Requests for url: https://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:23,741 - services.api_client - WARNING - Switching to endpoint: https://api.jolpi.ca/ergast/f1
+2025-06-30 15:26:23,741 - services.api_client - INFO - Retrying with endpoint: https://api.jolpi.ca/ergast/f1
+2025-06-30 15:26:23,965 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:24,198 - services.api_client - INFO - GET request to: https://openf1.org/v1/2025/1/pitstops.json
+2025-06-30 15:26:24,355 - services.api_client - ERROR - Request failed for https://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100: 429 Client Error: Too Many Requests for url: https://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:24,356 - services.api_client - WARNING - Attempt 2 failed with https://api.jolpi.ca/ergast/f1: Error accessing https://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100: 429 Client Error: Too Many Requests for url: https://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:24,357 - services.api_client - WARNING - Switching to endpoint: https://openf1.org/v1
+2025-06-30 15:26:24,357 - services.api_client - INFO - Retrying with endpoint: https://openf1.org/v1
+2025-06-30 15:26:24,966 - services.api_client - INFO - GET request to: https://openf1.org/v1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:25,047 - services.api_client - ERROR - Request failed for https://openf1.org/v1/2025/1/pitstops.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/1/pitstops.json
+2025-06-30 15:26:25,048 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/2025/1/pitstops.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/1/pitstops.json
+2025-06-30 15:26:25,048 - services.api_client - WARNING - Attempt 3 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/2025/1/pitstops.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/1/pitstops.json
+2025-06-30 15:26:25,049 - services.enhanced_data_service - ERROR - ❌ Error loading Pit Stops: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/2025/1/pitstops.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/1/pitstops.json
+2025-06-30 15:26:25,050 - ui.widgets.f1_navigation - WARNING - ❌ Error loading Pit Stops: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/2025/1/pitstops.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/1/pitstops.json
+2025-06-30 15:26:25,199 - services.api_client - INFO - GET request to: https://openf1.org/v1/2025/1/laps.json
+2025-06-30 15:26:25,508 - services.api_client - ERROR - Request failed for https://openf1.org/v1/2025/1/laps.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/1/laps.json
+2025-06-30 15:26:25,509 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/2025/1/laps.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/1/laps.json
+2025-06-30 15:26:25,510 - services.api_client - WARNING - Attempt 1 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/2025/1/laps.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/1/laps.json
+2025-06-30 15:26:25,510 - services.enhanced_data_service - ERROR - ❌ Error loading Lap Times: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/2025/1/laps.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/1/laps.json
+2025-06-30 15:26:25,512 - ui.widgets.f1_navigation - WARNING - ❌ Error loading Lap Times: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/2025/1/laps.json: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/1/laps.json
+2025-06-30 15:26:25,813 - services.api_client - ERROR - Request failed for https://openf1.org/v1/2020/drivers/max_verstappen/results.json?limit=100: 404 Client Error: Not Found for url: https://openf1.org/v1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:25,814 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/2020/drivers/max_verstappen/results.json?limit=100: 404 Client Error: Not Found for url: https://openf1.org/v1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:25,815 - services.api_client - WARNING - Attempt 3 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/2020/drivers/max_verstappen/results.json?limit=100: 404 Client Error: Not Found for url: https://openf1.org/v1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:25,815 - services.enhanced_data_service - WARNING - Error processing season 2020 for max_verstappen: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/2020/drivers/max_verstappen/results.json?limit=100: 404 Client Error: Not Found for url: https://openf1.org/v1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:26:25,966 - services.api_client - INFO - GET request to: https://openf1.org/v1/drivers
+2025-06-30 15:26:26,062 - services.enhanced_data_service - ERROR - OpenF1 sessions error: HTTPSConnectionPool(host='api.openf1.org', port=443): Max retries exceeded with url: /v1/sessions?year=2025 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1028)')))
+2025-06-30 15:26:26,269 - services.api_client - ERROR - Request failed for https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:26,270 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:26,270 - services.api_client - WARNING - Attempt 1 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:26,271 - services.enhanced_data_service - WARNING - Error processing season 2021 for max_verstappen: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:26,967 - services.api_client - INFO - GET request to: https://openf1.org/v1/drivers
+2025-06-30 15:26:27,249 - services.api_client - ERROR - Request failed for https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:27,249 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:27,250 - services.api_client - WARNING - Attempt 1 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:27,251 - services.enhanced_data_service - WARNING - Error processing season 2022 for max_verstappen: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:27,968 - services.api_client - INFO - GET request to: https://openf1.org/v1/drivers
+2025-06-30 15:26:28,244 - services.api_client - ERROR - Request failed for https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:28,245 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:28,245 - services.api_client - WARNING - Attempt 1 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:28,246 - services.enhanced_data_service - WARNING - Error processing season 2023 for max_verstappen: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:28,968 - services.api_client - INFO - GET request to: https://openf1.org/v1/drivers
+2025-06-30 15:26:29,244 - services.api_client - ERROR - Request failed for https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:29,245 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:29,246 - services.api_client - WARNING - Attempt 1 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:29,246 - services.enhanced_data_service - WARNING - Error processing season 2024 for max_verstappen: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:29,969 - services.api_client - INFO - GET request to: https://openf1.org/v1/drivers
+2025-06-30 15:26:30,244 - services.api_client - ERROR - Request failed for https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:30,245 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:30,245 - services.api_client - WARNING - Attempt 1 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:30,246 - services.enhanced_data_service - WARNING - Error processing season 2025 for max_verstappen: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/drivers: 404 Client Error: Not Found for url: https://openf1.org/v1/drivers
+2025-06-30 15:26:30,247 - services.enhanced_data_service - INFO - ✅ Career stats loaded for max_verstappen: 102 races, 10 wins, 0 championships
+2025-06-30 15:26:45,189 - ui.widgets.f1_tab - INFO - 🔙 Going back to main tabs
+2025-06-30 15:26:47,617 - ui.widgets.f1_tab - INFO - 🖱️ Circuit clicked: Austrian Grand Prix
+2025-06-30 15:26:47,618 - ui.widgets.f1_tab - INFO - 🏁 Showing race results for: Austrian Grand Prix
+2025-06-30 15:26:47,619 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:26:47,622 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/qualifying.json
+2025-06-30 15:26:50,494 - ui.widgets.f1_tab - INFO - 🔙 Going back to main tabs
+2025-06-30 15:26:51,601 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/qualifying.json
+2025-06-30 15:26:51,602 - services.enhanced_data_service - INFO - ✅ Loaded Qualifying: 20 results
+2025-06-30 15:26:51,602 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-30 15:26:52,377 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-30 15:26:52,378 - services.enhanced_data_service - INFO - ✅ Loaded Race: 20 results
+2025-06-30 15:26:52,503 - ui.widgets.f1_tab - INFO - 🖱️ Circuit clicked: Chinese Grand Prix
+2025-06-30 15:26:52,503 - ui.widgets.f1_tab - INFO - 🏁 Showing race results for: Chinese Grand Prix
+2025-06-30 15:26:52,504 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:26:52,509 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/qualifying.json
+2025-06-30 15:26:52,603 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/sprint.json
+2025-06-30 15:26:53,377 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/sprint.json
+2025-06-30 15:26:53,378 - services.enhanced_data_service - INFO - ℹ️ No data available for Sprint
+2025-06-30 15:26:53,604 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/pitstops.json
+2025-06-30 15:26:54,382 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/pitstops.json
+2025-06-30 15:26:54,384 - services.enhanced_data_service - INFO - ✅ Loaded Pit Stops: 30 entries
+2025-06-30 15:26:54,472 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/qualifying.json
+2025-06-30 15:26:54,473 - services.enhanced_data_service - INFO - ✅ Loaded Qualifying: 20 results
+2025-06-30 15:26:54,474 - ui.widgets.f1_navigation - INFO - ✅ Loaded Qualifying: 20 results
+2025-06-30 15:26:54,474 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-30 15:26:54,604 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/laps.json
+2025-06-30 15:26:55,251 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-30 15:26:55,252 - services.enhanced_data_service - INFO - ✅ Loaded Race: 20 results
+2025-06-30 15:26:55,254 - ui.widgets.f1_navigation - INFO - ✅ Loaded Race: 20 results
+2025-06-30 15:26:55,475 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/sprint.json
+2025-06-30 15:26:55,572 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/laps.json
+2025-06-30 15:26:55,573 - services.enhanced_data_service - INFO - ✅ Loaded Lap Times: 2 entries
+2025-06-30 15:26:56,799 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/sprint.json
+2025-06-30 15:26:56,800 - services.enhanced_data_service - INFO - ✅ Loaded Sprint: 20 results
+2025-06-30 15:26:56,801 - ui.widgets.f1_navigation - INFO - ✅ Loaded Sprint: 20 results
+2025-06-30 15:26:56,801 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/pitstops.json
+2025-06-30 15:26:56,901 - services.enhanced_data_service - ERROR - OpenF1 sessions error: HTTPSConnectionPool(host='api.openf1.org', port=443): Max retries exceeded with url: /v1/sessions?year=2025 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1028)')))
+2025-06-30 15:26:57,577 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/pitstops.json
+2025-06-30 15:26:57,578 - services.enhanced_data_service - INFO - ✅ Loaded Pit Stops: 25 entries
+2025-06-30 15:26:57,579 - ui.widgets.f1_navigation - INFO - ✅ Loaded Pit Stops: 25 results
+2025-06-30 15:26:57,802 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/laps.json
+2025-06-30 15:26:58,579 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/laps.json
+2025-06-30 15:26:58,580 - services.enhanced_data_service - INFO - ✅ Loaded Lap Times: 2 entries
+2025-06-30 15:26:58,580 - ui.widgets.f1_navigation - INFO - ✅ Loaded Lap Times: 2 results
+2025-06-30 15:27:02,161 - services.enhanced_data_service - ERROR - OpenF1 sessions error: HTTPSConnectionPool(host='api.openf1.org', port=443): Max retries exceeded with url: /v1/sessions?year=2025 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1028)')))
+2025-06-30 15:27:52,091 - ui.widgets.f1_tab - INFO - 🔙 Going back to main tabs
+2025-06-30 15:27:56,168 - __main__ - INFO - Application exited with code: 0
+2025-06-30 15:29:03,312 - __main__ - INFO - Logging system initialized
+2025-06-30 15:29:03,312 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-30 15:29:03,313 - __main__ - INFO - Application directories created
+2025-06-30 15:29:03,352 - __main__ - INFO - Qt application configured
+2025-06-30 15:29:03,933 - utils.i18n - INFO - Loaded translations for: en
+2025-06-30 15:29:03,934 - utils.i18n - INFO - Loaded translations for: es
+2025-06-30 15:29:03,953 - ui.widgets - WARNING - Enhanced navigation components not available: cannot import name 'NavigationTabWidget' from 'ui.widgets.f1_navigation' (C:\LOCAL Project\OneMotor\ui\widgets\f1_navigation.py)
+2025-06-30 15:29:03,955 - utils.i18n - INFO - Language changed from en to en
+2025-06-30 15:29:04,007 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-30 15:29:04,011 - ui.main_window - INFO - Loaded logo for f1
+2025-06-30 15:29:04,030 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-30 15:29:04,037 - ui.main_window - INFO - Loaded logo for motogp
+2025-06-30 15:29:04,057 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/home.png
+2025-06-30 15:29:04,061 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/refresh.png
+2025-06-30 15:29:04,062 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:29:04,063 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:29:04,064 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:29:04,073 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:29:04,198 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/home.png
+2025-06-30 15:29:04,200 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/refresh.png
+2025-06-30 15:29:04,411 - __main__ - INFO - Main window created and shown
+2025-06-30 15:29:04,412 - __main__ - INFO - Application ready - entering event loop
+2025-06-30 15:29:04,667 - ui.widgets.f1_tab - INFO - 🔄 Auto-loading F1 standings...
+2025-06-30 15:29:04,669 - ui.widgets.f1_tab - INFO - 🔄 Starting F1 standings load...
+2025-06-30 15:29:04,704 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-30 15:29:04,706 - ui.widgets.f1_tab - INFO - 📊 F1 standings loading started...
+2025-06-30 15:29:05,080 - ui.widgets.f1_tab - INFO - 🔄 Auto-loading F1 calendar...
+2025-06-30 15:29:05,083 - ui.widgets.f1_tab - INFO - 🔄 Starting F1 calendar load...
+2025-06-30 15:29:05,098 - ui.widgets.f1_tab - INFO - 📅 F1 calendar loading started...
+2025-06-30 15:29:05,247 - ui.widgets.f1_tab - INFO - 🔍 Checking F1 API availability...
+2025-06-30 15:29:05,248 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 15:29:05,705 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 15:29:07,204 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 15:29:07,205 - services.enhanced_data_service - INFO - ✅ races data available
+2025-06-30 15:29:07,205 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/results.json
+2025-06-30 15:29:07,647 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 15:29:07,647 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-30 15:29:07,980 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/results.json
+2025-06-30 15:29:07,981 - services.enhanced_data_service - INFO - ✅ results data available
+2025-06-30 15:29:08,205 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/qualifying.json
+2025-06-30 15:29:08,427 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-30 15:29:08,648 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-30 15:29:08,980 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/qualifying.json
+2025-06-30 15:29:08,981 - services.enhanced_data_service - INFO - ✅ qualifying data available
+2025-06-30 15:29:09,206 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/sprint.json
+2025-06-30 15:29:09,428 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-30 15:29:09,648 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-30 15:29:09,989 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/sprint.json
+2025-06-30 15:29:09,989 - services.enhanced_data_service - INFO - ✅ sprint data available
+2025-06-30 15:29:10,206 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/driverStandings.json
+2025-06-30 15:29:10,523 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-30 15:29:10,649 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-30 15:29:11,091 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/driverStandings.json
+2025-06-30 15:29:11,092 - services.enhanced_data_service - INFO - ✅ standings data available
+2025-06-30 15:29:11,482 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-30 15:29:11,650 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-30 15:29:11,988 - services.enhanced_data_service - ERROR - OpenF1 sessions error: HTTPSConnectionPool(host='api.openf1.org', port=443): Max retries exceeded with url: /v1/sessions?year=2025 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1028)')))
+2025-06-30 15:29:11,989 - services.enhanced_data_service - INFO - ✅ OpenF1 data available: 0 sessions
+2025-06-30 15:29:11,990 - ui.widgets.f1_tab - INFO - 📊 API Status: {'races': True, 'results': True, 'qualifying': True, 'sprint': True, 'standings': True, 'openf1': False}
+2025-06-30 15:29:11,990 - ui.widgets.f1_tab - INFO - ✅ Available: races, results, qualifying, sprint, standings
+2025-06-30 15:29:11,990 - ui.widgets.f1_tab - WARNING - ❌ Unavailable: openf1
+2025-06-30 15:29:12,428 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-30 15:29:12,456 - ui.widgets.f1_tab - INFO - 🚀 Auto-loading initial F1 data...
+2025-06-30 15:29:12,456 - ui.widgets.f1_tab - INFO - 🚀 Auto-loading initial F1 data...
+2025-06-30 15:29:12,456 - ui.widgets.f1_tab - INFO - 🚀 Auto-loading initial F1 data...
+2025-06-30 15:29:12,651 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-30 15:29:13,431 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-30 15:29:13,652 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-30 15:29:14,430 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-30 15:29:14,652 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-30 15:29:15,430 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-30 15:29:15,653 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-30 15:29:16,433 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-30 15:29:16,653 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-30 15:29:17,430 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-30 15:29:17,653 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-30 15:29:18,432 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-30 15:29:18,654 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-30 15:29:19,429 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-30 15:29:19,654 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-30 15:29:21,045 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-30 15:29:21,046 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-30 15:29:21,216 - services.api_client - ERROR - Request failed for http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpi.ca', port=443): Read timed out. (read timeout=15)
+2025-06-30 15:29:21,216 - services.api_client - WARNING - Attempt 1 failed with http://api.jolpi.ca/ergast/f1: Error accessing http://api.jolpi.ca/ergast/f1/current/driverStandings.json: HTTPSConnectionPool(host='api.jolpi.ca', port=443): Read timed out. (read timeout=15)
+2025-06-30 15:29:21,217 - services.api_client - WARNING - Switching to endpoint: https://api.jolpi.ca/ergast/f1
+2025-06-30 15:29:21,217 - services.api_client - INFO - Retrying with endpoint: https://api.jolpi.ca/ergast/f1
+2025-06-30 15:29:22,047 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-30 15:29:23,259 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-30 15:29:23,260 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-30 15:29:23,649 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-30 15:29:24,056 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-30 15:29:24,057 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-30 15:29:24,057 - ui.widgets.f1_tab - INFO - ✅ F1 standings loaded successfully: 21 drivers
+2025-06-30 15:29:24,060 - ui.widgets.f1_tab - INFO - 🏁 F1 standings loading finished
+2025-06-30 15:29:24,260 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-30 15:29:24,652 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-30 15:29:25,261 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-30 15:29:25,653 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-30 15:29:26,261 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-30 15:29:26,652 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-30 15:29:27,262 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-30 15:29:27,659 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-30 15:29:28,263 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-30 15:29:28,655 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-30 15:29:29,263 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-30 15:29:29,655 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-30 15:29:30,264 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-30 15:29:30,656 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-30 15:29:31,264 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-30 15:29:31,663 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-30 15:29:32,264 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-30 15:29:32,823 - services.api_client - INFO - Successful response from https://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-30 15:29:32,824 - services.data_service - INFO - Loaded 24 races for 2025
+2025-06-30 15:29:32,824 - ui.widgets.f1_tab - INFO - ✅ F1 calendar loaded successfully: 24 races
+2025-06-30 15:29:32,851 - ui.widgets.f1_tab - INFO - 🏁 F1 calendar loading finished
+2025-06-30 15:30:46,903 - __main__ - INFO - Application exited with code: 0
+2025-06-30 15:30:49,683 - __main__ - INFO - Logging system initialized
+2025-06-30 15:30:49,683 - __main__ - INFO - Starting F1 & MotoGP Dashboard application
+2025-06-30 15:30:49,684 - __main__ - INFO - Application directories created
+2025-06-30 15:30:49,731 - __main__ - INFO - Qt application configured
+2025-06-30 15:30:50,306 - utils.i18n - INFO - Loaded translations for: en
+2025-06-30 15:30:50,307 - utils.i18n - INFO - Loaded translations for: es
+2025-06-30 15:30:50,327 - ui.widgets - WARNING - Enhanced navigation components not available: cannot import name 'NavigationTabWidget' from 'ui.widgets.f1_navigation' (C:\LOCAL Project\OneMotor\ui\widgets\f1_navigation.py)
+2025-06-30 15:30:50,328 - utils.i18n - INFO - Language changed from en to en
+2025-06-30 15:30:50,381 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/f1_logo.png
+2025-06-30 15:30:50,383 - ui.main_window - INFO - Loaded logo for f1
+2025-06-30 15:30:50,405 - utils.image_utils - INFO - Successfully loaded high-quality image: logo/motogp_logo.png
+2025-06-30 15:30:50,410 - ui.main_window - INFO - Loaded logo for motogp
+2025-06-30 15:30:50,435 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/home.png
+2025-06-30 15:30:50,439 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/refresh.png
+2025-06-30 15:30:50,440 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:30:50,440 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:30:50,441 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:30:50,450 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:30:50,502 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/home.png
+2025-06-30 15:30:50,507 - ui.main_window - INFO - Loaded ultra-high quality icon: logo/refresh.png
+2025-06-30 15:30:50,831 - __main__ - INFO - Main window created and shown
+2025-06-30 15:30:50,834 - __main__ - INFO - Application ready - entering event loop
+2025-06-30 15:30:51,372 - ui.widgets.f1_tab - INFO - 🔄 Auto-loading F1 standings...
+2025-06-30 15:30:51,374 - ui.widgets.f1_tab - INFO - 🔄 Starting F1 standings load...
+2025-06-30 15:30:51,381 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-30 15:30:51,381 - ui.widgets.f1_tab - INFO - 📊 F1 standings loading started...
+2025-06-30 15:30:51,465 - ui.widgets.f1_tab - INFO - 🔄 Auto-loading F1 calendar...
+2025-06-30 15:30:51,469 - ui.widgets.f1_tab - INFO - 🔄 Starting F1 calendar load...
+2025-06-30 15:30:51,485 - ui.widgets.f1_tab - INFO - 📅 F1 calendar loading started...
+2025-06-30 15:30:51,490 - ui.widgets.f1_tab - INFO - 🔍 Checking F1 API availability...
+2025-06-30 15:30:51,491 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 15:30:52,381 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 15:30:53,747 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 15:30:53,748 - services.enhanced_data_service - INFO - ✅ races data available
+2025-06-30 15:30:53,749 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/current/driverStandings.json
+2025-06-30 15:30:53,749 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/results.json
+2025-06-30 15:30:53,750 - services.data_service - INFO - Loaded 21 driver standings
+2025-06-30 15:30:54,349 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025.json
+2025-06-30 15:30:54,350 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-30 15:30:54,529 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/results.json
+2025-06-30 15:30:54,529 - services.enhanced_data_service - INFO - ✅ results data available
+2025-06-30 15:30:54,750 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/qualifying.json
+2025-06-30 15:30:55,126 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/1/results.json
+2025-06-30 15:30:55,351 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-30 15:30:55,526 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/qualifying.json
+2025-06-30 15:30:55,526 - services.enhanced_data_service - INFO - ✅ qualifying data available
+2025-06-30 15:30:55,750 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/sprint.json
+2025-06-30 15:30:56,125 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-30 15:30:56,351 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-30 15:30:56,525 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/sprint.json
+2025-06-30 15:30:56,526 - services.enhanced_data_service - INFO - ✅ sprint data available
+2025-06-30 15:30:56,751 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/driverStandings.json
+2025-06-30 15:30:57,128 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/3/results.json
+2025-06-30 15:30:57,351 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-30 15:30:57,524 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/driverStandings.json
+2025-06-30 15:30:57,525 - services.enhanced_data_service - INFO - ✅ standings data available
+2025-06-30 15:30:58,128 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/4/results.json
+2025-06-30 15:30:58,352 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-30 15:30:58,423 - services.enhanced_data_service - ERROR - OpenF1 sessions error: HTTPSConnectionPool(host='api.openf1.org', port=443): Max retries exceeded with url: /v1/sessions?year=2025 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1028)')))
+2025-06-30 15:30:58,424 - services.enhanced_data_service - INFO - ✅ OpenF1 data available: 0 sessions
+2025-06-30 15:30:58,425 - ui.widgets.f1_tab - INFO - 📊 API Status: {'races': True, 'results': True, 'qualifying': True, 'sprint': True, 'standings': True, 'openf1': False}
+2025-06-30 15:30:58,426 - ui.widgets.f1_tab - INFO - ✅ Available: races, results, qualifying, sprint, standings
+2025-06-30 15:30:58,426 - ui.widgets.f1_tab - WARNING - ❌ Unavailable: openf1
+2025-06-30 15:30:58,431 - ui.widgets.f1_tab - INFO - ✅ F1 standings loaded successfully: 21 drivers
+2025-06-30 15:30:58,434 - ui.widgets.f1_tab - INFO - 🏁 F1 standings loading finished
+2025-06-30 15:30:58,890 - ui.widgets.f1_tab - INFO - 🚀 Auto-loading initial F1 data...
+2025-06-30 15:30:59,130 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/5/results.json
+2025-06-30 15:30:59,354 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-30 15:31:00,125 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/6/results.json
+2025-06-30 15:31:00,354 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-30 15:31:01,128 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/7/results.json
+2025-06-30 15:31:01,355 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-30 15:31:02,131 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/8/results.json
+2025-06-30 15:31:02,356 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-30 15:31:03,131 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/9/results.json
+2025-06-30 15:31:03,356 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-30 15:31:04,130 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/10/results.json
+2025-06-30 15:31:04,356 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-30 15:31:04,995 - ui.widgets.f1_tab - INFO - 🖱️ Driver clicked: Max Verstappen
+2025-06-30 15:31:04,996 - ui.widgets.f1_tab - INFO - 🏎️ Showing driver info for: Max Verstappen
+2025-06-30 15:31:04,998 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:31:05,015 - ui.widgets.f1_navigation - INFO - 🔄 Loading career stats for max_verstappen
+2025-06-30 15:31:05,018 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/drivers/max_verstappen/seasons.json?limit=100
+2025-06-30 15:31:05,043 - ui.widgets.f1_navigation - INFO - Career loading: Loading career data for max_verstappen...
+2025-06-30 15:31:05,133 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/11/results.json
+2025-06-30 15:31:05,357 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-30 15:31:06,131 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/12/results.json
+2025-06-30 15:31:06,358 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-30 15:31:06,937 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/drivers/max_verstappen/seasons.json?limit=100
+2025-06-30 15:31:06,937 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:06,938 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2015 (1/11)...
+2025-06-30 15:31:07,132 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/13/results.json
+2025-06-30 15:31:07,358 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-30 15:31:07,707 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:07,938 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:08,131 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/14/results.json
+2025-06-30 15:31:08,358 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-30 15:31:08,707 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:08,939 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:09,130 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/15/results.json
+2025-06-30 15:31:09,359 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-30 15:31:09,711 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2015/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:09,712 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2016 (2/11)...
+2025-06-30 15:31:09,940 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:10,134 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/16/results.json
+2025-06-30 15:31:10,359 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-30 15:31:10,707 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:10,940 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:11,133 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/17/results.json
+2025-06-30 15:31:11,361 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-30 15:31:11,709 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:11,940 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:12,133 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/18/results.json
+2025-06-30 15:31:12,362 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-30 15:31:12,709 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2016/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:12,709 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2017 (3/11)...
+2025-06-30 15:31:12,941 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:13,135 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/19/results.json
+2025-06-30 15:31:13,362 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-30 15:31:13,709 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:13,941 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:14,135 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/20/results.json
+2025-06-30 15:31:14,362 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-30 15:31:14,711 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:14,942 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:15,136 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/21/results.json
+2025-06-30 15:31:15,363 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-30 15:31:15,715 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2017/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:15,716 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2018 (4/11)...
+2025-06-30 15:31:15,942 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:16,135 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/22/results.json
+2025-06-30 15:31:16,364 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-30 15:31:16,712 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:16,942 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:17,147 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/23/results.json
+2025-06-30 15:31:17,364 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-30 15:31:17,714 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:17,943 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:18,140 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/24/results.json
+2025-06-30 15:31:18,141 - services.data_service - INFO - Loaded 24 races for 2025
+2025-06-30 15:31:18,142 - ui.widgets.f1_tab - INFO - ✅ F1 calendar loaded successfully: 24 races
+2025-06-30 15:31:18,158 - ui.widgets.f1_tab - INFO - 🏁 F1 calendar loading finished
+2025-06-30 15:31:18,714 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2018/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:18,715 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2019 (5/11)...
+2025-06-30 15:31:18,944 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:19,713 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:19,944 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:20,713 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:20,945 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:21,713 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2019/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:21,714 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2020 (6/11)...
+2025-06-30 15:31:21,945 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:22,713 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:22,946 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:23,806 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:23,947 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:24,845 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2020/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:24,846 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2021 (7/11)...
+2025-06-30 15:31:24,948 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2021/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:25,967 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2021/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:25,968 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2021/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:26,856 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2021/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:26,969 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2021/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:28,059 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2021/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:28,060 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2022/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:28,060 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2022 (8/11)...
+2025-06-30 15:31:29,044 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2022/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:29,061 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2022/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:29,938 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2022/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:30,061 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2022/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:30,936 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2022/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:30,936 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2023 (9/11)...
+2025-06-30 15:31:31,062 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2023/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:32,048 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2023/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:32,063 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2023/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:32,923 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2023/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:33,064 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2023/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:34,014 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2023/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:34,014 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2024 (10/11)...
+2025-06-30 15:31:34,064 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2024/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:34,871 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2024/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:35,065 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2024/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:36,340 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2024/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:36,341 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2024/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:37,235 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2024/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:37,236 - ui.widgets.f1_navigation - INFO - Career loading: Processing season 2025 (11/11)...
+2025-06-30 15:31:37,341 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:38,151 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/driverStandings.json
+2025-06-30 15:31:38,343 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:39,209 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/results.json?limit=100
+2025-06-30 15:31:39,343 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:40,111 - services.api_client - ERROR - Request failed for http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/qualifying.json?limit=100: 429 Client Error: Too Many Requests for url: https://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:40,112 - services.api_client - WARNING - Attempt 1 failed with http://api.jolpi.ca/ergast/f1: Error accessing http://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/qualifying.json?limit=100: 429 Client Error: Too Many Requests for url: https://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:40,113 - services.api_client - WARNING - Switching to endpoint: https://api.jolpi.ca/ergast/f1
+2025-06-30 15:31:40,114 - services.api_client - INFO - Retrying with endpoint: https://api.jolpi.ca/ergast/f1
+2025-06-30 15:31:40,344 - services.api_client - INFO - GET request to: https://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:40,726 - services.api_client - ERROR - Request failed for https://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/qualifying.json?limit=100: 429 Client Error: Too Many Requests for url: https://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:40,726 - services.api_client - WARNING - Attempt 2 failed with https://api.jolpi.ca/ergast/f1: Error accessing https://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/qualifying.json?limit=100: 429 Client Error: Too Many Requests for url: https://api.jolpi.ca/ergast/f1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:40,727 - services.api_client - WARNING - Switching to endpoint: https://openf1.org/v1
+2025-06-30 15:31:40,727 - services.api_client - INFO - Retrying with endpoint: https://openf1.org/v1
+2025-06-30 15:31:41,344 - services.api_client - INFO - GET request to: https://openf1.org/v1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:42,175 - services.api_client - ERROR - Request failed for https://openf1.org/v1/2025/drivers/max_verstappen/qualifying.json?limit=100: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:42,175 - services.api_client - ERROR - OpenF1 conversion failed: Error accessing https://openf1.org/v1/2025/drivers/max_verstappen/qualifying.json?limit=100: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:42,176 - services.api_client - WARNING - Attempt 3 failed with https://openf1.org/v1: OpenF1 API error: Error accessing https://openf1.org/v1/2025/drivers/max_verstappen/qualifying.json?limit=100: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:42,176 - services.enhanced_data_service - WARNING - Error processing season 2025 for max_verstappen: All F1 API endpoints failed. Last error: OpenF1 API error: Error accessing https://openf1.org/v1/2025/drivers/max_verstappen/qualifying.json?limit=100: 404 Client Error: Not Found for url: https://openf1.org/v1/2025/drivers/max_verstappen/qualifying.json?limit=100
+2025-06-30 15:31:42,177 - services.enhanced_data_service - INFO - ✅ Career stats loaded for max_verstappen: 220 races, 65 wins, 4 championships
+2025-06-30 15:31:42,178 - ui.widgets.f1_navigation - INFO - Career loading: Career statistics compiled successfully!
+2025-06-30 15:31:42,178 - ui.widgets.f1_navigation - INFO - ✅ Career stats loaded for Max Verstappen
+2025-06-30 15:31:42,178 - ui.widgets.f1_navigation - INFO - Stats: {'total_races': 220, 'total_wins': 65, 'total_podiums': 117, 'total_poles': 43, 'total_fastest_laps': 34, 'total_points': 3178.5, 'championships': 4, 'seasons_active': 11, 'first_season': '2015', 'last_season': '2025', 'teams': ['Toro Rosso', 'Red Bull'], 'win_percentage': 29.5, 'podium_percentage': 53.2, 'points_per_race': 14.4, 'best_finish': 1, 'worst_finish': 20, 'career_span': '2015-2025'}
+2025-06-30 15:32:35,129 - ui.widgets.f1_tab - INFO - 🔙 Going back to main tabs
+2025-06-30 15:32:38,742 - ui.widgets.f1_tab - INFO - 🖱️ Circuit clicked: Chinese Grand Prix
+2025-06-30 15:32:38,743 - ui.widgets.f1_tab - INFO - 🏁 Showing race results for: Chinese Grand Prix
+2025-06-30 15:32:38,745 - services.api_client - INFO - Initialized ErgastAPIClient with endpoint: http://api.jolpi.ca/ergast/f1
+2025-06-30 15:32:38,747 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/qualifying.json
+2025-06-30 15:32:40,965 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/qualifying.json
+2025-06-30 15:32:40,966 - services.enhanced_data_service - INFO - ✅ Loaded Qualifying: 20 results
+2025-06-30 15:32:40,966 - ui.widgets.f1_navigation - INFO - ✅ Loaded Qualifying: 20 results
+2025-06-30 15:32:40,967 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-30 15:32:41,739 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/results.json
+2025-06-30 15:32:41,741 - services.enhanced_data_service - INFO - ✅ Loaded Race: 20 results
+2025-06-30 15:32:41,742 - ui.widgets.f1_navigation - INFO - ✅ Loaded Race: 20 results
+2025-06-30 15:32:41,967 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/sprint.json
+2025-06-30 15:32:42,740 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/sprint.json
+2025-06-30 15:32:42,742 - services.enhanced_data_service - INFO - ✅ Loaded Sprint: 20 results
+2025-06-30 15:32:42,743 - ui.widgets.f1_navigation - INFO - ✅ Loaded Sprint: 20 results
+2025-06-30 15:32:42,967 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/pitstops.json
+2025-06-30 15:32:43,741 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/pitstops.json
+2025-06-30 15:32:43,742 - services.enhanced_data_service - INFO - ✅ Loaded Pit Stops: 25 entries
+2025-06-30 15:32:43,742 - ui.widgets.f1_navigation - INFO - ✅ Loaded Pit Stops: 25 results
+2025-06-30 15:32:43,968 - services.api_client - INFO - GET request to: http://api.jolpi.ca/ergast/f1/2025/2/laps.json
+2025-06-30 15:32:44,741 - services.api_client - INFO - Successful response from http://api.jolpi.ca/ergast/f1/2025/2/laps.json
+2025-06-30 15:32:44,742 - services.enhanced_data_service - INFO - ✅ Loaded Lap Times: 2 entries
+2025-06-30 15:32:44,742 - ui.widgets.f1_navigation - INFO - ✅ Loaded Lap Times: 2 results
+2025-06-30 15:32:45,537 - services.enhanced_data_service - ERROR - OpenF1 sessions error: HTTPSConnectionPool(host='api.openf1.org', port=443): Max retries exceeded with url: /v1/sessions?year=2025 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1028)')))
+2025-06-30 15:42:55,009 - __main__ - INFO - Application exited with code: 0

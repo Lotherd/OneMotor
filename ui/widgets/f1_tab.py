@@ -1,21 +1,22 @@
 # ui/widgets/f1_tab.py
 """
-Complete F1 widget with integrated navigation, dark theme, and all session support
+Complete F1 widget with enhanced navigation and all session support
 
 This module provides the complete F1 user interface with integrated navigation
-that replaces dialogs with tabs, supports all race weekend sessions including
-Practice 1-3, Sprint Qualifying, Sprint Race, Qualifying, and Main Race.
+that supports all race weekend sessions including Qualifying, Race, Sprint,
+Pit Stops, and Lap History data. Features enhanced career statistics and
+OpenF1 integration.
 
 **Classes:**
-    ClickableTableWidget - Enhanced table with clickable functionality
-    DarkButton - Dark themed button with primary/secondary styling
+    ClickableTableWidget - Enhanced table with clickable functionality  
+    DarkButton - Dark themed button with styling options
     PodiumWidget - Widget for displaying race podium results
-    StandingsTab - Tab for displaying F1 championship standings with clickable drivers
-    CalendarTab - Tab for displaying F1 race calendar with clickable circuits
-    F1TabWidget - Main F1 widget container with integrated navigation
+    StandingsTab - Enhanced standings tab with clickable drivers
+    CalendarTab - Enhanced calendar tab with clickable circuits  
+    F1TabWidget - Main F1 widget with complete navigation system
 
 **Author:** Lotherd
-**Version:** 2.0.0
+**Version:** 3.0.0
 """
 
 from PyQt6.QtWidgets import (
@@ -32,6 +33,8 @@ from PyQt6.QtWidgets import (
     QFrame,
     QApplication,
     QStackedWidget,
+    QProgressBar,
+    QSplitter
 )
 from PyQt6.QtCore import Qt, pyqtSignal, QTimer
 from PyQt6.QtGui import QFont, QColor, QCursor
@@ -61,28 +64,29 @@ class ClickableTableWidget(QTableWidget):
         self.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         self.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         
-        # Setup dark styling
-        self.setup_dark_style()
+        # Setup enhanced dark styling
+        self.setup_enhanced_dark_style()
         
         # Connect cell click signal
         self.cellClicked.connect(self.handle_cell_click)
     
-    def setup_dark_style(self):
-        """Applies comprehensive dark theme styling to the table widget"""
+    def setup_enhanced_dark_style(self):
+        """Applies comprehensive enhanced dark theme styling"""
         self.setStyleSheet("""
             QTableWidget {
-                background-color: #1a1a1a;
+                background-color: #0f0f0f;
                 gridline-color: #333333;
                 color: #ffffff;
                 border: 1px solid #333333;
-                border-radius: 8px;
+                border-radius: 10px;
                 selection-background-color: #e10600;
                 selection-color: #ffffff;
                 font-size: 14px;
                 font-weight: 400;
             }
             QHeaderView::section {
-                background-color: #e10600;
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 #e10600, stop:1 #b30500);
                 color: #ffffff;
                 padding: 16px 12px;
                 border: none;
@@ -93,31 +97,31 @@ class ClickableTableWidget(QTableWidget):
                 letter-spacing: 1px;
             }
             QTableWidget::item {
-                padding: 14px 12px;
+                padding: 16px 12px;
                 border-bottom: 1px solid #2a2a2a;
                 border-right: none;
-                background-color: #1a1a1a;
+                background-color: #0f0f0f;
             }
             QTableWidget::item:alternate {
-                background-color: #1f1f1f;
+                background-color: #1a1a1a;
             }
             QTableWidget::item:selected {
                 background-color: #e10600;
                 color: #ffffff;
-                font-weight: 500;
+                font-weight: 600;
             }
             QTableWidget::item:hover {
                 background-color: #2a2a2a;
             }
             QScrollBar:vertical {
                 background-color: #2a2a2a;
-                width: 8px;
-                border-radius: 4px;
+                width: 10px;
+                border-radius: 5px;
                 margin: 0;
             }
             QScrollBar::handle:vertical {
                 background-color: #666666;
-                border-radius: 4px;
+                border-radius: 5px;
                 min-height: 20px;
             }
             QScrollBar::handle:vertical:hover {
@@ -146,11 +150,13 @@ class ClickableTableWidget(QTableWidget):
         if self.table_type == "standings":
             # Driver name is in column 1
             if column == 1:  # Driver column
+                logger.info(f"🖱️ Driver clicked: {data_object.driver.full_name}")
                 self.driver_clicked.emit(data_object)
                 
         elif self.table_type == "calendar":
             # Circuit name is in column 3
             if column == 3:  # Circuit column
+                logger.info(f"🖱️ Circuit clicked: {data_object.race_name}")
                 self.circuit_clicked.emit(data_object)
     
     def set_cell_clickable(self, row: int, column: int, clickable: bool = True):
@@ -164,36 +170,41 @@ class ClickableTableWidget(QTableWidget):
             item.setFont(font)
             
             # Set tooltip
-            item.setToolTip("Click for more information")
+            item.setToolTip("Click for detailed information")
 
 class DarkButton(QPushButton):
-    """Dark theme minimalist button with primary and secondary styling options"""
+    """Enhanced dark theme button with primary and secondary styling options"""
     
     def __init__(self, text: str, primary: bool = True):
         super().__init__(text)
-        self.setup_dark_style(primary)
+        self.setup_enhanced_dark_style(primary)
     
-    def setup_dark_style(self, primary: bool):
-        """Applies dark theme styling based on button type"""
+    def setup_enhanced_dark_style(self, primary: bool):
+        """Applies enhanced dark theme styling based on button type"""
         if primary:
             self.setStyleSheet("""
                 QPushButton {
-                    background-color: #e10600;
+                    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #e10600, stop:1 #b30500);
                     color: #ffffff;
                     border: none;
-                    padding: 12px 24px;
+                    padding: 14px 28px;
                     font-size: 14px;
                     font-weight: 600;
-                    border-radius: 6px;
-                    min-width: 120px;
+                    border-radius: 8px;
+                    min-width: 140px;
                     text-transform: uppercase;
-                    letter-spacing: 0.5px;
+                    letter-spacing: 1px;
                 }
                 QPushButton:hover {
-                    background-color: #ff1a0a;
+                    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #ff1a0a, stop:1 #e10600);
+                    transform: translateY(-2px);
                 }
                 QPushButton:pressed {
-                    background-color: #b30500;
+                    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #b30500, stop:1 #900400);
+                    transform: translateY(1px);
                 }
                 QPushButton:disabled {
                     background-color: #555555;
@@ -205,20 +216,22 @@ class DarkButton(QPushButton):
                 QPushButton {
                     background-color: transparent;
                     color: #ffffff;
-                    border: 1px solid #555555;
-                    padding: 12px 24px;
+                    border: 2px solid #555555;
+                    padding: 14px 28px;
                     font-size: 14px;
                     font-weight: 500;
-                    border-radius: 6px;
-                    min-width: 120px;
+                    border-radius: 8px;
+                    min-width: 140px;
                 }
                 QPushButton:hover {
                     background-color: #2a2a2a;
                     border-color: #e10600;
                     color: #e10600;
+                    transform: translateY(-2px);
                 }
                 QPushButton:pressed {
                     background-color: #1a1a1a;
+                    transform: translateY(1px);
                 }
                 QPushButton:disabled {
                     background-color: #1a1a1a;
@@ -227,8 +240,8 @@ class DarkButton(QPushButton):
                 }
             """)
 
-class PodiumWidget(QWidget):
-    """Widget for displaying race podium results with gold, silver, bronze styling"""
+class EnhancedPodiumWidget(QWidget):
+    """Enhanced widget for displaying race podium results with animations"""
     
     def __init__(self, podium_list: List[str]):
         super().__init__()
@@ -236,10 +249,10 @@ class PodiumWidget(QWidget):
         self.setup_ui()
     
     def setup_ui(self):
-        """Sets up the podium display UI with colored position indicators"""
+        """Sets up the enhanced podium display UI"""
         layout = QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(8)
+        layout.setSpacing(12)
         
         colors = ['#FFD700', '#C0C0C0', '#CD7F32']  # Gold, Silver, Bronze
         positions = ['🥇', '🥈', '🥉']
@@ -250,12 +263,14 @@ class PodiumWidget(QWidget):
                 podium_label.setStyleSheet(f"""
                     QLabel {{
                         color: {colors[i]};
-                        font-weight: 600;
-                        font-size: 13px;
-                        padding: 4px 8px;
-                        background-color: #2a2a2a;
-                        border-radius: 4px;
-                        border-left: 3px solid {colors[i]};
+                        font-weight: 700;
+                        font-size: 14px;
+                        padding: 8px 12px;
+                        background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                    stop:0 #2a2a2a, stop:1 #1a1a1a);
+                        border-radius: 8px;
+                        border-left: 4px solid {colors[i]};
+                        border-top: 1px solid {colors[i]};
                     }}
                 """)
                 layout.addWidget(podium_label)
@@ -266,14 +281,16 @@ class PodiumWidget(QWidget):
                 QLabel {
                     color: #666666;
                     font-style: italic;
-                    font-size: 13px;
-                    padding: 4px 8px;
+                    font-size: 14px;
+                    padding: 8px 12px;
+                    background-color: #2a2a2a;
+                    border-radius: 6px;
                 }
             """)
             layout.addWidget(tbd_label)
 
-class StandingsTab(QWidget):
-    """Dark theme standings tab with clickable drivers"""
+class EnhancedStandingsTab(QWidget):
+    """Enhanced dark theme standings tab with clickable drivers"""
     
     status_updated = pyqtSignal(str)
     driver_clicked = pyqtSignal(object)
@@ -281,18 +298,19 @@ class StandingsTab(QWidget):
     def __init__(self, data_service):
         super().__init__()
         self.data_service = data_service
+        self.enhanced_data_service = EnhancedDataService()
         self.data_loader = None
         self.current_standings = []
         self.has_loaded = False
         self.setup_ui()
     
     def setup_ui(self):
-        """Sets up the complete UI layout for the standings tab"""
+        """Sets up the enhanced UI layout for the standings tab"""
         layout = QVBoxLayout(self)
         layout.setContentsMargins(25, 25, 25, 25)
-        layout.setSpacing(20)
+        layout.setSpacing(25)
         
-        # Dark background
+        # Enhanced dark background
         self.setStyleSheet("""
             QWidget {
                 background-color: #0f0f0f;
@@ -300,41 +318,53 @@ class StandingsTab(QWidget):
             }
         """)
         
-        # Header
+        # Enhanced header
         header_layout = QVBoxLayout()
         
         title_label = QLabel("Championship Standings")
         title_label.setStyleSheet("""
             QLabel {
-                font-size: 28px;
+                font-size: 32px;
                 font-weight: 300;
                 color: #ffffff;
-                margin-bottom: 10px;
-                letter-spacing: 1px;
+                margin-bottom: 15px;
+                letter-spacing: 2px;
             }
         """)
         header_layout.addWidget(title_label)
         
+        subtitle_label = QLabel("2025 Formula 1 World Championship")
+        subtitle_label.setStyleSheet("""
+            QLabel {
+                font-size: 16px;
+                color: #e10600;
+                margin-bottom: 20px;
+                font-weight: 500;
+            }
+        """)
+        header_layout.addWidget(subtitle_label)
+        
         layout.addLayout(header_layout)
         
-        # Status bar
+        # Enhanced status bar
         self.status_label = QLabel("Loading standings...")
         self.status_label.setStyleSheet("""
             QLabel {
                 color: #ffffff;
-                font-size: 14px;
-                padding: 12px 16px;
-                background-color: #2a2a2a;
-                border-radius: 6px;
+                font-size: 15px;
+                padding: 15px 20px;
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                            stop:0 #2a2a2a, stop:1 #1a1a1a);
+                border-radius: 8px;
                 border-left: 4px solid #ffc107;
             }
         """)
         layout.addWidget(self.status_label)
         
-        # Standings table - now clickable
+        # Enhanced standings table - now clickable
         self.standings_table = ClickableTableWidget("standings")
         self.standings_table.driver_clicked.connect(self.driver_clicked.emit)
-        self.setup_standings_table()
+        self.setup_enhanced_standings_table()
         layout.addWidget(self.standings_table)
         
         # Auto-load when tab becomes visible
@@ -343,16 +373,17 @@ class StandingsTab(QWidget):
     def auto_load_if_needed(self):
         """Automatically loads standings data if not already loaded"""
         if not self.has_loaded:
+            logger.info("🔄 Auto-loading F1 standings...")
             self.load_standings()
     
-    def setup_standings_table(self):
-        """Configures the standings table structure and column behavior"""
+    def setup_enhanced_standings_table(self):
+        """Configures the enhanced standings table structure"""
         self.standings_table.setColumnCount(6)
         
         headers = ["POS", "DRIVER", "TEAM", "POINTS", "WINS", "NATIONALITY"]
         self.standings_table.setHorizontalHeaderLabels(headers)
         
-        # Configure column behavior
+        # Enhanced column behavior
         header = self.standings_table.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.Fixed)         # Position
         header.setSectionResizeMode(1, QHeaderView.ResizeMode.Interactive)   # Driver
@@ -361,18 +392,20 @@ class StandingsTab(QWidget):
         header.setSectionResizeMode(4, QHeaderView.ResizeMode.Fixed)         # Wins
         header.setSectionResizeMode(5, QHeaderView.ResizeMode.Stretch)       # Nationality
         
-        # Set column widths
-        self.standings_table.setColumnWidth(0, 60)
-        self.standings_table.setColumnWidth(1, 200)
-        self.standings_table.setColumnWidth(2, 180)
-        self.standings_table.setColumnWidth(3, 80)
-        self.standings_table.setColumnWidth(4, 60)
+        # Enhanced column widths
+        self.standings_table.setColumnWidth(0, 70)
+        self.standings_table.setColumnWidth(1, 220)
+        self.standings_table.setColumnWidth(2, 200)
+        self.standings_table.setColumnWidth(3, 90)
+        self.standings_table.setColumnWidth(4, 70)
     
     def load_standings(self):
         """Initiates background loading of F1 championship standings"""
         if self.data_loader and self.data_loader.isRunning():
+            logger.warning("⚠️ Standings already loading, skipping...")
             return
         
+        logger.info("🔄 Starting F1 standings load...")
         self.data_loader = DataLoader(self.data_service)
         self.data_loader.loading_started.connect(self.on_loading_started)
         self.data_loader.data_loaded.connect(self.on_standings_loaded)
@@ -381,35 +414,39 @@ class StandingsTab(QWidget):
         self.data_loader.start()
     
     def on_loading_started(self):
-        """Handles the loading started event with UI status updates"""
+        """Handles the loading started event with enhanced UI updates"""
+        logger.info("📊 F1 standings loading started...")
         self.status_label.setText("🔄 Loading standings...")
         self.status_label.setStyleSheet("""
             QLabel {
                 color: #ffffff;
-                font-size: 14px;
-                padding: 12px 16px;
-                background-color: #2a2a2a;
-                border-radius: 6px;
+                font-size: 15px;
+                padding: 15px 20px;
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                            stop:0 #2a2a2a, stop:1 #1a1a1a);
+                border-radius: 8px;
                 border-left: 4px solid #ffc107;
             }
         """)
         self.status_updated.emit("Loading F1 standings...")
     
     def on_standings_loaded(self, standings: List[DriverStanding]):
-        """Processes successfully loaded standings data and updates the UI"""
+        """Processes successfully loaded standings data with enhanced UI updates"""
         try:
+            logger.info(f"✅ F1 standings loaded successfully: {len(standings)} drivers")
             self.current_standings = standings
             self.has_loaded = True
-            self.update_standings_table(standings)
+            self.update_enhanced_standings_table(standings)
             
-            self.status_label.setText(f"✅ Loaded {len(standings)} drivers")
+            self.status_label.setText(f"✅ Loaded {len(standings)} drivers - Click driver names for details")
             self.status_label.setStyleSheet("""
                 QLabel {
                     color: #ffffff;
-                    font-size: 14px;
-                    padding: 12px 16px;
-                    background-color: #2a2a2a;
-                    border-radius: 6px;
+                    font-size: 15px;
+                    padding: 15px 20px;
+                    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                                stop:0 #2a2a2a, stop:1 #1a1a1a);
+                    border-radius: 8px;
                     border-left: 4px solid #28a745;
                 }
             """)
@@ -417,19 +454,21 @@ class StandingsTab(QWidget):
             self.status_updated.emit(f"Standings loaded - {len(standings)} drivers")
             
         except Exception as e:
-            logger.error(f"Error updating table: {e}")
+            logger.error(f"❌ Error updating standings table: {e}")
             self.on_error_occurred(f"Error displaying data: {str(e)}")
     
     def on_error_occurred(self, error_message: str):
-        """Handles error conditions during data loading"""
+        """Handles error conditions with enhanced error display"""
+        logger.error(f"❌ F1 standings error: {error_message}")
         self.status_label.setText(f"❌ {error_message}")
         self.status_label.setStyleSheet("""
             QLabel {
                 color: #ffffff;
-                font-size: 14px;
-                padding: 12px 16px;
-                background-color: #2a2a2a;
-                border-radius: 6px;
+                font-size: 15px;
+                padding: 15px 20px;
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                            stop:0 #2a2a2a, stop:1 #1a1a1a);
+                border-radius: 8px;
                 border-left: 4px solid #dc3545;
             }
         """)
@@ -437,21 +476,21 @@ class StandingsTab(QWidget):
     
     def on_loading_finished(self):
         """Handles the completion of data loading operations"""
-        pass
+        logger.info("🏁 F1 standings loading finished")
     
-    def update_standings_table(self, standings: List[DriverStanding]):
-        """Updates the standings table with driver championship data and podium highlighting"""
+    def update_enhanced_standings_table(self, standings: List[DriverStanding]):
+        """Updates the standings table with enhanced driver championship data"""
         self.standings_table.setRowCount(len(standings))
         
         for row, standing in enumerate(standings):
             # Store the standing object for this row
             self.standings_table.store_data_object(row, standing)
             
-            # Position with podium highlighting
+            # Enhanced position with podium highlighting
             pos_item = QTableWidgetItem(str(standing.position))
             pos_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             
-            # Highlight podium positions
+            # Enhanced podium highlighting
             if standing.position == 1:
                 pos_item.setBackground(QColor("#FFD700"))
                 pos_item.setForeground(QColor("#000000"))
@@ -473,7 +512,7 @@ class StandingsTab(QWidget):
             
             self.standings_table.setItem(row, 0, pos_item)
             
-            # Driver name - clickable
+            # Enhanced driver name - clickable
             driver_item = QTableWidgetItem(standing.driver.full_name)
             if standing.position <= 3:
                 font = driver_item.font()
@@ -483,12 +522,12 @@ class StandingsTab(QWidget):
             # Make driver name clickable
             self.standings_table.set_cell_clickable(row, 1, True)
             
-            # Team
+            # Enhanced team
             team_name = standing.constructors[0].name if standing.constructors else "N/A"
             team_item = QTableWidgetItem(team_name)
             self.standings_table.setItem(row, 2, team_item)
             
-            # Points
+            # Enhanced points
             points_item = QTableWidgetItem(str(int(standing.points)))
             points_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             if standing.position <= 3:
@@ -497,20 +536,25 @@ class StandingsTab(QWidget):
                 points_item.setFont(font)
             self.standings_table.setItem(row, 3, points_item)
             
-            # Wins
+            # Enhanced wins
             wins_item = QTableWidgetItem(str(standing.wins))
             wins_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            if standing.wins > 0:
+                wins_item.setForeground(QColor("#ffd700"))
+                font = wins_item.font()
+                font.setBold(True)
+                wins_item.setFont(font)
             self.standings_table.setItem(row, 4, wins_item)
             
-            # Nationality
+            # Enhanced nationality
             nat_item = QTableWidgetItem(standing.driver.nationality)
             self.standings_table.setItem(row, 5, nat_item)
         
-        # Set row height
-        self.standings_table.verticalHeader().setDefaultSectionSize(50)
+        # Enhanced row height
+        self.standings_table.verticalHeader().setDefaultSectionSize(55)
 
-class CalendarTab(QWidget):
-    """Dark theme calendar tab with clickable circuits"""
+class EnhancedCalendarTab(QWidget):
+    """Enhanced dark theme calendar tab with clickable circuits"""
     
     status_updated = pyqtSignal(str)
     circuit_clicked = pyqtSignal(object)
@@ -518,18 +562,19 @@ class CalendarTab(QWidget):
     def __init__(self, data_service):
         super().__init__()
         self.data_service = data_service
+        self.enhanced_data_service = EnhancedDataService()
         self.calendar_loader = None
         self.current_calendar: List[Race] = []
         self.has_loaded = False
         self.setup_ui()
     
     def setup_ui(self):
-        """Sets up the complete UI layout for the race calendar tab"""
+        """Sets up the enhanced UI layout for the race calendar tab"""
         layout = QVBoxLayout(self)
         layout.setContentsMargins(25, 25, 25, 25)
-        layout.setSpacing(20)
+        layout.setSpacing(25)
         
-        # Dark background
+        # Enhanced dark background
         self.setStyleSheet("""
             QWidget {
                 background-color: #0f0f0f;
@@ -537,41 +582,53 @@ class CalendarTab(QWidget):
             }
         """)
         
-        # Header
+        # Enhanced header
         header_layout = QVBoxLayout()
         
         title_label = QLabel("Race Calendar")
         title_label.setStyleSheet("""
             QLabel {
-                font-size: 28px;
+                font-size: 32px;
                 font-weight: 300;
                 color: #ffffff;
-                margin-bottom: 10px;
-                letter-spacing: 1px;
+                margin-bottom: 15px;
+                letter-spacing: 2px;
             }
         """)
         header_layout.addWidget(title_label)
         
+        subtitle_label = QLabel("2025 Formula 1 Season")
+        subtitle_label.setStyleSheet("""
+            QLabel {
+                font-size: 16px;
+                color: #e10600;
+                margin-bottom: 20px;
+                font-weight: 500;
+            }
+        """)
+        header_layout.addWidget(subtitle_label)
+        
         layout.addLayout(header_layout)
         
-        # Status
+        # Enhanced status
         self.status_label = QLabel("Loading calendar...")
         self.status_label.setStyleSheet("""
             QLabel {
                 color: #ffffff;
-                font-size: 14px;
-                padding: 12px 16px;
-                background-color: #2a2a2a;
-                border-radius: 6px;
+                font-size: 15px;
+                padding: 15px 20px;
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                            stop:0 #2a2a2a, stop:1 #1a1a1a);
+                border-radius: 8px;
                 border-left: 4px solid #ffc107;
             }
         """)
         layout.addWidget(self.status_label)
         
-        # Calendar table - now clickable
+        # Enhanced calendar table - now clickable
         self.calendar_table = ClickableTableWidget("calendar")
         self.calendar_table.circuit_clicked.connect(self.circuit_clicked.emit)
-        self.setup_calendar_table()
+        self.setup_enhanced_calendar_table()
         layout.addWidget(self.calendar_table)
         
         # Auto-load when tab becomes visible
@@ -580,16 +637,17 @@ class CalendarTab(QWidget):
     def auto_load_if_needed(self):
         """Automatically loads calendar data if not already loaded"""
         if not self.has_loaded:
+            logger.info("🔄 Auto-loading F1 calendar...")
             self.load_calendar()
     
-    def setup_calendar_table(self):
-        """Configures the calendar table structure and column behavior"""
+    def setup_enhanced_calendar_table(self):
+        """Configures the enhanced calendar table structure"""
         self.calendar_table.setColumnCount(5)
         
         headers = ["ROUND", "GRAND PRIX", "DATE", "CIRCUIT", "PODIUM"]
         self.calendar_table.setHorizontalHeaderLabels(headers)
         
-        # Configure calendar table columns
+        # Enhanced calendar table columns
         cal_header = self.calendar_table.horizontalHeader()
         cal_header.setSectionResizeMode(0, QHeaderView.ResizeMode.Fixed)       # Round
         cal_header.setSectionResizeMode(1, QHeaderView.ResizeMode.Interactive) # GP Name
@@ -597,17 +655,19 @@ class CalendarTab(QWidget):
         cal_header.setSectionResizeMode(3, QHeaderView.ResizeMode.Interactive) # Circuit
         cal_header.setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)     # Podium
         
-        # Set widths
-        self.calendar_table.setColumnWidth(0, 80)
-        self.calendar_table.setColumnWidth(1, 280)
-        self.calendar_table.setColumnWidth(2, 120)
-        self.calendar_table.setColumnWidth(3, 280)
+        # Enhanced widths
+        self.calendar_table.setColumnWidth(0, 90)
+        self.calendar_table.setColumnWidth(1, 320)
+        self.calendar_table.setColumnWidth(2, 130)
+        self.calendar_table.setColumnWidth(3, 300)
     
     def load_calendar(self):
         """Initiates background loading of F1 race calendar for 2025 season"""
         if self.calendar_loader and self.calendar_loader.isRunning():
+            logger.warning("⚠️ Calendar already loading, skipping...")
             return
             
+        logger.info("🔄 Starting F1 calendar load...")
         season = "2025"
         self.calendar_loader = CalendarLoader(self.data_service, season)
         self.calendar_loader.loading_started.connect(self.on_loading_started)
@@ -617,35 +677,39 @@ class CalendarTab(QWidget):
         self.calendar_loader.start()
     
     def on_loading_started(self):
-        """Handles the calendar loading started event with UI status updates"""
+        """Handles the calendar loading started event with enhanced UI updates"""
+        logger.info("📅 F1 calendar loading started...")
         self.status_label.setText("🔄 Loading race calendar...")
         self.status_label.setStyleSheet("""
             QLabel {
                 color: #ffffff;
-                font-size: 14px;
-                padding: 12px 16px;
-                background-color: #2a2a2a;
-                border-radius: 6px;
+                font-size: 15px;
+                padding: 15px 20px;
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                            stop:0 #2a2a2a, stop:1 #1a1a1a);
+                border-radius: 8px;
                 border-left: 4px solid #ffc107;
             }
         """)
         self.status_updated.emit("Loading race calendar...")
     
     def on_calendar_loaded(self, races: List[Race]):
-        """Processes successfully loaded calendar data and updates the UI"""
+        """Processes successfully loaded calendar data with enhanced UI updates"""
         try:
+            logger.info(f"✅ F1 calendar loaded successfully: {len(races)} races")
             self.current_calendar = races
             self.has_loaded = True
-            self.update_calendar_table(races)
+            self.update_enhanced_calendar_table(races)
             
-            self.status_label.setText(f"✅ Loaded {len(races)} races")
+            self.status_label.setText(f"✅ Loaded {len(races)} races - Click circuit names for session details")
             self.status_label.setStyleSheet("""
                 QLabel {
                     color: #ffffff;
-                    font-size: 14px;
-                    padding: 12px 16px;
-                    background-color: #2a2a2a;
-                    border-radius: 6px;
+                    font-size: 15px;
+                    padding: 15px 20px;
+                    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                                stop:0 #2a2a2a, stop:1 #1a1a1a);
+                    border-radius: 8px;
                     border-left: 4px solid #28a745;
                 }
             """)
@@ -653,19 +717,21 @@ class CalendarTab(QWidget):
             self.status_updated.emit(f"Calendar loaded - {len(races)} races")
             
         except Exception as e:
-            logger.error(f"Error updating calendar: {e}")
+            logger.error(f"❌ Error updating calendar: {e}")
             self.on_error_occurred(f"Error displaying calendar: {str(e)}")
     
     def on_error_occurred(self, error_message: str):
-        """Handles error conditions during calendar loading"""
+        """Handles error conditions with enhanced error display"""
+        logger.error(f"❌ F1 calendar error: {error_message}")
         self.status_label.setText(f"❌ {error_message}")
         self.status_label.setStyleSheet("""
             QLabel {
                 color: #ffffff;
-                font-size: 14px;
-                padding: 12px 16px;
-                background-color: #2a2a2a;
-                border-radius: 6px;
+                font-size: 15px;
+                padding: 15px 20px;
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                            stop:0 #2a2a2a, stop:1 #1a1a1a);
+                border-radius: 8px;
                 border-left: 4px solid #dc3545;
             }
         """)
@@ -673,45 +739,51 @@ class CalendarTab(QWidget):
     
     def on_loading_finished(self):
         """Handles the completion of calendar loading operations"""
-        pass
+        logger.info("🏁 F1 calendar loading finished")
     
-    def update_calendar_table(self, races: List[Race]):
-        """Updates the calendar table with race data and embedded podium widgets"""
+    def update_enhanced_calendar_table(self, races: List[Race]):
+        """Updates the calendar table with enhanced race data and podium widgets"""
         self.calendar_table.setRowCount(len(races))
         
         for row, race in enumerate(races):
             # Store the race object for this row
             self.calendar_table.store_data_object(row, race)
             
-            # Round
+            # Enhanced round
             round_item = QTableWidgetItem(str(race.round))
             round_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            font = round_item.font()
+            font.setBold(True)
+            round_item.setFont(font)
             self.calendar_table.setItem(row, 0, round_item)
             
-            # Race name
+            # Enhanced race name
             name_item = QTableWidgetItem(race.race_name)
+            font = name_item.font()
+            font.setBold(True)
+            name_item.setFont(font)
             self.calendar_table.setItem(row, 1, name_item)
             
-            # Date
+            # Enhanced date
             date_item = QTableWidgetItem(race.date)
             date_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             self.calendar_table.setItem(row, 2, date_item)
             
-            # Circuit - clickable
+            # Enhanced circuit - clickable
             circuit_item = QTableWidgetItem(race.circuit)
             self.calendar_table.setItem(row, 3, circuit_item)
             # Make circuit name clickable
             self.calendar_table.set_cell_clickable(row, 3, True)
             
-            # Podium widget
-            podium_widget = PodiumWidget(race.podium)
+            # Enhanced podium widget
+            podium_widget = EnhancedPodiumWidget(race.podium)
             self.calendar_table.setCellWidget(row, 4, podium_widget)
         
-        # Set row height to accommodate podium widget
-        self.calendar_table.verticalHeader().setDefaultSectionSize(60)
+        # Enhanced row height to accommodate podium widget
+        self.calendar_table.verticalHeader().setDefaultSectionSize(65)
 
 class F1TabWidget(QWidget):
-    """Main F1 widget container with integrated navigation system"""
+    """Enhanced F1 widget container with complete navigation system"""
     
     status_updated = pyqtSignal(str)
     
@@ -720,14 +792,34 @@ class F1TabWidget(QWidget):
         self.data_service = DataService()
         self.enhanced_data_service = EnhancedDataService()
         self.setup_ui()
+        
+        # Check data availability on startup
+        QTimer.singleShot(1000, self.check_api_availability)
+    
+    def check_api_availability(self):
+        """Check API availability and log status"""
+        logger.info("🔍 Checking F1 API availability...")
+        try:
+            availability = self.enhanced_data_service.check_data_availability()
+            logger.info(f"📊 API Status: {availability}")
+            
+            available_endpoints = [k for k, v in availability.items() if v]
+            unavailable_endpoints = [k for k, v in availability.items() if not v]
+            
+            logger.info(f"✅ Available: {', '.join(available_endpoints)}")
+            if unavailable_endpoints:
+                logger.warning(f"❌ Unavailable: {', '.join(unavailable_endpoints)}")
+                
+        except Exception as e:
+            logger.error(f"❌ Error checking API availability: {e}")
     
     def setup_ui(self):
-        """Sets up the complete navigation system for F1 data"""
+        """Sets up the complete enhanced navigation system for F1 data"""
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
         
-        # Dark background for main widget
+        # Enhanced dark background for main widget
         self.setStyleSheet("""
             QWidget {
                 background-color: #0f0f0f;
@@ -735,144 +827,165 @@ class F1TabWidget(QWidget):
             }
         """)
         
-        # Navigation stack
+        # Enhanced navigation stack
         self.navigation_stack = QStackedWidget()
         
-        # Main tabs (standings and calendar)
-        self.main_tabs = self.create_main_tabs()
+        # Enhanced main tabs (standings and calendar)
+        self.main_tabs = self.create_enhanced_main_tabs()
         self.navigation_stack.addWidget(self.main_tabs)
         
         layout.addWidget(self.navigation_stack)
     
-    def create_main_tabs(self) -> QWidget:
-        """Create the main tabbed interface for standings and calendar"""
+    def create_enhanced_main_tabs(self) -> QWidget:
+        """Create the enhanced main tabbed interface for standings and calendar"""
         main_widget = QWidget()
         layout = QVBoxLayout(main_widget)
         layout.setContentsMargins(0, 0, 0, 0)
         
-        # Tab widget
+        # Enhanced tab widget
         self.tab_widget = QTabWidget()
         self.tab_widget.setStyleSheet("""
             QTabWidget::pane {
                 border: none;
                 background-color: #0f0f0f;
+                border-radius: 10px;
             }
             QTabBar {
                 background-color: #1a1a1a;
+                border-bottom: 3px solid #333333;
             }
             QTabBar::tab {
-                background-color: #2a2a2a;
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 #2a2a2a, stop:1 #1a1a1a);
                 color: #cccccc;
-                padding: 15px 30px;
-                margin-right: 2px;
+                padding: 18px 35px;
+                margin-right: 3px;
                 border: none;
-                font-size: 14px;
+                font-size: 15px;
                 font-weight: 500;
-                min-width: 120px;
-                border-top-left-radius: 8px;
-                border-top-right-radius: 8px;
+                min-width: 140px;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
             }
             QTabBar::tab:selected {
-                background-color: #0f0f0f;
-                color: #e10600;
-                border-bottom: 3px solid #e10600;
-                font-weight: 600;
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 #e10600, stop:1 #b30500);
+                color: #ffffff;
+                border-bottom: 4px solid #e10600;
+                font-weight: 700;
             }
             QTabBar::tab:hover:!selected {
-                background-color: #333333;
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 #333333, stop:1 #2a2a2a);
                 color: #ffffff;
             }
         """)
         
-        # Create tabs
-        self.standings_tab = StandingsTab(self.data_service)
-        self.calendar_tab = CalendarTab(self.data_service)
+        # Create enhanced tabs
+        self.standings_tab = EnhancedStandingsTab(self.data_service)
+        self.calendar_tab = EnhancedCalendarTab(self.data_service)
         
-        # Connect signals
+        # Connect enhanced signals
         self.standings_tab.status_updated.connect(self.status_updated.emit)
         self.calendar_tab.status_updated.connect(self.status_updated.emit)
-        self.standings_tab.driver_clicked.connect(self.show_driver_info)
-        self.calendar_tab.circuit_clicked.connect(self.show_race_results)
+        self.standings_tab.driver_clicked.connect(self.show_enhanced_driver_info)
+        self.calendar_tab.circuit_clicked.connect(self.show_enhanced_race_results)
         
-        # Add tabs with icons
-        self.add_tab_with_icon(self.standings_tab, "logo/standing.png", "Standings")
-        self.add_tab_with_icon(self.calendar_tab, "logo/calendar.png", "Calendar")
+        # Add enhanced tabs with icons
+        self.add_enhanced_tab_with_icon(self.standings_tab, "logo/standing.png", "Standings")
+        self.add_enhanced_tab_with_icon(self.calendar_tab, "logo/calendar.png", "Calendar")
         
         layout.addWidget(self.tab_widget)
         return main_widget
     
-    def show_driver_info(self, driver_standing: DriverStanding):
-        """Show driver information in integrated view"""
-        # Import here to avoid circular imports
-        from ui.widgets.f1_navigation import DriverInfoTab
+    def show_enhanced_driver_info(self, driver_standing: DriverStanding):
+        """Show enhanced driver information in integrated view"""
+        logger.info(f"🏎️ Showing driver info for: {driver_standing.driver.full_name}")
         
-        # Create driver info widget
+        # Import here to avoid circular imports
+        from ui.widgets.f1_navigation import EnhancedDriverInfoTab
+        
+        # Create enhanced driver info widget
         driver_widget = QWidget()
         driver_layout = QVBoxLayout(driver_widget)
         driver_layout.setContentsMargins(0, 0, 0, 0)
         
-        # Add back button
+        # Add enhanced back button
         back_button = QPushButton("← Back to Standings")
         back_button.setStyleSheet("""
             QPushButton {
-                background-color: #e10600;
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 #e10600, stop:1 #b30500);
                 color: white;
                 border: none;
-                padding: 15px 25px;
-                font-size: 14px;
+                padding: 18px 30px;
+                font-size: 16px;
                 font-weight: bold;
-                border-radius: 6px;
-                margin: 15px;
+                border-radius: 10px;
+                margin: 20px;
                 text-align: left;
             }
             QPushButton:hover {
-                background-color: #ff1a0a;
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 #ff1a0a, stop:1 #e10600);
+                transform: translateY(-2px);
+            }
+            QPushButton:pressed {
+                transform: translateY(1px);
             }
         """)
         back_button.clicked.connect(self.go_back_to_main)
         driver_layout.addWidget(back_button)
         
-        # Add driver info content
-        driver_info = DriverInfoTab(driver_standing)
+        # Add enhanced driver info content
+        driver_info = EnhancedDriverInfoTab(driver_standing)
         driver_layout.addWidget(driver_info)
         
         # Add to navigation stack
         self.navigation_stack.addWidget(driver_widget)
         self.navigation_stack.setCurrentWidget(driver_widget)
     
-    def show_race_results(self, race: Race):
-        """Show race results in integrated view"""
-        # Import here to avoid circular imports
-        from ui.widgets.f1_navigation import RaceResultsTab
+    def show_enhanced_race_results(self, race: Race):
+        """Show enhanced race results in integrated view"""
+        logger.info(f"🏁 Showing race results for: {race.race_name}")
         
-        # Create race results widget
+        # Import here to avoid circular imports
+        from ui.widgets.f1_navigation import CompleteRaceResultsTab
+        
+        # Create enhanced race results widget
         race_widget = QWidget()
         race_layout = QVBoxLayout(race_widget)
         race_layout.setContentsMargins(0, 0, 0, 0)
         
-        # Add back button
+        # Add enhanced back button
         back_button = QPushButton("← Back to Calendar")
         back_button.setStyleSheet("""
             QPushButton {
-                background-color: #e10600;
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 #e10600, stop:1 #b30500);
                 color: white;
                 border: none;
-                padding: 15px 25px;
-                font-size: 14px;
+                padding: 18px 30px;
+                font-size: 16px;
                 font-weight: bold;
-                border-radius: 6px;
-                margin: 15px;
+                border-radius: 10px;
+                margin: 20px;
                 text-align: left;
             }
             QPushButton:hover {
-                background-color: #ff1a0a;
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 #ff1a0a, stop:1 #e10600);
+                transform: translateY(-2px);
+            }
+            QPushButton:pressed {
+                transform: translateY(1px);
             }
         """)
         back_button.clicked.connect(self.go_back_to_main)
         race_layout.addWidget(back_button)
         
-        # Add race results content
-        race_results = RaceResultsTab(race)
+        # Add enhanced race results content
+        race_results = CompleteRaceResultsTab(race)
         race_layout.addWidget(race_results)
         
         # Add to navigation stack
@@ -880,7 +993,9 @@ class F1TabWidget(QWidget):
         self.navigation_stack.setCurrentWidget(race_widget)
     
     def go_back_to_main(self):
-        """Navigate back to main tabs"""
+        """Navigate back to enhanced main tabs"""
+        logger.info("🔙 Going back to main tabs")
+        
         # Remove current widget
         current_widget = self.navigation_stack.currentWidget()
         if current_widget != self.main_tabs:
@@ -890,8 +1005,8 @@ class F1TabWidget(QWidget):
         # Go back to main tabs
         self.navigation_stack.setCurrentWidget(self.main_tabs)
     
-    def add_tab_with_icon(self, widget, icon_path, text):
-        """Adds a tab to the widget with an optional PNG icon"""
+    def add_enhanced_tab_with_icon(self, widget, icon_path, text):
+        """Adds an enhanced tab to the widget with optional PNG icon"""
         import os
         from PyQt6.QtGui import QIcon, QPixmap, QPainter
         from PyQt6.QtCore import QSize
@@ -902,7 +1017,7 @@ class F1TabWidget(QWidget):
             if not pixmap.isNull():
                 # Scale icon
                 scaled_pixmap = pixmap.scaled(
-                    16, 16,
+                    20, 20,
                     Qt.AspectRatioMode.KeepAspectRatio,
                     Qt.TransformationMode.SmoothTransformation
                 )
@@ -931,16 +1046,16 @@ class F1TabWidget(QWidget):
     
     def auto_load_initial_data(self):
         """Automatically loads initial F1 data when the widget becomes active"""
-        # The standings tab will auto-load when it becomes visible
-        pass
+        logger.info("🚀 Auto-loading initial F1 data...")
+        # The enhanced tabs will auto-load when they become visible
     
     def update_translations(self):
         """Updates all translatable text elements when language changes"""
-        # Update tab titles
-        self.tab_widget.setTabText(0, "Standings")
-        self.tab_widget.setTabText(1, "Calendar")
+        # Update enhanced tab titles
+        self.tab_widget.setTabText(0, "🏆 Standings")
+        self.tab_widget.setTabText(1, "📅 Calendar")
         
-        # Update table headers in both tabs
+        # Update enhanced table headers in both tabs
         standings_headers = ["POS", "DRIVER", "TEAM", "POINTS", "WINS", "NATIONALITY"]
         self.standings_tab.standings_table.setHorizontalHeaderLabels(standings_headers)
         
