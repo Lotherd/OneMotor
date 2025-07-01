@@ -279,7 +279,7 @@ motorsport-dashboard/
 F1_API_ENDPOINTS = [
     "http://api.jolpi.ca/ergast/f1",      # Primary
     "https://api.jolpi.ca/ergast/f1",     # HTTPS backup
-    "https://openf1.org/v1"               # Alternative
+    "https://api.jolpi.ca/ergast/f1"      # Additional Jolpica mirror
 ]
 REQUEST_TIMEOUT = 15  # seconds
 ```

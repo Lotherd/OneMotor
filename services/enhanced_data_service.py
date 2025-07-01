@@ -34,8 +34,8 @@ class OpenF1Client:
     """Client for OpenF1 API to get additional real-time data"""
     
     def __init__(self):
-        # FIXED: Correct OpenF1 API URL
-        self.base_url = "https://api.openf1.org/v1"
+        # Updated: use Jolpica Ergast proxy instead of OpenF1
+        self.base_url = "https://api.jolpi.ca/ergast"
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': 'F1-Dashboard/1.0',
