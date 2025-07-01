@@ -34,14 +34,14 @@ class AppConfig:
     F1_API_ENDPOINTS = [
         "http://api.jolpi.ca/ergast/f1",      # Jolpica F1 (primary)
         "https://api.jolpi.ca/ergast/f1",     # Jolpica F1 HTTPS
-        "https://openf1.org/v1"               # OpenF1 alternative
+        "https://api.jolpi.ca/ergast/f1"      # Additional Jolpica mirror
     ]
     
     # Legacy backup APIs (likely not working)
     BACKUP_APIS = {
         "jolpica_http": "http://api.jolpi.ca/ergast/f1",
         "jolpica_https": "https://api.jolpi.ca/ergast/f1",
-        "openf1": "https://openf1.org/v1"
+        "openf1": "https://api.jolpi.ca/ergast/f1"
     }
     
     # UI Colors

@@ -35,7 +35,7 @@ class OpenF1Client:
     
     def __init__(self):
         # FIXED: Correct OpenF1 API URL
-        self.base_url = "https://api.openf1.org/v1"
+        self.base_url = "https://api.jolpi.ca/ergast"
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': 'F1-Dashboard/1.0',
@@ -347,12 +347,12 @@ class CompleteSessionDataLoader(QThread):
                 if name == "Lap Times":
                     all_laps: List[Dict[str, Any]] = []
                     limit = 30
-                
+
                     # 1) First request to discover the total number of lap entries
                     first_url = f"{self.season}/{self.round_num}/laps.json?limit={limit}"
                     logger.info(f"Fetching first page: {first_url}")
                     first_page = self.ergast_client.get(first_url)
-                
+
                     # 2) Drill into MRData.total
                     races = (
                         first_page.get("MRData", {})
@@ -364,10 +364,10 @@ class CompleteSessionDataLoader(QThread):
                             total_entries = int(first_page["MRData"].get("total", "0"))
                         except ValueError:
                             total_entries = len(races[0].get("Laps", []))
-                
+
                         # 3) Compute how many pages we need
                         pages = (total_entries + limit - 1) // limit
-                
+
                         # 4) Loop through every page
                         for page in range(pages):
                             offset = page * limit
@@ -377,7 +377,7 @@ class CompleteSessionDataLoader(QThread):
                             )
                             logger.info(f"Fetching page {page+1}/{pages}: {url}")
                             page_data = self.ergast_client.get(url)
-                
+
                             races = (
                                 page_data.get("MRData", {})
                                          .get("RaceTable", {})
@@ -389,11 +389,11 @@ class CompleteSessionDataLoader(QThread):
                             laps = races[0].get("Laps", [])
                             logger.info(f"Page {page+1}: {len(laps)} laps")
                             all_laps.extend(laps)
-                
+
                     # 5) Return the full list of laps
                     results = all_laps
-                
-                
+
+
                 else:
                     # Pit Stops or others
                     data    = self.ergast_client.get(endpoint)
