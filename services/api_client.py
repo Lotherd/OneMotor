@@ -121,7 +121,7 @@ class ErgastAPIClient(APIClient):
         self.endpoints = [
             "http://api.jolpi.ca/ergast/f1",      # Jolpica F1 (primary replacement)
             "https://api.jolpi.ca/ergast/f1",     # HTTPS version
-            "https://openf1.org/v1"               # OpenF1 alternative
+            "https://api.jolpi.ca/ergast/f1"      # Additional Jolpica mirror
         ]
         
         self.current_endpoint_index = 0
