@@ -1,6 +1,6 @@
 # ui/widgets/f1_navigation.py
 """
-Complete F1 navigation system with all session types and race history
+Complete F1 navigation system with all session types and race history - FIXED
 
 This module provides comprehensive navigation with:
 - Qualifying, Race, Sprint results
@@ -17,7 +17,7 @@ This module provides comprehensive navigation with:
     SessionResultsTable - Enhanced table for all data types
 
 **Author:** Lotherd
-**Version:** 3.0.0
+**Version:** 3.0.1 - Fixed data display and formatting
 """
 
 from PyQt6.QtWidgets import (
@@ -765,7 +765,7 @@ class EnhancedDriverInfoTab(QWidget):
         return widget
 
 class PitStopsTab(QWidget):
-    """Enhanced pit stops analysis tab"""
+    """Enhanced pit stops analysis tab - FIXED to show driver names"""
     
     def __init__(self, pit_stops_data: List[Dict[str, Any]]):
         super().__init__()
@@ -802,7 +802,7 @@ class PitStopsTab(QWidget):
         layout.addWidget(self.pit_table)
     
     def create_pit_stops_table(self) -> QTableWidget:
-        """Create enhanced pit stops table"""
+        """Create enhanced pit stops table - FIXED"""
         table = QTableWidget()
         table.setStyleSheet("""
             QTableWidget {
@@ -836,7 +836,7 @@ class PitStopsTab(QWidget):
         table.setRowCount(len(self.pit_stops_data))
         
         # Configure columns
-        table.setColumnWidth(0, 180)
+        table.setColumnWidth(0, 200)
         table.setColumnWidth(1, 80)
         table.setColumnWidth(2, 80)
         table.setColumnWidth(3, 120)
@@ -844,18 +844,32 @@ class PitStopsTab(QWidget):
         
         # Populate data
         for row, stop in enumerate(self.pit_stops_data):
-            # Driver
-            driver = stop.get('driver', {})
-            driver_name = f"{driver.get('givenName', '')} {driver.get('familyName', '')}"
-            table.setItem(row, 0, QTableWidgetItem(driver_name))
+            # FIXED: Get driver name properly
+            driver_name = "Unknown"
+            if 'driver' in stop and isinstance(stop['driver'], dict):
+                # If driver is enriched with proper data
+                given_name = stop['driver'].get('givenName', '')
+                family_name = stop['driver'].get('familyName', '')
+                driver_name = f"{given_name} {family_name}".strip()
+                if not driver_name:
+                    driver_name = stop['driver'].get('full_name', 'Unknown')
+            elif 'driverId' in stop:
+                # Format driver ID if no enriched data
+                driver_id = stop.get('driverId', 'unknown')
+                # Capitalize and format the driver ID
+                parts = driver_id.split('_')
+                driver_name = ' '.join(part.capitalize() for part in parts)
+            
+            driver_item = QTableWidgetItem(driver_name)
+            table.setItem(row, 0, driver_item)
             
             # Lap
-            lap_item = QTableWidgetItem(stop.get('lap', 'N/A'))
+            lap_item = QTableWidgetItem(str(stop.get('lap', 'N/A')))
             lap_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             table.setItem(row, 1, lap_item)
             
             # Stop number
-            stop_item = QTableWidgetItem(stop.get('stop', 'N/A'))
+            stop_item = QTableWidgetItem(str(stop.get('stop', 'N/A')))
             stop_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             table.setItem(row, 2, stop_item)
             
@@ -868,24 +882,28 @@ class PitStopsTab(QWidget):
             duration = stop.get('duration', 'N/A')
             if duration != 'N/A':
                 try:
-                    duration_float = float(duration)
-                    duration = f"{duration_float:.3f}s"
+                    # Try to format duration nicely
+                    if isinstance(duration, (int, float)):
+                        duration = f"{float(duration):.3f}s"
+                    elif isinstance(duration, str) and duration.replace('.', '').isdigit():
+                        duration = f"{float(duration):.3f}s"
                 except:
                     pass
             
-            duration_item = QTableWidgetItem(duration)
+            duration_item = QTableWidgetItem(str(duration))
             duration_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             
             # Color code based on duration
             if duration != 'N/A':
                 try:
-                    duration_val = float(duration.replace('s', ''))
+                    # Extract numeric value
+                    duration_val = float(str(duration).replace('s', ''))
                     if duration_val < 3.0:
-                        duration_item.setForeground(QColor("#51cf66"))  # Fast
+                        duration_item.setForeground(QColor("#51cf66"))  # Fast (green)
                     elif duration_val > 5.0:
-                        duration_item.setForeground(QColor("#ff6b6b"))  # Slow
+                        duration_item.setForeground(QColor("#ff6b6b"))  # Slow (red)
                     else:
-                        duration_item.setForeground(QColor("#ffd700"))  # Average
+                        duration_item.setForeground(QColor("#ffd700"))  # Average (gold)
                 except:
                     pass
             
@@ -897,12 +915,15 @@ class PitStopsTab(QWidget):
         return table
 
 class LapHistoryTab(QWidget):
-    """Enhanced lap-by-lap history tab"""
+    """Enhanced lap-by-lap history tab - FIXED to show all laps properly"""
     
     def __init__(self, lap_data: List[Dict[str, Any]]):
         super().__init__()
         self.lap_data = lap_data
+        self.all_timings = []  # Store all lap timings
+        self.current_lap = "all"  # Current selected lap
         self.setup_ui()
+        self.process_lap_data()
     
     def setup_ui(self):
         """Setup lap history UI"""
@@ -933,8 +954,8 @@ class LapHistoryTab(QWidget):
         header_layout.addStretch()
         
         # Lap selector
-        lap_selector = QComboBox()
-        lap_selector.setStyleSheet("""
+        self.lap_selector = QComboBox()
+        self.lap_selector.setStyleSheet("""
             QComboBox {
                 background-color: #2a2a2a;
                 color: #ffffff;
@@ -942,7 +963,7 @@ class LapHistoryTab(QWidget):
                 border-radius: 6px;
                 padding: 8px 12px;
                 font-size: 14px;
-                min-width: 120px;
+                min-width: 150px;
             }
             QComboBox::drop-down {
                 border: none;
@@ -950,20 +971,143 @@ class LapHistoryTab(QWidget):
             QComboBox::down-arrow {
                 border: none;
             }
+            QComboBox QAbstractItemView {
+                background-color: #2a2a2a;
+                color: #ffffff;
+                selection-background-color: #e10600;
+                selection-color: #ffffff;
+            }
         """)
         
+        # Populate lap selector
         if self.lap_data:
-            lap_numbers = [f"Lap {lap.get('number', i+1)}" for i, lap in enumerate(self.lap_data)]
-            lap_selector.addItems(["All Laps"] + lap_numbers)
+            self.lap_selector.addItem("All Laps")
+            for lap in self.lap_data:
+                lap_number = lap.get('number', '?')
+                self.lap_selector.addItem(f"Lap {lap_number}")
+        
+        self.lap_selector.currentIndexChanged.connect(self.on_lap_selected)
         
         header_layout.addWidget(QLabel("View:"))
-        header_layout.addWidget(lap_selector)
+        header_layout.addWidget(self.lap_selector)
         
         layout.addLayout(header_layout)
         
         # Lap details table
         self.lap_table = self.create_lap_history_table()
         layout.addWidget(self.lap_table)
+    
+    def process_lap_data(self):
+        """Process and prepare all lap data"""
+        self.all_timings = []
+        
+        # Process each lap
+        for lap in self.lap_data:
+            lap_number = lap.get('number', '1')
+            for timing in lap.get('Timings', []):
+                timing_data = {
+                    'lap': lap_number,
+                    'position': timing.get('position', 'N/A'),
+                    'time': timing.get('time', 'N/A'),
+                    'driverId': timing.get('driverId', 'N/A')
+                }
+                self.all_timings.append(timing_data)
+        
+        # Update table with all data
+        self.update_table_data()
+    
+    def on_lap_selected(self, index):
+        """Handle lap selection change"""
+        if index == 0:
+            self.current_lap = "all"
+        else:
+            # Get the lap number from the selected item
+            lap_text = self.lap_selector.itemText(index)
+            lap_number = lap_text.replace("Lap ", "")
+            self.current_lap = lap_number
+        
+        self.update_table_data()
+    
+    def update_table_data(self):
+        """Update table based on selected lap"""
+        # Clear current table
+        self.lap_table.setRowCount(0)
+        
+        # Filter timings based on selection
+        if self.current_lap == "all":
+            timings_to_show = self.all_timings
+        else:
+            timings_to_show = [t for t in self.all_timings if str(t['lap']) == self.current_lap]
+        
+        # Update row count
+        self.lap_table.setRowCount(len(timings_to_show))
+        
+        # Populate data
+        for row, timing in enumerate(timings_to_show):
+            # Lap
+            lap_item = QTableWidgetItem(str(timing['lap']))
+            lap_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.lap_table.setItem(row, 0, lap_item)
+            
+            # Position
+            pos_item = QTableWidgetItem(str(timing['position']))
+            pos_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.lap_table.setItem(row, 1, pos_item)
+            
+            # Time
+            time_item = QTableWidgetItem(timing['time'])
+            time_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.lap_table.setItem(row, 2, time_item)
+            
+            # Driver - FIXED: Format driver name properly
+            driver_id = timing['driverId']
+            driver_name = self.format_driver_name(driver_id)
+            driver_item = QTableWidgetItem(driver_name)
+            self.lap_table.setItem(row, 3, driver_item)
+    
+    def format_driver_name(self, driver_id: str) -> str:
+        """Format driver ID into proper name"""
+        if driver_id == 'N/A':
+            return 'N/A'
+        
+        # Common driver ID mappings (you can extend this)
+        known_drivers = {
+            'max_verstappen': 'Max Verstappen',
+            'verstappen': 'Max Verstappen',
+            'hamilton': 'Lewis Hamilton',
+            'russell': 'George Russell',
+            'leclerc': 'Charles Leclerc',
+            'sainz': 'Carlos Sainz',
+            'norris': 'Lando Norris',
+            'piastri': 'Oscar Piastri',
+            'alonso': 'Fernando Alonso',
+            'stroll': 'Lance Stroll',
+            'ocon': 'Esteban Ocon',
+            'gasly': 'Pierre Gasly',
+            'perez': 'Sergio Perez',
+            'albon': 'Alexander Albon',
+            'sargeant': 'Logan Sargeant',
+            'hulkenberg': 'Nico Hulkenberg',
+            'magnussen': 'Kevin Magnussen',
+            'bottas': 'Valtteri Bottas',
+            'zhou': 'Zhou Guanyu',
+            'tsunoda': 'Yuki Tsunoda',
+            'ricciardo': 'Daniel Ricciardo',
+            'de_vries': 'Nyck de Vries',
+            'lawson': 'Liam Lawson'
+        }
+        
+        # Check if it's a known driver
+        driver_id_lower = driver_id.lower()
+        if driver_id_lower in known_drivers:
+            return known_drivers[driver_id_lower]
+        
+        # Otherwise, format the ID nicely
+        # Replace underscores with spaces and capitalize each word
+        parts = driver_id.split('_')
+        formatted_name = ' '.join(part.capitalize() for part in parts)
+        
+        return formatted_name
     
     def create_lap_history_table(self) -> QTableWidget:
         """Create enhanced lap history table"""
@@ -998,50 +1142,16 @@ class LapHistoryTab(QWidget):
         table.setColumnCount(len(headers))
         table.setHorizontalHeaderLabels(headers)
         
-        # Flatten lap data to show all timings
-        all_timings = []
-        for lap in self.lap_data:
-            lap_number = lap.get('number', '1')
-            for timing in lap.get('Timings', []):
-                timing_data = {
-                    'lap': lap_number,
-                    'position': timing.get('position', 'N/A'),
-                    'time': timing.get('time', 'N/A'),
-                    'driver_id': timing.get('driverId', 'N/A')
-                }
-                all_timings.append(timing_data)
-        
-        table.setRowCount(len(all_timings))
-        
         # Configure columns
         table.setColumnWidth(0, 80)
         table.setColumnWidth(1, 100)
-        table.setColumnWidth(2, 120)
-        table.setColumnWidth(3, 180)
+        table.setColumnWidth(2, 150)
+        table.setColumnWidth(3, 250)
         
-        # Populate data
-        for row, timing in enumerate(all_timings):
-            # Lap
-            lap_item = QTableWidgetItem(str(timing['lap']))
-            lap_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            table.setItem(row, 0, lap_item)
-            
-            # Position
-            pos_item = QTableWidgetItem(str(timing['position']))
-            pos_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            table.setItem(row, 1, pos_item)
-            
-            # Time
-            time_item = QTableWidgetItem(timing['time'])
-            time_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            table.setItem(row, 2, time_item)
-            
-            # Driver
-            driver_item = QTableWidgetItem(timing['driver_id'])
-            table.setItem(row, 3, driver_item)
-        
+        # Configure table behavior
         table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        table.setSortingEnabled(True)
         
         return table
 

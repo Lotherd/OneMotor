@@ -15,7 +15,7 @@ This module provides comprehensive F1 data retrieval with support for:
     OpenF1Client - Client for OpenF1 API integration
 
 **Author:** Lotherd
-**Version:** 3.0.0
+**Version:** 3.0.1 - Fixed OpenF1 URL and data display issues
 """
 
 import logging
@@ -34,6 +34,7 @@ class OpenF1Client:
     """Client for OpenF1 API to get additional real-time data"""
     
     def __init__(self):
+        # FIXED: Correct OpenF1 API URL
         self.base_url = "https://api.openf1.org/v1"
         self.session = requests.Session()
         self.session.headers.update({
@@ -42,12 +43,10 @@ class OpenF1Client:
         })
     
     def get_sessions(self, year: int = 2025) -> List[Dict[str, Any]]:
-        """Get all sessions for a year"""
         try:
-            response = self.session.get(f"{self.base_url}/sessions", 
-                                      params={'year': year}, timeout=10)
-            response.raise_for_status()
-            return response.json()
+            resp = self.session.get(f"{self.base_url}/sessions", params={'year': year}, timeout=10)
+            resp.raise_for_status()
+            return resp.json()
         except Exception as e:
             logger.error(f"OpenF1 sessions error: {e}")
             return []
@@ -65,6 +64,21 @@ class OpenF1Client:
             return response.json()
         except Exception as e:
             logger.error(f"OpenF1 drivers error: {e}")
+            return []
+    
+    def get_car_data(self, session_key: int = None) -> List[Dict[str, Any]]:
+        """Get car data from OpenF1"""
+        try:
+            params = {}
+            if session_key:
+                params['session_key'] = session_key
+            
+            response = self.session.get(f"{self.base_url}/car_data", 
+                                      params=params, timeout=15)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            logger.error(f"OpenF1 car data error: {e}")
             return []
     
     def get_position_data(self, session_key: int) -> List[Dict[str, Any]]:
@@ -91,12 +105,11 @@ class OpenF1Client:
 
 class CareerStatsLoader(QThread):
     """Enhanced career statistics loader with better error handling"""
-    
     stats_loaded = pyqtSignal(dict)
     error_occurred = pyqtSignal(str)
     loading_progress = pyqtSignal(str)
     loading_finished = pyqtSignal()
-    
+
     def __init__(self, ergast_client: ErgastAPIClient, driver_id: str):
         super().__init__()
         self.ergast_client = ergast_client
@@ -271,85 +284,186 @@ class CareerStatsLoader(QThread):
 
 class CompleteSessionDataLoader(QThread):
     """Complete session data loader including pit stops and lap history"""
-    
-    session_loaded = pyqtSignal(str, list)  # session_type, results
-    all_sessions_loaded = pyqtSignal(dict)  # All sessions data
-    error_occurred = pyqtSignal(str, str)  # session_type, error_message
-    loading_progress = pyqtSignal(str)  # Current loading status
-    loading_finished = pyqtSignal()
-    
+    session_loaded      = pyqtSignal(str, list)
+    all_sessions_loaded = pyqtSignal(dict)
+    error_occurred      = pyqtSignal(str, str)
+    loading_progress    = pyqtSignal(str)
+    loading_finished    = pyqtSignal()
+
     def __init__(self, ergast_client: ErgastAPIClient, openf1_client: OpenF1Client, season: str, round_num: str):
         super().__init__()
         self.ergast_client = ergast_client
         self.openf1_client = openf1_client
-        self.season = season
-        self.round_num = round_num
-        self.session_data = {}
+        self.season        = season
+        self.round_num     = round_num
+        self.session_data  = {}
+        self.driver_lookup = {}  # Store driver ID to name mapping
     
     def run(self):
         """Load all available session data including advanced data"""
-        # Primary sessions from Ergast API
-        primary_sessions = [
+        # First, load driver information for this season
+        self.load_driver_info()
+        
+       # 2) Primary sessions
+        primary = [
             ("Qualifying", f"{self.season}/{self.round_num}/qualifying.json"),
-            ("Race", f"{self.season}/{self.round_num}/results.json"),
-            ("Sprint", f"{self.season}/{self.round_num}/sprint.json"),
+            ("Race",       f"{self.season}/{self.round_num}/results.json"),
+            ("Sprint",     f"{self.season}/{self.round_num}/sprint.json"),
         ]
-        
-        # Advanced data endpoints
-        advanced_sessions = [
-            ("Pit Stops", f"{self.season}/{self.round_num}/pitstops.json"),
-            ("Lap Times", f"{self.season}/{self.round_num}/laps.json"),
+
+        # 3) Advanced sessions
+        advanced = [
+            ("Pit Stops",  f"{self.season}/{self.round_num}/pitstops.json"),
+            ("Lap Times",  None),  # custom pagination below
         ]
-        
-        total_sessions = len(primary_sessions) + len(advanced_sessions)
-        current_session = 0
-        
+
+        total = len(primary) + len(advanced)
+        idx   = 0
+
         # Load primary sessions
-        for session_name, endpoint in primary_sessions:
-            current_session += 1
+        for name, endpoint in primary:
+            idx += 1
             try:
-                self.loading_progress.emit(f"Loading {session_name}... ({current_session}/{total_sessions})")
-                
-                data = self.ergast_client.get(endpoint)
-                results = self.parse_session_data(data, session_name.lower())
-                
+                self.loading_progress.emit(f"Loading {name}... ({idx}/{total})")
+                data    = self.ergast_client.get(endpoint)
+                results = self.parse_session_data(data, name.lower())
                 if results:
-                    self.session_data[session_name] = results
-                    self.session_loaded.emit(session_name, results)
-                    logger.info(f"✅ Loaded {session_name}: {len(results)} results")
+                    self.session_data[name] = results
+                    self.session_loaded.emit(name, results)
+                    logger.info(f"✅ Loaded {name}: {len(results)} entries")
                 else:
-                    logger.info(f"ℹ️ No data available for {session_name}")
-                    
+                    logger.info(f"ℹ️ No data for {name}")
             except Exception as e:
-                logger.error(f"❌ Error loading {session_name}: {e}")
-                self.error_occurred.emit(session_name, str(e))
-        
+                logger.error(f"❌ Error loading {name}: {e}")
+                self.error_occurred.emit(name, str(e))
+
         # Load advanced sessions
-        for session_name, endpoint in advanced_sessions:
-            current_session += 1
+        for name, endpoint in advanced:
+            idx += 1
             try:
-                self.loading_progress.emit(f"Loading {session_name}... ({current_session}/{total_sessions})")
+                self.loading_progress.emit(f"Loading {name}... ({idx}/{total})")
+
+               # --- LAP TIMES PAGINATION FIX ---
+                if name == "Lap Times":
+                    all_laps: List[Dict[str, Any]] = []
+                    limit = 30
                 
-                data = self.ergast_client.get(endpoint)
-                results = self.parse_advanced_data(data, session_name.lower())
+                    # 1) First request to discover the total number of lap entries
+                    first_url = f"{self.season}/{self.round_num}/laps.json?limit={limit}"
+                    logger.info(f"Fetching first page: {first_url}")
+                    first_page = self.ergast_client.get(first_url)
                 
-                if results:
-                    self.session_data[session_name] = results
-                    self.session_loaded.emit(session_name, results)
-                    logger.info(f"✅ Loaded {session_name}: {len(results)} entries")
+                    # 2) Drill into MRData.total
+                    races = (
+                        first_page.get("MRData", {})
+                                  .get("RaceTable", {})
+                                  .get("Races", [])
+                    )
+                    if races and races[0]:
+                        try:
+                            total_entries = int(first_page["MRData"].get("total", "0"))
+                        except ValueError:
+                            total_entries = len(races[0].get("Laps", []))
+                
+                        # 3) Compute how many pages we need
+                        pages = (total_entries + limit - 1) // limit
+                
+                        # 4) Loop through every page
+                        for page in range(pages):
+                            offset = page * limit
+                            url = (
+                                f"{self.season}/{self.round_num}/laps.json"
+                                f"?limit={limit}&offset={offset}"
+                            )
+                            logger.info(f"Fetching page {page+1}/{pages}: {url}")
+                            page_data = self.ergast_client.get(url)
+                
+                            races = (
+                                page_data.get("MRData", {})
+                                         .get("RaceTable", {})
+                                         .get("Races", [])
+                            )
+                            if not races or not races[0]:
+                                continue
+                            
+                            laps = races[0].get("Laps", [])
+                            logger.info(f"Page {page+1}: {len(laps)} laps")
+                            all_laps.extend(laps)
+                
+                    # 5) Return the full list of laps
+                    results = all_laps
+                
+                
                 else:
-                    logger.info(f"ℹ️ No data available for {session_name}")
-                    
+                    # Pit Stops or others
+                    data    = self.ergast_client.get(endpoint)
+                    results = self.parse_advanced_data(data, name.lower())
+
+                # enrich pit stops
+                if name == "Pit Stops" and results:
+                    results = self.enrich_pit_stops_data(results)
+
+                # emit if any
+                if results:
+                    self.session_data[name] = results
+                    self.session_loaded.emit(name, results)
+                    logger.info(f"✅ Loaded {name}: {len(results)} entries")
+                else:
+                    logger.info(f"ℹ️ No data for {name}")
+
             except Exception as e:
-                logger.error(f"❌ Error loading {session_name}: {e}")
-                self.error_occurred.emit(session_name, str(e))
-        
-        # Try to get additional OpenF1 data
+                logger.error(f"❌ Error loading {name}: {e}")
+                self.error_occurred.emit(name, str(e))
+
+        # 4) OpenF1 extras (unchanged)
         self.load_openf1_data()
-        
-        # Emit all collected data
+
+        # 5) done
         self.all_sessions_loaded.emit(self.session_data)
         self.loading_finished.emit()
+    
+    def load_driver_info(self):
+        """Load driver information for ID to name mapping"""
+        try:
+            # Get driver standings to have a driver ID to name mapping
+            data = self.ergast_client.get(f"{self.season}/driverStandings.json")
+            if data and 'MRData' in data:
+                standings_lists = data['MRData']['StandingsTable'].get('StandingsLists', [])
+                if standings_lists:
+                    for driver_data in standings_lists[0].get('DriverStandings', []):
+                        driver = driver_data.get('Driver', {})
+                        driver_id = driver.get('driverId', '')
+                        if driver_id:
+                            self.driver_lookup[driver_id] = {
+                                'givenName': driver.get('givenName', ''),
+                                'familyName': driver.get('familyName', ''),
+                                'full_name': f"{driver.get('givenName', '')} {driver.get('familyName', '')}"
+                            }
+                    logger.info(f"✅ Loaded driver info: {len(self.driver_lookup)} drivers")
+        except Exception as e:
+            logger.warning(f"Could not load driver info: {e}")
+    
+    def enrich_pit_stops_data(self, pit_stops: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Enrich pit stops data with driver names from lookup"""
+        enriched_stops = []
+        for stop in pit_stops:
+            enriched_stop = stop.copy()
+            driver_id = stop.get('driverId', '')
+            
+            if driver_id and driver_id in self.driver_lookup:
+                # Add proper driver information
+                enriched_stop['driver'] = self.driver_lookup[driver_id]
+            else:
+                # Fallback: try to format the driver ID
+                enriched_stop['driver'] = {
+                    'givenName': driver_id.capitalize(),
+                    'familyName': '',
+                    'full_name': driver_id.capitalize()
+                }
+            
+            enriched_stops.append(enriched_stop)
+        
+        return enriched_stops
     
     def load_openf1_data(self):
         """Load additional data from OpenF1 API"""
@@ -359,11 +473,11 @@ class CompleteSessionDataLoader(QThread):
             # Get sessions from OpenF1
             sessions = self.openf1_client.get_sessions(int(self.season))
             
-            # Find session for this round (this is more complex in real implementation)
-            # For now, we'll just log that we have OpenF1 connection
+            # Try to get car data
             if sessions:
                 logger.info(f"✅ OpenF1 connected: {len(sessions)} sessions available")
-                # You can extend this to match sessions by date/circuit
+                # You can extend this to get car_data
+                # car_data = self.openf1_client.get_car_data()
             
         except Exception as e:
             logger.warning(f"OpenF1 data not available: {e}")
@@ -419,7 +533,6 @@ class CompleteSessionDataLoader(QThread):
 
 class EnhancedDataService(QObject):
     """Enhanced service with complete F1 API integration"""
-    
     def __init__(self):
         super().__init__()
         self.ergast_client = ErgastAPIClient()
@@ -473,12 +586,10 @@ class EnhancedDataService(QObject):
             logger.error(f"❌ Error parsing race calendar: {e}")
             raise Exception("Error parsing race calendar")
     
-    def create_complete_session_loader(self, season: str, round_num: str) -> CompleteSessionDataLoader:
-        """Create complete session data loader with all data types"""
+    def create_complete_session_loader(self, season: str, round_num: str):
         return CompleteSessionDataLoader(self.ergast_client, self.openf1_client, season, round_num)
     
-    def create_career_stats_loader(self, driver_id: str) -> CareerStatsLoader:
-        """Create enhanced career statistics loader"""
+    def create_career_stats_loader(self, driver_id: str):
         return CareerStatsLoader(self.ergast_client, driver_id)
     
     def get_all_2025_data(self) -> Dict[str, Any]:
